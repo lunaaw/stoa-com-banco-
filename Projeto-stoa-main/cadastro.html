@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Stoa | Cadastro de Empresa</title>
+  <link rel="stylesheet" href="./estilo/cadastro.css">
+</head>
+<body>
+
+  <main>
+    <header class="logo-container">
+      <img src="caminho/para/sua-logo.png" alt="Stoa Logo Oficial" class="custom-logo" width="160" height="60" />
+    </header>
+
+    <article class="login-card">
+      <div class="section-header-title">
+        <h1>Cadastro Empresa</h1>
+      </div>
+      <p class="subtitle">Cadastre sua empresa para acessar nossa plataforma</p>
+
+      <form id="cadFormEmpresa" action="#" method="POST" onsubmit="handleRegisterSubmit(event)" novalidate>
+        
+        <!-- ETAPA 1: DADOS INSTITUCIONAIS -->
+        <div id="step1-cad" class="step active">
+          <!-- RAZÃO SOCIAL / NOME FANTASIA -->
+          <div class="input-wrapper" id="razosWrapper">
+            <div class="input-group">
+              <input type="text" id="razaoSocial" name="razao_social" class="custom-input" placeholder=" " oninput="clearError('razosWrapper')" autofocus autocomplete="organization" />
+              <label for="razaoSocial" class="input-label">Razão Social ou Nome Fantasia</label>
+            </div>
+            <div class="error-message" role="alert">Campo obrigatório. Digite o nome da empresa.</div>
+          </div>
+
+          <!-- CNPJ -->
+          <div class="input-wrapper" id="cnpjWrapper">
+            <div class="input-group">
+              <input type="text" id="cnpjInput" name="cnpj" class="custom-input" placeholder=" " oninput="clearError('cnpjWrapper')" autocomplete="on" />
+              <label for="cnpjInput" class="input-label">CNPJ da Empresa</label>
+            </div>
+            <div class="error-message" role="alert">Campo obrigatório. Digite um CNPJ válido.</div>
+          </div>
+
+          <!-- E-MAIL CORPORATIVO -->
+          <div class="input-wrapper" id="emailCadWrapper">
+            <div class="input-group">
+              <input type="email" id="emailCadInput" name="email_corporativo" class="custom-input" placeholder=" " oninput="clearError('emailCadWrapper')" autocomplete="email" />
+              <label for="emailCadInput" class="input-label">E-mail Corporativo</label>
+            </div>
+            <div class="error-message" role="alert">Campo obrigatório. Digite um e-mail corporativo válido.</div>
+          </div>
+
+          <div class="support-link-container">
+            <a href="login.html" class="support-link">Já possui uma conta? Fazer Login</a>
+          </div>
+
+          <button type="button" class="btn-submit" onclick="goToStep(2)">Continuar</button>
+        </div>
+
+        <!-- ETAPA 2: SEGURANÇA -->
+        <div id="step2-cad" class="step">
+          <!-- SENHA -->
+          <div class="input-wrapper" id="passCadWrapper">
+            <div class="input-group">
+              <input type="password" id="passwordCadInput" name="password" class="custom-input has-icon" placeholder=" " oninput="clearError('passCadWrapper')" autocomplete="new-password" />
+              <label for="passwordCadInput" class="input-label">Crie uma Senha</label>
+              <button type="button" class="toggle-password" onclick="togglePasswordVisibility('passwordCadInput')" aria-label="Alternar exibição da senha">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="error-message" role="alert">A senha deve conter no mínimo 6 caracteres.</div>
+          </div>
+
+          <!-- CONFIRMAR SENHA -->
+          <div class="input-wrapper" id="confirmPassWrapper">
+            <div class="input-group">
+              <input type="password" id="confirmPasswordInput" name="confirm_password" class="custom-input has-icon" placeholder=" " oninput="clearError('confirmPassWrapper')" autocomplete="new-password" />
+              <label for="confirmPasswordInput" class="input-label">Confirme a Senha</label>
+              <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirmPasswordInput')" aria-label="Alternar exibição da senha">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="error-message" id="confirmErrorText" role="alert">As senhas não coincidem.</div>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn-secondary" onclick="goToStep(1)">Voltar</button>
+            <button type="submit" class="btn-submit">Finalizar Cadastro</button>
+          </div>
+        </div>
+      </form>
+    </article>
+  </main>
+  <script src="./script/cadastro.js"></script>
+</body>
+</html>

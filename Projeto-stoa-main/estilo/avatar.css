@@ -1,0 +1,232 @@
+:root {
+    --primary: #8033ff;
+    --primary-hover: #6c22ea;
+    --primary-light: #f0e6ff;
+    --bg-color: #f1f2f6;
+    --card-bg: #ffffff;
+    --text-main: #333344;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Container Card Principal */
+.builder-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+    display: flex;
+    width: 100%;
+    max-width: 900px;
+    height: 85vh;
+    max-height: 680px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Lado Esquerdo / Topo: Preview do Avatar */
+.avatar-preview {
+    width: 45%;
+    background: #f8fafc;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    position: relative;
+}
+
+#avatarImg {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease;
+}
+
+/* Lado Direito / Base: Opções do Formulário */
+.options-form {
+    width: 55%;
+    padding: 24px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Estilização da barra de rolagem */
+.options-form::-webkit-scrollbar {
+    width: 6px;
+}
+
+.options-form::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.options-form::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.section-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.button-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Botões Genéricos */
+.btn-option {
+    border: 2px solid var(--border-color);
+    background: #ffffff;
+    padding: 10px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #475569;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px; /* Otimizado para toque */
+}
+
+.btn-option:hover {
+    border-color: #cbd5e1;
+    background-color: #f8fafc;
+}
+
+.btn-option.active {
+    border-color: var(--primary);
+    background-color: var(--primary-light);
+    color: var(--primary);
+}
+
+/* Botões Especiais de Cabelo */
+.btn-hair {
+    padding: 8px;
+    min-width: 80px;
+    height: 48px;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+/* Botões Circulares para Cores */
+.color-swatch {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    outline: 2px solid var(--border-color);
+    cursor: pointer;
+    transition: transform 0.15s ease, outline 0.15s ease;
+}
+
+.color-swatch:hover {
+    transform: scale(1.1);
+}
+
+.color-swatch.active {
+    outline: 3px solid var(--primary);
+    transform: scale(1.1);
+}
+
+/* Botão de Salvar Final */
+.save-container {
+    margin-top: 10px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+.btn-save {
+    width: 100%;
+    height: 50px;
+    background-color: var(--primary);
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-save:hover {
+    background-color: var(--primary-hover);
+}
+
+/* ========================================================= */
+/* RESPONSIVIDADE MOBILE (TELAS MENORES QUE 768PX)           */
+/* ========================================================= */
+@media (max-width: 768px) {
+    body {
+    padding: 0;
+    background-color: #ffffff;
+    align-items: flex-start;
+    }
+
+    .builder-card {
+    flex-direction: column;
+    height: 100vh;
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
+    }
+
+    /* Painel Superior Fixo com Avatar */
+    .avatar-preview {
+    width: 100%;
+    height: 240px;
+    padding: 16px;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    #avatarImg {
+    max-width: 160px;
+    }
+
+    /* Área de Rolagem do Formulário no Mobile */
+    .options-form {
+    width: 100%;
+    height: calc(100vh - 240px);
+    padding: 20px 16px 40px;
+    gap: 20px;
+    }
+
+    .btn-hair {
+    flex: 1 1 calc(33.333% - 8px);
+    }
+}

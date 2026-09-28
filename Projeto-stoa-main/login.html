@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stoa | Login e Acesso à Plataforma</title>
+  <link rel="stylesheet" href="./estilo/login.css">
+</head>
+<body>
+
+  <main>
+    <header class="logo-container">
+      <img src="img/dd064c3c-13ec-4d4a-bf1c-5c23b5cea622-removebg-preview.png" alt="Stoa Logo Oficial" class="custom-logo" width="160" height="60" />
+    </header>
+
+    <article class="login-card">
+      <h1 class="sr-only">Acesso à Plataforma Stoa</h1>
+      
+      <nav class="tabs-nav" aria-label="Tipos de acesso">
+        <ul class="tabs-header">
+          <li><button type="button" class="tab-btn active" id="tab-aprendiz" onclick="showMainTab('aprendiz')">Login Aprendiz</button></li>
+          <li><button type="button" class="tab-btn" id="tab-empresas" onclick="showMainTab('empresas')">Empresas</button></li>
+        </ul>
+      </nav>
+
+      <!-- ==================== VISÃO 1: APRENDIZ ==================== -->
+      <section id="view-aprendiz" class="view-section active" aria-labelledby="tab-aprendiz">
+        <p class="subtitle">Preencha seus dados de acesso para entrar</p>
+
+        <form id="loginFormAprendiz" action="#" method="POST" onsubmit="handleFormSubmit(event, 'aprendiz')" novalidate>
+          <!-- ETAPA 1: EMAIL / USUÁRIO -->
+          <div id="step1-aprendiz" class="step active">
+            <div class="input-wrapper" id="userWrapperAprendiz">
+              <div class="input-group">
+                <input type="text" id="userInputAprendiz" name="user_aprendiz" class="custom-input" placeholder=" " oninput="clearError('userWrapperAprendiz')" autofocus autocomplete="username" />
+                <label for="userInputAprendiz" class="input-label">E-mail</label>
+              </div>
+              <div class="error-message" role="alert">Campo obrigatório. Digite o e-mail.</div>
+            </div>
+
+            <div class="support-link-container">
+              <span class="support-link" onclick="openModal('aprendiz')">Esqueceu o e-mail ou dados de acesso?</span>
+            </div>
+
+            <button type="button" class="btn-submit" onclick="goToStepAprendiz(2)">Continuar</button>
+          </div>
+
+          <!-- ETAPA 2: SENHA -->
+          <div id="step2-aprendiz" class="step">
+            <div class="input-wrapper" id="passWrapperAprendiz">
+              <div class="input-group">
+                <input type="password" id="passwordInputAprendiz" name="password_aprendiz" class="custom-input has-icon" placeholder=" " oninput="clearError('passWrapperAprendiz')" autocomplete="current-password" />
+                <label for="passwordInputAprendiz" class="input-label">Insira a sua senha</label>
+                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('passwordInputAprendiz')" aria-label="Alternar exibição da senha">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  </svg>
+                </button>
+              </div>
+              <div class="error-message" role="alert">Campo obrigatório. Digite a sua senha.</div>
+            </div>
+
+            <div class="support-link-container right">
+              <a href="#" class="support-link">Esqueci minha senha</a>
+            </div>
+
+            <div class="btn-group">
+              <button type="button" class="btn-secondary" onclick="goToStepAprendiz(1)">Voltar</button>
+              <button type="submit" class="btn-submit">Entrar</button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- ==================== VISÃO 2: EMPRESAS ==================== -->
+      <section id="view-empresas" class="view-section" aria-labelledby="tab-empresas">
+        
+        <!-- SUBVISÃO 0: SELEÇÃO INICIAL -->
+        <div id="emp-menu" class="emp-subview active">
+          <p class="subtitle">Selecione uma opção para prosseguir</p>
+          <div class="options-list">
+            <div class="option-item" onclick="openEmpresaLogin()" role="button" tabindex="0">
+              <div class="option-content">
+                <span class="option-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </span>
+                <span>Login Empresa</span>
+              </div>
+              <span class="option-arrow">&#9658;</span>
+            </div>
+
+            <div class="option-item" onclick="openEmpresaCadastroNotice()" role="button" tabindex="0">
+              <div class="option-content">
+                <span class="option-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="8.5" cy="7" r="4"></circle>
+                    <line x1="20" y1="8" x2="20" y2="14"></line>
+                    <line x1="17" y1="11" x2="23" y2="11"></line>
+                  </svg>
+                </span>
+                <span>Cadastro Empresa</span>
+              </div>
+              <span class="option-arrow">&#9658;</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUBVISÃO 1: FLUXO DE LOGIN DA EMPRESA -->
+        <div id="emp-login" class="emp-subview">
+          <div class="section-header-title">
+            <h2>Login Empresa</h2>
+          </div>
+          <p class="subtitle">Preencha os dados de acesso da sua empresa</p>
+
+          <form id="loginFormEmpresa" action="#" method="POST" onsubmit="handleFormSubmit(event, 'empresa')" novalidate>
+            <!-- ETAPA 1: CNPJ OU E-MAIL CORPORATIVO -->
+            <div id="step1-empresa" class="step active">
+              <div class="input-wrapper" id="userWrapperEmpresa">
+                <div class="input-group">
+                  <input type="text" id="userInputEmpresa" name="user_empresa" class="custom-input" placeholder=" " oninput="clearError('userWrapperEmpresa')" autocomplete="username" />
+                  <label for="userInputEmpresa" class="input-label">E-mail corporativo</label>
+                </div>
+                <div class="error-message" role="alert">Campo obrigatório. Digite o e-mail corporativo</div>
+              </div>
+
+              <div class="support-link-container">
+                <span class="support-link" onclick="openModal('empresa')">Esqueceu o e-mail ou dados da empresa?</span>
+              </div>
+
+              <div class="btn-group">
+                <button type="button" class="btn-secondary" onclick="backToEmpresaMenu()">Voltar</button>
+                <button type="button" class="btn-submit" onclick="goToStepEmpresa(2)">Continuar</button>
+              </div>
+            </div>
+
+            <!-- ETAPA 2: SENHA CORPORATIVA -->
+            <div id="step2-empresa" class="step">
+              <div class="input-wrapper" id="passWrapperEmpresa">
+                <div class="input-group">
+                  <input type="password" id="passwordInputEmpresa" name="password_empresa" class="custom-input has-icon" placeholder=" " oninput="clearError('passWrapperEmpresa')" autocomplete="current-password" />
+                  <label for="passwordInputEmpresa" class="input-label">Insira a senha corporativa</label>
+                  <button type="button" class="toggle-password" onclick="togglePasswordVisibility('passwordInputEmpresa')" aria-label="Alternar exibição da senha">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="3"></circle>
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="error-message" role="alert">Campo obrigatório. Digite a senha da empresa.</div>
+              </div>
+
+              <div class="support-link-container right">
+                <a href="#" class="support-link">Esqueci a senha da empresa</a>
+              </div>
+
+              <div class="btn-group">
+                <button type="button" class="btn-secondary" onclick="goToStepEmpresa(1)">Voltar</button>
+                <button type="submit" class="btn-submit">Entrar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <!-- POP-UP / MODAL COM INSTRUÇÕES DA RECUPERAÇÃO -->
+  <div class="modal-overlay" id="instructionModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <h3 class="modal-title" id="modalTitle">Recuperação de Acesso</h3>
+      <p class="modal-text" id="modalText">Se você não se lembra do e-mail cadastrado, entre em contato com o suporte do sistema para recuperar seu acesso.</p>
+      <button type="button" class="btn-submit" onclick="closeModal()">Entendido</button>
+    </div>
+  </div>
+  <script src="./script/login.js"></script>
+</body>
+</html>

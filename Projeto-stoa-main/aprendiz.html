@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STOA — Área do Aprendiz</title>
+  <link rel="stylesheet" href="aprendiz.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo"><img src="img/stoa-logo.jpeg" alt="STOA"></div>
+      <span>STOA</span>
+    </div>
+
+    <nav class="menu">
+      <button class="menu-item active" data-page="inicio">
+        <span class="icon">⌂</span><span>Início</span>
+      </button>
+      <button class="menu-item" data-page="trilha">
+        <span class="icon">⌁</span><span>Minha Trilha</span>
+      </button>
+      <button class="menu-item" data-page="projetos">
+        <span class="icon">□</span><span>Projetos</span>
+      </button>
+      <button class="menu-item" data-page="evolucao">
+        <span class="icon">⌁</span><span>Minha Evolução</span>
+      </button>
+      <button class="menu-item" data-page="certificados">
+        <span class="icon">◇</span><span>Certificados</span>
+      </button>
+      <button class="menu-item" data-page="perfil">
+        <span class="icon">♙</span><span>Perfil</span>
+      </button>
+    </nav>
+
+  
+  </aside>
+
+  <header class="topbar">
+    <div></div>
+    <div class="top-actions">
+      <div class="user-menu">
+        <button class="avatar-mini" id="user-menu-button" aria-label="Abrir menu do usuário">
+          <span data-user-avatar>U</span>
+        </button>
+        <div class="user-dropdown" id="user-dropdown">
+          <div class="dropdown-user">
+            <div class="dropdown-avatar" data-user-avatar>U</div>
+            <div>
+              <strong data-user-name>Aprendiz</strong>
+              <span data-company-name>Empresa</span>
+            </div>
+          </div>
+          <div class="dropdown-divider"></div>
+          <button type="button" class="dropdown-item" data-page-link="perfil">♙ <span>Meu perfil</span></button>
+          <div class="dropdown-label">Preferências</div>
+          <button type="button" class="dropdown-item" id="theme-toggle">
+            <span id="theme-icon">☾</span><span id="theme-text">Tema escuro</span>
+          </button>
+          <button type="button" class="dropdown-item" id="logout-button">↪ <span>Sair</span></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+
+    <!-- HOME -->
+    <section id="inicio" class="page active-page">
+      <div class="welcome">
+        <h1>Olá, <span data-user-first-name>Aprendiz</span>! <span>👋</span></h1>
+        <p>Que bom te ver por aqui! Continue evoluindo na sua jornada.</p>
+      </div>
+
+      <div class="hero">
+
+        <div class="hero-content">
+          <div class="hero-copy">
+            <span class="hero-small">SUA JORNADA NA STOA</span>
+            <strong>Seu futuro<br>começa aqui.</strong>
+          </div>
+        </div>
+
+        <div class="hero-glow"></div>
+
+        <div class="hero-person" aria-hidden="true">
+          <div class="person-head"></div>
+          <div class="person-body">S</div>
+        </div>
+      </div>
+
+      <section class="journey-card">
+        <div class="section-heading">
+          <div>
+            <h2>Minha Trilha</h2>
+            <p>Acompanhe seu progresso e veja o que vem pela frente.</p>
+          </div>
+          <button class="link-button" data-page-link="trilha">Ver minha trilha →</button>
+        </div>
+
+        <div class="journey">
+          <div class="journey-line"></div>
+
+          <div class="journey-step completed">
+            <div class="step-circle">✓</div>
+            <strong>Boas-vindas</strong>
+            <span>Concluído</span>
+          </div>
+
+          <div class="journey-step completed">
+            <div class="step-circle">✓</div>
+            <strong>Primeiros Passos</strong>
+            <span>Concluído</span>
+          </div>
+
+          <div class="journey-step current">
+            <div class="step-circle">◈</div>
+            <strong>Integração e Cultura</strong>
+            <span>Em andamento</span>
+          </div>
+
+          <div class="journey-step locked">
+            <div class="step-circle">♙</div>
+            <strong>Ferramentas do Dia a Dia</strong>
+            <span>Bloqueado</span>
+          </div>
+
+          <div class="journey-step locked">
+            <div class="step-circle">♙</div>
+            <strong>Desenvolvimento Web Básico</strong>
+            <span>Bloqueado</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="projects-section">
+        <div class="section-heading">
+          <div>
+            <h2>Projetos Disponíveis</h2>
+            <p>Explore os projetos e continue construindo seu desenvolvimento.</p>
+          </div>
+          <button class="link-button" data-page-link="projetos">Ver todos os projetos →</button>
+        </div>
+
+        <div class="project-grid" id="home-projects"></div>
+      </section>
+    </section>
+
+    <!-- TRILHA -->
+    <section id="trilha" class="page">
+      <div class="page-title">
+        <h1>Minha Trilha</h1>
+        <p>Acompanhe sua jornada de desenvolvimento como aprendiz.</p>
+      </div>
+      <div class="progress-card">
+        <div class="progress-top">
+          <div>
+            <span class="label">PROGRESSO GERAL</span>
+            <h2 id="progress-text">40% concluído</h2>
+          </div>
+          <strong id="project-count">2 de 5 projetos</strong>
+        </div>
+        <div class="progress-bar"><div id="progress-fill"></div></div>
+      </div>
+      <div class="full-journey" id="full-journey"></div>
+    </section>
+
+    <!-- PROJETOS -->
+    <section id="projetos" class="page">
+      <div class="page-title">
+        <h1>Projetos</h1>
+        <p>Pratique habilidades em situações próximas do ambiente profissional.</p>
+      </div>
+      <div class="project-grid" id="all-projects"></div>
+    </section>
+
+    <!-- EVOLUÇÃO -->
+    <section id="evolucao" class="page">
+      <div class="page-title">
+        <h1>Minha Evolução</h1>
+        <p>Veja seu desenvolvimento ao longo da jornada.</p>
+      </div>
+      <div class="evolution-grid">
+        <div class="stat-card"><span>Projetos concluídos</span><strong id="evo-completed">2</strong><small>de 5 projetos</small></div>
+        <div class="stat-card"><span>Eixo técnico</span><strong>68%</strong><small>Em desenvolvimento</small></div>
+        <div class="stat-card"><span>Eixo comportamental</span><strong>54%</strong><small>Em desenvolvimento</small></div>
+      </div>
+      <div class="feedback-card">
+        <span class="feedback-tag">FEEDBACK RECENTE</span>
+        <h2>Muito bem!</h2>
+        <p>Você demonstrou organização e clareza na atividade. Continue desenvolvendo sua autonomia.</p>
+      </div>
+    </section>
+
+     <!-- CERTIFICADOS -->
+    <section id="certificados" class="page">
+      <div class="page-title">
+        <h1>Certificados</h1>
+        <p>Organize e compartilhe suas conquistas de aprendizagem.</p>
+      </div>
+      <div class="records-heading"><div><h2>Meus certificados</h2><p>Registre os certificados que você conquistou.</p></div><button class="primary-button" id="add-certificate">＋ Adicionar Certificado</button></div>
+      <div class="records-grid" id="certificates-list"><div class="empty-card"><div class="empty-icon">◇</div><h2>Nenhum certificado cadastrado</h2><p>Use o botão acima para adicionar seu primeiro certificado.</p></div></div>
+      <div class="records-heading competency-heading"><div><h2>Minhas competências</h2><p>Mostre suas habilidades e seu nível de domínio.</p></div><button class="primary-button" id="add-competency">＋ Adicionar Competência</button></div>
+      <div class="records-grid" id="competencies-list"><div class="empty-card"><div class="empty-icon">✦</div><h2>Nenhuma competência cadastrada</h2><p>Adicione suas competências para completar seu perfil.</p></div></div>
+    </section>
+
+    <!-- PERFIL -->
+    <section id="perfil" class="page">
+      <div class="page-title">
+        <h1>Meu Perfil</h1>
+        <p>Gerencie suas informações e personalize sua experiência.</p>
+      </div>
+      <div class="profile-card">
+        <div class="profile-avatar">E</div>
+        <div class="profile-info">
+          <h2>[Nome do aprendiz]</h2>
+          <span>Aprendiz</span>
+          <span>[Empresa]</span>
+        </div>
+        <button class="primary-button" id="avatar-button">Personalizar avatar</button>
+      </div>
+      <div class="info-grid">
+        <div><span>Empresa</span><strong data-company-name>Empresa</strong></div>
+        <div><span>Processo</span><strong>Processo seletivo</strong></div>
+        <div><span>Trilha atual</span><strong>Desenvolvimento</strong></div>
+        <div><span>Projetos concluídos</span><strong id="profile-completed">2</strong></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL DO PROJETO -->
+  <div class="modal-overlay" id="project-modal">
+    <div class="modal">
+      <button class="modal-close" id="modal-close">×</button>
+      <div class="modal-icon" id="modal-icon">◎</div>
+      <span class="modal-status" id="modal-status">Disponível</span>
+      <h2 id="modal-title">Projeto</h2>
+      <p id="modal-description"></p>
+      <div class="modal-tags" id="modal-tags"></div>
+      <div class="modal-meta" id="modal-meta"></div>
+      <button class="primary-button full" id="modal-action">Iniciar projeto</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../config/supabase-config.js"></script>
+  <script src="../script/auth.js"></script>
+  <script src="aprendiz.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', () => stoaRequireAuth('aprendiz'));</script>
+</body>
+</html>

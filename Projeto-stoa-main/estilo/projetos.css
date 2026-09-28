@@ -1,0 +1,369 @@
+:root {
+  --input-bg: #f1f5f9;
+  --btn-radius: 50px;
+  --card-radius: 16px;
+}
+
+/* Suporte completo ao Tema Escuro (Suporta ambas as abordagens de classe ou atributo) */
+body.dark-theme,
+html[data-theme="dark"] body {
+  --input-bg: #334155;
+} 
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+/* Page Header */
+.page-header {
+  margin-bottom: 28px;
+}
+
+.page-header h1 {
+  font-size: 1.8rem;
+  margin: 0 0 6px 0;
+}
+
+.page-header p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+/* Trilha Section */
+.trilha-container {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--card-radius);
+  padding: 24px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.trilha-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.trilha-header h2, .available-projects-container h2 {
+  font-size: 1.3rem;
+  margin: 0 0 16px 0;
+}
+
+/* Cards Grid */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+/* Empty State */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-state i {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 8px;
+  stroke-width: 1.5;
+}
+
+/* Card do Projeto */
+.project-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.15);
+}
+
+.card-feixe {
+  height: 6px;
+  width: 100%;
+}
+
+.card-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.card-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+/* Checkbox Personalizado */
+.checkbox-container {
+  display: block;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 24px;
+  width: 24px;
+  background-color: var(--input-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: #10b981;
+  border-color: #10b981;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  margin-bottom: 2px;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+}
+
+.card-description {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin: 0 0 16px 0;
+  line-height: 1.4;
+}
+
+/* Skills */
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.skill-tag {
+  background: var(--input-bg);
+  color: var(--text-main);
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.card-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: auto;
+  padding-bottom: 16px;
+}
+
+.meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.meta-item i {
+  width: 16px;
+  height: 16px;
+}
+
+/* Botões */
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: var(--btn-radius);
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Botão Conhecer Colorido */
+.btn-know {
+  width: 100%;
+  background: rgba(37, 99, 235, 0.1);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 10px;
+  border-radius: var(--btn-radius);
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.btn-know:hover {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.btn-secondary {
+  background: var(--input-bg);
+  color: var(--text-main);
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--btn-radius);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Modais */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-card {
+  background: var(--card-bg);
+  color: var(--text-main);
+  width: 90%;
+  max-width: 500px;
+  border-radius: var(--card-radius);
+  padding: 24px;
+  border: 1px solid var(--border-color);
+}
+
+.modal-card-small {
+  max-width: 400px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.modal-success-icon {
+  color: #10b981;
+  margin-bottom: 12px;
+}
+
+.modal-success-icon i {
+  width: 56px;
+  height: 56px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.btn-close-modal {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.modal-footer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stoa | Cadastro de Aprendiz</title>
+  
+  <!-- Ícones Modernos (Lucide Icons) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- CSS da Topbar e do Tema Global -->
+  <link rel="stylesheet" href="./estilo/topbar.css">
+  <link rel="stylesheet" href="./estilo/cadastro_aprendiz.css">
+</head>
+<body>
+
+  <!-- TOP BAR (HTML Padrão) -->
+  <header class="topbar">
+    <a href="dashboard.html" class="topbar-brand" title="Stoa Home">
+      <div class="brand-icon">S</div>
+      <span>STOA</span>
+    </a>
+
+    <nav class="topbar-nav">
+      <a href="dashboard.html" class="nav-item">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="cadastro_equipe.html" class="nav-item">
+        <i data-lucide="users"></i>
+        <span>Cadastro de Equipe</span>
+      </a>
+      <a href="cadastro_aprendiz.html" class="nav-item active">
+        <i data-lucide="user-plus"></i>
+        <span>Cadastro de Aprendiz</span>
+      </a>
+      <a href="projetos.html" class="nav-item">
+        <i data-lucide="folder-kanban"></i>
+        <span>Projetos</span>
+      </a>
+    </nav>
+
+    <div class="topbar-actions">
+      <button type="button" class="company-profile" id="profileMenuBtn">
+        <div class="company-avatar"><span>E</span></div>
+        <i data-lucide="chevron-down"></i>
+      </button>
+
+      <div class="profile-dropdown" id="profileDropdown">
+        <div class="mobile-nav-section">
+          <div class="dropdown-header">Navegação</div>
+          <a href="dashboard.html" class="dropdown-item"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+          <a href="cadastro_equipe.html" class="dropdown-item"><i data-lucide="users"></i><span>Cadastro de Equipe</span></a>
+          <a href="cadastro_aprendiz.html" class="dropdown-item active"><i data-lucide="user-plus"></i><span>Cadastro de Aprendiz</span></a>
+          <a href="projetos.html" class="dropdown-item"><i data-lucide="folder-kanban"></i><span>Projetos</span></a>
+        </div>
+
+        <div class="dropdown-header">Empresa</div>
+        <a href="configuracao.html" class="dropdown-item"><i data-lucide="settings"></i><span>Configurações</span></a>
+
+        <div class="dropdown-header">Preferências</div>
+        <button type="button" class="dropdown-item" id="themeToggleBtn">
+          <i data-lucide="moon" id="themeIcon"></i>
+          <span id="themeText">Tema Escuro</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="main-container">
+    <section class="page-header">
+      <div class="header-info">
+        <h1>Gestão de Aprendizes</h1>
+        <p>Acompanhe e gerencie os contratos dos aprendizes vinculados aos gestores da sua empresa.</p>
+      </div>
+      <button type="button" class="btn-add-apprentice" id="btnOpenApprenticeModal">
+        <i data-lucide="user-plus"></i>
+        <span>Cadastrar Aprendiz</span>
+      </button>
+    </section>
+
+    <!-- CARDS MÉTRICOS -->
+    <section class="metrics-grid">
+      <article class="metric-card card-blue">
+        <div class="metric-data">
+          <h3>Aprendizes Em Formação</h3>
+          <p class="metric-value" id="countAtivos">0</p>
+        </div>
+        <div class="metric-icon-box"><i data-lucide="graduation-cap"></i></div>
+      </article>
+
+      <article class="metric-card card-green">
+        <div class="metric-data">
+          <h3>Formação Concluída</h3>
+          <p class="metric-value" id="countConcluidos">0</p>
+        </div>
+        <div class="metric-icon-box"><i data-lucide="award"></i></div>
+      </article>
+
+      <article class="metric-card card-amber">
+        <div class="metric-data">
+          <h3>Convites Pendentes</h3>
+          <p class="metric-value" id="countPendentes">0</p>
+        </div>
+        <div class="metric-icon-box"><i data-lucide="mail-warning"></i></div>
+      </article>
+    </section>
+
+    <!-- FILTROS E TABELA -->
+    <section class="table-section">
+      <div class="section-header">
+        <h2>Aprendizes Cadastrados</h2>
+
+        <div class="filters-bar">
+          <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Buscar por nome ou e-mail...">
+          </div>
+
+          <select class="filter-select" id="filterStatus">
+            <option value="">Todos os Status</option>
+            <option value="Ativo">Em Formação</option>
+            <option value="Concluído">Formação Concluída</option>
+          </select>
+
+          <select class="filter-select" id="filterGestor">
+            <option value="">Todos os Gestores</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="employee-table">
+          <thead>
+            <tr>
+              <th>Aprendiz</th>
+              <th>Área</th>
+              <th>Gestor Responsável</th>
+              <th>Vigência do Contrato</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="apprenticeTableBody">
+            <!-- Vazio por padrão -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL 1: Cadastrar / Editar Aprendiz -->
+  <div class="modal-overlay" id="apprenticeModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">Cadastrar Aprendiz</h3>
+        <button type="button" class="btn-close-modal closeModalBtn"><i data-lucide="x"></i></button>
+      </div>
+      <form id="apprenticeForm">
+        <input type="hidden" id="editApprenticeId">
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label>Nome Completo</label>
+            <input type="text" id="inputName" required placeholder="Ex: Ana Clara Santos">
+          </div>
+          <div class="form-group full-width">
+            <label>E-mail Corporativo/Pessoal</label>
+            <input type="email" id="inputEmail" required placeholder="anaclara@empresa.com">
+          </div>
+          <div class="form-group">
+            <label>Área</label>
+            <input type="text" id="inputArea" required placeholder="Ex: Vendas">
+          </div>
+          <div class="form-group">
+            <label>Gestor Responsável</label>
+            <select id="selectGestor" required>
+              <option value="">Selecione um gestor...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Início do Contrato</label>
+            <input type="date" id="inputStartDate" required>
+          </div>
+          <div class="form-group">
+            <label>Fim do Contrato</label>
+            <input type="date" id="inputEndDate" required>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary closeModalBtn">Cancelar</button>
+          <button type="submit" class="btn-primary">Salvar Aprendiz</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: Ver Detalhes -->
+  <div class="modal-overlay" id="detailsModal">
+    <div class="modal-card" style="max-width: 440px;">
+      <div class="modal-header">
+        <h3>Detalhes do Aprendiz</h3>
+        <button type="button" class="btn-close-modal closeModalBtn"><i data-lucide="x"></i></button>
+      </div>
+      <div id="detailsContent" style="display: flex; flex-direction: column; gap: 12px; font-size: 0.95rem;">
+        <!-- Preenchido via JS -->
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-primary closeModalBtn">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: Confirmar Exclusão -->
+  <div class="modal-overlay" id="confirmDeleteModal">
+    <div class="modal-card" style="max-width: 400px;">
+      <div class="modal-header">
+        <h3>Excluir Aprendiz</h3>
+        <button type="button" class="btn-close-modal closeModalBtn"><i data-lucide="x"></i></button>
+      </div>
+      <p style="font-size: 0.95rem; color: var(--text-muted);">Tem certeza que deseja remover este aprendiz do sistema?</p>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary closeModalBtn">Cancelar</button>
+        <button type="button" class="btn-danger" id="btnConfirmDelete">Sim, Excluir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: Confirmar Senha para Exclusão -->
+  <div class="modal-overlay" id="passwordModal">
+    <div class="modal-card" style="max-width: 400px;">
+      <div class="modal-header">
+        <h3>Confirmação de Segurança</h3>
+        <button type="button" class="btn-close-modal closeModalBtn"><i data-lucide="x"></i></button>
+      </div>
+      <form id="passwordForm">
+        <div class="form-group">
+          <label>Confirme sua senha para remover o aprendiz:</label>
+          <input type="password" id="confirmPasswordInput" required placeholder="••••••••">
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary closeModalBtn">Cancelar</button>
+          <button type="submit" class="btn-danger">Confirmar Exclusão</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts top bar -->
+  <script src="./script/topbar.js"></script>
+  <!-- Script do main -->
+  <script src="./script/cadastro_aprendiz.js"></script>
+
+</body>
+</html>

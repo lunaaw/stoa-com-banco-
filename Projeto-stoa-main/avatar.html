@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stoa | Criador de Avatar</title>
+  <link rel="stylesheet" href="./estilo/avatar.css">
+</head>
+<body>
+
+  <main class="builder-card">
+    
+    <!-- Lado Esquerdo / Topo Mobile: Preview -->
+    <section class="avatar-preview">
+      <img id="avatarImg" src="" alt="Pré-visualização do seu Avatar">
+    </section>
+
+    <!-- Lado Direito / Área de Opções -->
+    <section class="options-form">
+
+      <!-- 1. Tom de Pele -->
+      <article>
+        <h2 class="section-title">1. Cor de Pele</h2>
+        <div class="button-grid" id="skinColorGrid">
+          <button type="button" class="color-swatch active" style="background-color: #f8d25c;" data-val="f8d25c" aria-label="Tom Amarelo"></button>
+          <button type="button" class="color-swatch" style="background-color: #ffdbb4;" data-val="ffdbb4" aria-label="Tom Claro"></button>
+          <button type="button" class="color-swatch" style="background-color: #edb98a;" data-val="edb98a" aria-label="Tom Médio Claro"></button>
+          <button type="button" class="color-swatch" style="background-color: #d08b5b;" data-val="d08b5b" aria-label="Tom Médio"></button>
+          <button type="button" class="color-swatch" style="background-color: #ae5d29;" data-val="ae5d29" aria-label="Tom Moreno"></button>
+          <button type="button" class="color-swatch" style="background-color: #614335;" data-val="614335" aria-label="Tom Escuro"></button>
+          <button type="button" class="color-swatch" style="background-color: #3d2314;" data-val="3d2314" aria-label="Tom Ébano"></button>
+        </div>
+      </article>
+
+      <!-- 2. Corte de Cabelo -->
+      <article>
+        <h2 class="section-title">2. Corte de Cabelo</h2>
+        <div class="button-grid" id="topGrid">
+          <button type="button" class="btn-option btn-hair" data-val="theCaesar">Raspado</button>
+          <button type="button" class="btn-option btn-hair active" data-val="shortFlat">Liso curto</button>
+          <button type="button" class="btn-option btn-hair" data-val="shortWaved">Topete</button>
+          <button type="button" class="btn-option btn-hair" data-val="shortCurly">Ondulado</button>
+          <button type="button" class="btn-option btn-hair" data-val="dreads">Dreads</button>
+          <button type="button" class="btn-option btn-hair" data-val="straight01">Longo</button>
+          <button type="button" class="btn-option btn-hair" data-val="longButNotTooLong">Médio</button>
+          <button type="button" class="btn-option btn-hair" data-val="curvy">Longo Ondulado</button>
+          <button type="button" class="btn-option btn-hair" data-val="bigHair">Volumoso</button>
+          <button type="button" class="btn-option btn-hair" data-val="miaWallace">Chanel</button>
+          <button type="button" class="btn-option btn-hair" data-val="hijab">Hijab</button>
+          <button type="button" class="btn-option btn-hair" data-val="turban">Turbante</button>
+        </div>
+      </article>
+
+      <!-- 3. Cor de Cabelo -->
+      <article>
+        <h2 class="section-title">3. Cor de Cabelo</h2>
+        <div class="button-grid" id="hairColorGrid">
+          <button type="button" class="color-swatch active" style="background-color: #2c1b18;" data-val="2c1b18" aria-label="Preto"></button>
+          <button type="button" class="color-swatch" style="background-color: #4a312c;" data-val="4a312c" aria-label="Castanho Escuro"></button>
+          <button type="button" class="color-swatch" style="background-color: #724133;" data-val="724133" aria-label="Castanho"></button>
+          <button type="button" class="color-swatch" style="background-color: #a55728;" data-val="a55728" aria-label="Loiro Escuro"></button>
+          <button type="button" class="color-swatch" style="background-color: #c93305;" data-val="c93305" aria-label="Ruivo"></button>
+          <button type="button" class="color-swatch" style="background-color: #b58143;" data-val="b58143" aria-label="Loiro"></button>
+          <button type="button" class="color-swatch" style="background-color: #d6b370;" data-val="d6b370" aria-label="Loiro Claro"></button>
+          <button type="button" class="color-swatch" style="background-color: #f59797;" data-val="f59797" aria-label="Rosa"></button>
+          <button type="button" class="color-swatch" style="background-color: #e8e1e1;" data-val="e8e1e1" aria-label="Grisalho"></button>
+        </div>
+      </article>
+
+      <!-- 4. Olhos -->
+      <article>
+        <h2 class="section-title">4. Olhos</h2>
+        <div class="button-grid" id="eyesGrid">
+          <button type="button" class="btn-option active" data-val="default">Normal</button>
+          <button type="button" class="btn-option" data-val="happy">Feliz</button>
+          <button type="button" class="btn-option" data-val="wink">Piscando</button>
+        </div>
+      </article>
+
+      <!-- 5. Boca -->
+      <article>
+        <h2 class="section-title">5. Boca</h2>
+        <div class="button-grid" id="mouthGrid">
+          <button type="button" class="btn-option active" data-val="smile">Empolgado</button>
+          <button type="button" class="btn-option" data-val="twinkle">Sorriso</button>
+          <button type="button" class="btn-option" data-val="tongue">Língua p/ Fora</button>
+          <button type="button" class="btn-option" data-val="serious">Séria</button>
+          <button type="button" class="btn-option" data-val="sad">Triste</button>
+        </div>
+      </article>
+
+      <!-- 6. Barba -->
+      <article>
+        <h2 class="section-title">6. Barba</h2>
+        <div class="button-grid" id="facialHairGrid">
+          <button type="button" class="btn-option active" data-val="none">Nenhum</button>
+          <button type="button" class="btn-option" data-val="beardMedium">Média</button>
+          <button type="button" class="btn-option" data-val="beardLight">Cerrada</button>
+          <button type="button" class="btn-option" data-val="beardMajestic">Volumosa</button>
+          <button type="button" class="btn-option" data-val="moustacheFancy">Bigode</button>
+        </div>
+      </article>
+
+      <!-- 7. Acessórios -->
+      <article>
+        <h2 class="section-title">7. Acessórios</h2>
+        <div class="button-grid" id="accessoriesGrid">
+          <button type="button" class="btn-option active" data-val="none">Nenhum</button>
+          <button type="button" class="btn-option" data-val="sunglasses">Óculos de Sol</button>
+          <button type="button" class="btn-option" data-val="round">Redondos</button>
+          <button type="button" class="btn-option" data-val="wayfarers">Wayfarer</button>
+          <button type="button" class="btn-option" data-val="prescription01">Grau</button>
+        </div>
+      </article>
+
+      <!-- 8. Cor de Fundo -->
+      <article>
+        <h2 class="section-title">8. Cor de Fundo</h2>
+        <div class="button-grid" id="bgColorGrid">
+          <button type="button" class="color-swatch active" style="background-color: #b6e3f4;" data-val="b6e3f4" title="Azul"></button>
+          <button type="button" class="color-swatch" style="background-color: #c0aede;" data-val="c0aede" title="Roxo"></button>
+          <button type="button" class="color-swatch" style="background-color: #ffd5dc;" data-val="ffd5dc" title="Rosa"></button>
+          <button type="button" class="color-swatch" style="background-color: #ffdfbf;" data-val="ffdfbf" title="Laranja"></button>
+          <button type="button" class="color-swatch" style="background-color: #c8e6c9;" data-val="c8e6c9" title="Verde"></button>
+          <button type="button" class="color-swatch" style="background-color: #ffffff;" data-val="ffffff" title="Branco"></button>
+        </div>
+      </article>
+
+      <!-- Ação de Salvar -->
+      <div class="save-container">
+        <button type="button" class="btn-save" onclick="saveAvatar()">Salvar Avatar</button>
+      </div>
+
+    </section>
+  </main>
+  <script src="./script/avatar.js"></script>
+</body>
+</html>

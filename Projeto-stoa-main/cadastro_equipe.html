@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stoa | Cadastro de Equipe</title>
+  
+  <!-- Ícones Modernos (Lucide Icons) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- CSS do Topbar e Tema Global -->
+  <link rel="stylesheet" href="./estilo/topbar.css">
+
+  <!-- Estilos Exclusivos da Página de Cadastro de Equipe --> 
+  <link rel="stylesheet" href="./estilo/cadastro_equipe.css">
+</head>
+<body>
+
+  <!-- Topbar Header HTML -->
+  <header class="topbar">
+    <a href="dashboard.html" class="topbar-brand" title="Stoa Home">
+      <div class="brand-icon">S</div>
+      <span>STOA</span>
+    </a>
+
+    <!-- Navegação Desktop -->
+    <nav class="topbar-nav">
+      <a href="dashboard.html" class="nav-item">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="cadastro_equipe.html" class="nav-item">
+        <i data-lucide="users"></i>
+        <span>Cadastro de Equipe</span>
+      </a>
+      <a href="cadastro_aprendiz.html" class="nav-item">
+        <i data-lucide="user-plus"></i>
+        <span>Cadastro de Aprendiz</span>
+      </a>
+      <a href="projetos.html" class="nav-item">
+        <i data-lucide="folder-kanban"></i>
+        <span>Projetos</span>
+      </a>
+    </nav>
+
+    <!-- Perfil e Dropdown -->
+    <div class="topbar-actions">
+      <button type="button" class="company-profile" id="profileMenuBtn" title="Menu da Empresa">
+        <div class="company-avatar">
+          <span>E</span>
+        </div>
+        <i data-lucide="chevron-down"></i>
+      </button>
+
+      <div class="profile-dropdown" id="profileDropdown">
+        
+        <!-- Navegação Mobile -->
+        <div class="mobile-nav-section">
+          <div class="dropdown-header">Navegação</div>
+          <a href="dashboard.html" class="dropdown-item">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="cadastro_equipe.html" class="dropdown-item">
+            <i data-lucide="users"></i>
+            <span>Cadastro de Equipe</span>
+          </a>
+          <a href="cadastro_aprendiz.html" class="dropdown-item">
+            <i data-lucide="user-plus"></i>
+            <span>Cadastro de Aprendiz</span>
+          </a>
+          <a href="projetos.html" class="dropdown-item">
+            <i data-lucide="folder-kanban"></i>
+            <span>Projetos</span>
+          </a>
+        </div>
+
+        <!-- Opções Globais -->
+        <div class="dropdown-header">Empresa</div>
+        <a href="configuracao.html" class="dropdown-item">
+          <i data-lucide="settings"></i>
+          <span>Configurações</span>
+        </a>
+
+        <div class="dropdown-header">Preferências</div>
+        <button type="button" class="dropdown-item" id="themeToggleBtn">
+          <i data-lucide="moon" id="themeIcon"></i>
+          <span id="themeText">Tema Escuro</span>
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal da Página -->
+  <main class="main-container">
+        <section class="page-header">
+            <div class="header-info">
+            <h1>Gestão de Equipe</h1>
+            <p>Cadastre e gerencie os gestores responsáveis pelo acompanhamento dos aprendizes.</p>
+            </div>
+            <button type="button" class="btn-add-manager" id="btnOpenAddModal">
+            <i data-lucide="user-plus"></i>
+            <span>Cadastrar Gestor</span>
+            </button>
+        </section>
+
+        <!-- Métricas Calculadas em Tempo Real -->
+        <section class="metrics-grid">
+            <article class="metric-card card-blue">
+            <div class="metric-data">
+                <h3>Gestores Cadastrados</h3>
+                <p class="metric-value" id="countGestores">0</p>
+            </div>
+            <div class="metric-icon-box"><i data-lucide="users"></i></div>
+            </article>
+
+            <article class="metric-card card-purple">
+            <div class="metric-data">
+                <h3>Áreas Cadastradas</h3>
+                <p class="metric-value" id="countAreas">0</p>
+            </div>
+            <div class="metric-icon-box"><i data-lucide="building-2"></i></div>
+            </article>
+
+            <article class="metric-card card-amber">
+            <div class="metric-data">
+                <h3>Convites Pendentes</h3>
+                <p class="metric-value" id="countPendentes">0</p>
+            </div>
+            <div class="metric-icon-box"><i data-lucide="mail-warning"></i></div>
+            </article>
+        </section>
+
+        <!-- Tabela -->
+        <section class="table-section">
+            <div class="section-header">
+            <h2>Equipe Cadastrada</h2>
+            <div class="search-box">
+                
+                <input type="text" id="searchInput" placeholder="Buscar por gestor ou área...">
+            </div>
+            </div>
+
+            <div class="table-container">
+            <table class="employee-table">
+                <thead>
+                <tr>
+                    <th>Gestor</th>
+                    <th>Área</th>
+                    <th>Cargo</th>
+                    <th>Aprendizes</th>
+                    <th>Permissão</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody id="teamTableBody">
+                <!-- Tabela Inicia Vazia -->
+                </tbody>
+            </table>
+            </div>
+        </section>
+        </main>
+
+        <!-- MODAL 1: Cadastrar / Editar Gestor -->
+        <div class="modal-overlay" id="formModal">
+        <div class="modal-card">
+            <div class="modal-header">
+            <h3 id="formModalTitle">Cadastrar Gestor</h3>
+            <button type="button" class="btn-close-modal closeModalBtn"><i data-lucide="x"></i></button>
+            </div>
+            <form id="managerForm">
+            <input type="hidden" id="editManagerId">
+            <div class="form-grid">
+                <div class="form-group full-width">
+                <label>Nome Completo</label>
+                <input type="text" id="inputName" required placeholder="Ex: Roberto Silva">
+                </div>
+                <div class="form-group full-width">
+                <label>E-mail Corporativo</label>
+                <input type="email" id="inputEmail" required placeholder="roberto@empresa.com">
+                </div>
+                <div class="form-group">
+                <label>Área</label>
+                <input type="text" id="inputArea" required placeholder="Ex: Tecnologia">
+                </div>
+                <div class="form-group">
+                <label>Cargo</label>
+                <input type="text" id="inputCargo" required placeholder="Ex: Coordenador">
+                </div>
+                <div class="form-group">
+                <label>Permissão</label>
+                <select id="selectRole">
+                    <option value="Gestor">Gestor</option>
+                    <option value="Administrador">Administrador</option>
+                </select>
+                </div>
+                <div class="form-group">
+                <label>Aprendizes Atribuídos</label>
+                <input type="number" id="inputAprendizes" min="0" value="0">
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary closeModalBtn">Cancelar</button>
+                <button type="submit" class="btn-primary">Salvar Gestor</button>
+            </div>
+            </form>
+        </div>
+        </div>
+
+        <!-- MODAL 2: Confirmar Exclusão -->
+        <div class="modal-overlay" id="confirmDeleteModal">
+        <div class="modal-card" style="max-width: 400px;">
+            <div class="modal-header">
+            <h3>Excluir Gestor</h3>
+            <button class="btn-close-modal closeModalBtn"><i data-lucide="x"></i></button>
+            </div>
+            <p style="font-size: 0.95rem; color: var(--text-muted);">Tem certeza que deseja remover este gestor da equipe?</p>
+            <div class="modal-actions">
+            <button type="button" class="btn-secondary closeModalBtn">Cancelar</button>
+            <button type="button" class="btn-danger" id="btnConfirmDelete">Sim, Excluir</button>
+            </div>
+        </div>
+        </div>
+
+        <!-- MODAL 3: Senha para Exclusão -->
+        <div class="modal-overlay" id="passwordModal">
+        <div class="modal-card" style="max-width: 400px;">
+            <div class="modal-header">
+            <h3>Confirmação de Segurança</h3>
+            <button class="btn-close-modal closeModalBtn"><i data-lucide="x"></i></button>
+            </div>
+            <form id="passwordForm">
+            <div class="form-group">
+                <label>Por favor, digite sua senha para confirmar:</label>
+                <input type="password" id="confirmPasswordInput" required placeholder="••••••••">
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary closeModalBtn">Cancelar</button>
+                <button type="submit" class="btn-danger">Confirmar Exclusão</button>
+            </div>
+            </form>
+        </div>
+        </div>
+
+        <!-- MODAL 4: Confirmar Reenvio de Convite -->
+        <div class="modal-overlay" id="resendModal">
+        <div class="modal-card" style="max-width: 400px;">
+            <div class="modal-header">
+            <h3>Reenviar Convite</h3>
+            <button class="btn-close-modal closeModalBtn"><i data-lucide="x"></i></button>
+            </div>
+            <p style="font-size: 0.95rem; color: var(--text-muted);">Deseja reenviar o e-mail de acesso para este gestor?</p>
+            <div class="modal-actions">
+            <button type="button" class="btn-secondary closeModalBtn">Cancelar</button>
+            <button type="button" class="btn-primary" id="btnConfirmResend">Sim, Reenviar</button>
+            </div>
+        </div>
+        </div>
+
+        <!-- MODAL 5: Feedback de Envio Sucesso -->
+        <div class="modal-overlay" id="successModal">
+        <div class="modal-card" style="max-width: 380px; text-align: center;">
+            <div style="color: #22c55e; margin-bottom: 12px;">
+            <i data-lucide="check-circle" style="width: 48px; height: 48px;"></i>
+            </div>
+            <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">Convite Reenviado!</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">O e-mail de instrução foi enviado com sucesso para o usuário.</p>
+            <button type="button" class="btn-primary closeModalBtn" style="width: 100%;">Fechar</button>
+        </div>
+        </div>
+  </main>
+
+  <!-- Script do Topbar e Persistência do Tema -->
+  <script src="./script/topbar.js"></script>
+  <!-- Script da página -->
+   <script src="./script/cadastro_equipe.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STOA - Habilidades de Projetos</title>
+  
+  <!-- Estilos da Top Bar e da Tela -->
+  <link rel="stylesheet" href="./estilo/topbar.css">
+  <link rel="stylesheet" href="./estilo/projetos.css">
+  
+  <!-- Ícones Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- TOP BAR (HTML Padrão) -->
+  <header class="topbar">
+    <a href="dashboard.html" class="topbar-brand" title="Stoa Home">
+      <div class="brand-icon">S</div>
+      <span>STOA</span>
+    </a>
+
+    <nav class="topbar-nav">
+      <a href="dashboard.html" class="nav-item">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="cadastro_equipe.html" class="nav-item">
+        <i data-lucide="users"></i>
+        <span>Cadastro de Equipe</span>
+      </a>
+      <a href="cadastro_aprendiz.html" class="nav-item active">
+        <i data-lucide="user-plus"></i>
+        <span>Cadastro de Aprendiz</span>
+      </a>
+      <a href="projetos.html" class="nav-item">
+        <i data-lucide="folder-kanban"></i>
+        <span>Projetos</span>
+      </a>
+    </nav>
+
+    <div class="topbar-actions">
+      <button type="button" class="company-profile" id="profileMenuBtn">
+        <div class="company-avatar"><span>E</span></div>
+        <i data-lucide="chevron-down"></i>
+      </button>
+
+      <div class="profile-dropdown" id="profileDropdown">
+        <div class="mobile-nav-section">
+          <div class="dropdown-header">Navegação</div>
+          <a href="dashboard.html" class="dropdown-item"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+          <a href="cadastro_equipe.html" class="dropdown-item"><i data-lucide="users"></i><span>Cadastro de Equipe</span></a>
+          <a href="cadastro_aprendiz.html" class="dropdown-item active"><i data-lucide="user-plus"></i><span>Cadastro de Aprendiz</span></a>
+          <a href="projetos.html" class="dropdown-item"><i data-lucide="folder-kanban"></i><span>Projetos</span></a>
+        </div>
+
+        <div class="dropdown-header">Empresa</div>
+        <a href="configuracao.html" class="dropdown-item"><i data-lucide="settings"></i><span>Configurações</span></a>
+
+        <div class="dropdown-header">Preferências</div>
+        <button type="button" class="dropdown-item" id="themeToggleBtn">
+          <i data-lucide="moon" id="themeIcon"></i>
+          <span id="themeText">Tema Escuro</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <!-- Elemento onde a Top Bar é injetada -->
+  <div id="topbar-container"></div>
+
+  <main class="container">
+    <!-- Cabeçalho -->
+    <header class="page-header">
+      <h1>Habilidades de Projetos</h1>
+      <p>Selecione os projetos que comporão a trilha de aprendizagem dos aprendizes.</p>
+    </header>
+
+    <!-- Bloco 1: Trilha de Aprendizagem -->
+    <section class="trilha-container">
+      <div class="trilha-header">
+        <h2>Trilha de Aprendizagem</h2>
+        <button id="btnPublishTrack" class="btn-primary" disabled>
+          <i data-lucide="send"></i> Publicar Trilha
+        </button>
+      </div>
+
+      <!-- Grid de Projetos Selecionados -->
+      <div id="selectedTrackGrid" class="cards-grid">
+        <div class="empty-state">
+          <i data-lucide="folder-open"></i>
+          <p>Nenhum projeto selecionado.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bloco 2: Lista de Projetos Disponíveis -->
+    <section class="available-projects-container">
+      <h2>Projetos Disponíveis</h2>
+      <div id="availableProjectsGrid" class="cards-grid">
+        <!-- Renderizado dinamicamente via JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal Detalhes/Conhecer Projeto -->
+  <div id="projectModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">Detalhes do Projeto</h3>
+        <button class="btn-close-modal" id="btnCloseModal">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="btnModalClose">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Sucesso (Publicar Trilha) -->
+  <div id="successModal" class="modal-overlay">
+    <div class="modal-card modal-card-small text-center">
+      <div class="modal-success-icon">
+        <i data-lucide="check-circle"></i>
+      </div>
+      <h3>Trilha publicada com sucesso!</h3>
+      <p>A trilha de aprendizagem já está disponível na tela dos aprendizes (minhatrilha.html).</p>
+      <div class="modal-footer justify-center">
+        <button class="btn-primary" id="btnSuccessClose">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./script/topbar.js"></script>
+  <script src="./script/projetos.js"></script>
+</body>
+</html>
