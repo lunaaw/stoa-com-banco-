@@ -121,6 +121,7 @@
             <option value="">Todos os Status</option>
             <option value="Ativo">Em Formação</option>
             <option value="Concluído">Formação Concluída</option>
+            <option value="Pendente">Convite Pendente</option>
           </select>
 
           <select class="filter-select" id="filterGestor">
@@ -142,7 +143,7 @@
             </tr>
           </thead>
           <tbody id="apprenticeTableBody">
-            <!-- Vazio por padrão -->
+            <!-- Vazio por padrão / Preenchido via JS -->
           </tbody>
         </table>
       </div>
@@ -245,16 +246,21 @@
     </div>
   </div>
 
-  <!-- Scripts top bar -->
-  <script src="./script/topbar.js"></script>
-  <!-- Script do main -->
-  <script src="./script/cadastro_aprendiz.js"></script>
-  <!-- Fim do seu HTML -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- 2. Importa o seu script pessoal -->
-    <script src="./script/cadastro_aprendiz.js"></script>
-</body>
-</html>
+  <!-- Scripts do Supabase e Conexão -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./config/supabase-config.js"></script>
 
+  <!-- Scripts Locais do Sistema -->
+  <script src="./script/topbar.js"></script>
+  <script src="./script/cadastro_aprendiz.js"></script>
+  
+  <script>
+    // Inicialização do Lucide Icons para carregar os ícones na tela
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+    });
+  </script>
 </body>
 </html>

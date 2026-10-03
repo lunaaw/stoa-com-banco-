@@ -56,6 +56,7 @@ const projects = [
   }
 ];
 
+// Mantém o estado visual
 const state = {
   completed: Number(localStorage.getItem("stoaCompleted")) || 2
 };
@@ -138,7 +139,7 @@ function renderJourney() {
         <div class="row-circle">${statusClass === "done" ? "✓" : statusClass === "active" ? "→" : "♙"}</div>
         <div class="row-info">
           <strong>${project.title}</strong>
-          <span>${status} • ${project.xp} XP • ${project.time}</span>
+          <span>${status} ${project.xp} XP • ${project.time}</span>
         </div>
         <span>${statusClass === "locked" ? "🔒" : "›"}</span>
       </div>
@@ -216,35 +217,71 @@ document.getElementById("project-modal").addEventListener("click", event => {
   if (event.target.id === "project-modal") closeModal();
 });
 
-
-
 renderProjects();
 renderProgress();
 renderJourney();
 
-/* ===== PERFIL / EMPRESA / AVATAR ===== */
-const stoaUser = {
-  name: localStorage.getItem("stoaUserName") || "Aprendiz",
-  company: localStorage.getItem("stoaCompanyName") || "Empresa",
-  role: localStorage.getItem("stoaUserRole") || "Aprendiz"
-};
+/* ===== INTEGRAÇÃO SUPABASE: PERFIL / EMPRESA / AVATAR ===== */
 
-function applyUserData() {
-  const firstName = stoaUser.name.trim().split(/\s+/)[0] || "Aprendiz";
-  document.querySelectorAll("[data-user-name]").forEach(el => el.textContent = stoaUser.name);
+// Função adaptada para receber dados do banco em vez do localStorage
+function applyUserData(nomeCompleto, nomeEmpresa, avatarUrl) {
+  const firstName = nomeCompleto.trim().split(/\s+/)[0] || "Aprendiz";
+  
+  document.querySelectorAll("[data-user-name]").forEach(el => el.textContent = nomeCompleto);
   document.querySelectorAll("[data-user-first-name]").forEach(el => el.textContent = firstName);
-  document.querySelectorAll("[data-company-name]").forEach(el => el.textContent = stoaUser.company);
-  document.querySelectorAll("[data-user-role]").forEach(el => el.textContent = stoaUser.role);
+  document.querySelectorAll("[data-company-name]").forEach(el => el.textContent = nomeEmpresa);
+  document.querySelectorAll("[data-user-role]").forEach(el => el.textContent = "Aprendiz");
 
-  const avatar = localStorage.getItem("stoaAvatar");
   document.querySelectorAll("[data-user-avatar]").forEach(el => {
-    if (avatar) {
-      el.innerHTML = `<img src="${avatar}" alt="Avatar do aprendiz">`;
+    if (avatarUrl) {
+      el.innerHTML = `<img src="${avatarUrl}" alt="Avatar do aprendiz">`;
       el.classList.add("has-avatar");
     } else {
       el.textContent = firstName.charAt(0).toUpperCase();
     }
   });
+}
+
+// Nova função para buscar os dados no Supabase
+async function carregarDadosDoBanco() {
+  try {
+    // 1. Pega o usuário logado
+    const { data: { user }, error: authError } = await window.supabase.auth.getUser();
+    if (authError || !user) throw authError;
+
+    // 2. Busca perfil e cruza com a tabela de aprendizes e empresas
+    const { data: perfil, error: perfilError } = await window.supabase
+      .from('perfis')
+      .select(`
+        nome_completo,
+        avatar_url,
+        aprendizes (
+          empresas (
+            razao_social
+          )
+        )
+      `)
+      .eq('id', user.id)
+      .single();
+
+    if (perfilError) throw perfilError;
+
+    // 3. Organiza os dados para enviar para a tela
+    const nomeTratado = perfil.nome_completo || "Aprendiz STOA";
+    let empresaTratada = "Buscando oportunidade...";
+
+    if (perfil.aprendizes && perfil.aprendizes.length > 0 && perfil.aprendizes[0].empresas) {
+      empresaTratada = perfil.aprendizes[0].empresas.razao_social || empresaTratada;
+    }
+
+    // 4. Injeta na interface criada pela sua amiga
+    applyUserData(nomeTratado, empresaTratada, perfil.avatar_url);
+
+  } catch (error) {
+    console.error("Erro ao carregar os dados:", error);
+    // Fallback de segurança para a tela não ficar vazia em caso de erro
+    applyUserData("Aprendiz STOA", "Carregando...", null);
+  }
 }
 
 function setupUserMenu() {
@@ -281,19 +318,18 @@ function setupUserMenu() {
     });
   }
 
+  // Lógica atualizada de Logout conectada ao Supabase
   const logout = document.getElementById("logout-button");
   if (logout) {
-    logout.addEventListener("click", () => {
-      localStorage.removeItem("stoaUserName");
-      localStorage.removeItem("stoaCompanyName");
-      localStorage.removeItem("stoaUserRole");
+    logout.addEventListener("click", async () => {
+      await window.supabase.auth.signOut();
       window.location.href = "login.html";
     });
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  applyUserData();
+  carregarDadosDoBanco(); // Aciona a busca de dados assim que a tela abre
   setupUserMenu();
 
   const avatarButton = document.getElementById("avatar-button");

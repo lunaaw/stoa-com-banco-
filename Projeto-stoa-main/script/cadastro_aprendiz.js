@@ -1,6 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // 1. Carrega os aprendizes do localStorage (se existirem) ou inicia lista vazia
-  let apprentices = JSON.parse(localStorage.getItem("stoa_apprentices") || "[]");
+document.addEventListener("DOMContentLoaded", async () => {
+  // 1. Array local que vai guardar os dados vindos do Supabase para renderizar a tabela
+  let apprentices = [];
   let selectedApprenticeId = null;
 
   // DOM
@@ -24,74 +24,100 @@ document.addEventListener("DOMContentLoaded", () => {
   const apprenticeForm = document.getElementById("apprenticeForm");
   const passwordForm = document.getElementById("passwordForm");
 
-  // Função para salvar a lista de aprendizes no localStorage
-  function saveApprentices() {
-    localStorage.setItem("stoa_apprentices", JSON.stringify(apprentices));
-  }
+  // ==========================================
+  // INTEGRAÇÃO SUPABASE: BUSCAR DADOS
+  // ==========================================
+  
+  // 2. Carrega os Gestores Cadastrados do Supabase para os selects
+  async function loadGestoresOptions() {
+    try {
+      // Busca a equipe e junta com a tabela perfis para pegar o nome
+      const { data: savedManagers, error } = await window.supabase
+        .from('membros_equipe')
+        .select(`
+          id,
+          area,
+          perfis (nome_completo)
+        `);
 
-  // 2. Atualiza a contagem de aprendizes na lista de gestores (salva em stoa_managers)
-  function updateManagerApprenticeCounts() {
-    let savedManagers = JSON.parse(localStorage.getItem("stoa_managers") || "[]");
+      if (error) throw error;
+      
+      if (filterGestor) filterGestor.innerHTML = `<option value="">Todos os Gestores</option>`;
+      if (selectGestorModal) selectGestorModal.innerHTML = `<option value="">Selecione um gestor...</option>`;
 
-    // Mapeia e conta quantos aprendizes cada gestor possui
-    const counts = {};
-    apprentices.forEach(apprentice => {
-      if (apprentice.gestor) {
-        counts[apprentice.gestor] = (counts[apprentice.gestor] || 0) + 1;
+      if (!savedManagers || savedManagers.length === 0) {
+        if (selectGestorModal) {
+          const option = document.createElement("option");
+          option.disabled = true;
+          option.textContent = "Nenhum gestor cadastrado na equipe";
+          selectGestorModal.appendChild(option);
+        }
+        return;
       }
-    });
 
-    // Atualiza a propriedade 'aprendizes' de cada gestor
-    savedManagers = savedManagers.map(manager => {
-      return {
-        ...manager,
-        aprendizes: counts[manager.name] || 0
-      };
-    });
+      savedManagers.forEach(m => {
+        const nomeGestor = m.perfis?.nome_completo || 'Sem Nome';
+        
+        if (filterGestor) {
+          const optFiltro = document.createElement("option");
+          optFiltro.value = m.id; // Agora usamos o ID real do banco
+          optFiltro.textContent = nomeGestor;
+          filterGestor.appendChild(optFiltro);
+        }
 
-    // Performa a gravação no localStorage dos gestores
-    localStorage.setItem("stoa_managers", JSON.stringify(savedManagers));
-  }
-
-  // 3. Carrega os Gestores Cadastrados do LocalStorage para os selects
-  function loadGestoresOptions() {
-    const savedManagers = JSON.parse(localStorage.getItem("stoa_managers") || "[]");
-    
-    if (filterGestor) filterGestor.innerHTML = `<option value="">Todos os Gestores</option>`;
-    if (selectGestorModal) selectGestorModal.innerHTML = `<option value="">Selecione um gestor...</option>`;
-
-    if (savedManagers.length === 0) {
-      if (selectGestorModal) {
-        const option = document.createElement("option");
-        option.disabled = true;
-        option.textContent = "Nenhum gestor cadastrado na equipe";
-        selectGestorModal.appendChild(option);
-      }
-      return;
+        if (selectGestorModal) {
+          const optForm = document.createElement("option");
+          optForm.value = m.id; // O valor que vai pro banco
+          optForm.textContent = `${nomeGestor} (${m.area})`;
+          selectGestorModal.appendChild(optForm);
+        }
+      });
+    } catch (err) {
+      console.error("Erro ao carregar gestores:", err);
     }
-
-    savedManagers.forEach(m => {
-      if (filterGestor) {
-        const optFiltro = document.createElement("option");
-        optFiltro.value = m.name;
-        optFiltro.textContent = m.name;
-        filterGestor.appendChild(optFiltro);
-      }
-
-      if (selectGestorModal) {
-        const optForm = document.createElement("option");
-        optForm.value = m.name;
-        optForm.textContent = `${m.name} (${m.area})`;
-        selectGestorModal.appendChild(optForm);
-      }
-    });
   }
 
-  // 4. Renderizar Tabela e Calcular Métricas
-  function renderTable() {
-    // Garante sincronia lendo do localStorage
-    apprentices = JSON.parse(localStorage.getItem("stoa_apprentices") || "[]");
+  // 3. Busca todos os aprendizes no banco de dados e adapta para o array da sua amiga
+  async function fetchApprentices() {
+    try {
+      const { data, error } = await window.supabase
+        .from('aprendizes')
+        .select(`
+          id,
+          area,
+          inicio_contrato,
+          fim_contrato,
+          status,
+          perfis ( nome_completo, email ),
+          gestor_id
+        `);
 
+      if (error) throw error;
+
+      // Adaptando os dados do banco para o formato que a lógica visual espera
+      apprentices = data.map(item => ({
+        id: item.id,
+        name: item.perfis?.nome_completo || 'Sem Nome',
+        email: item.perfis?.email || '',
+        area: item.area,
+        gestorId: item.gestor_id, // Guarda o ID do gestor
+        startDate: item.inicio_contrato,
+        endDate: item.fim_contrato,
+        status: item.status
+      }));
+
+      // Após buscar os dados, renderizamos a tabela
+      renderTable();
+    } catch (err) {
+      console.error("Erro ao buscar aprendizes:", err);
+    }
+  }
+
+  // ==========================================
+  // LÓGICA VISUAL (MANTIDA DA SUA AMIGA)
+  // ==========================================
+
+  function renderTable() {
     if (!tableBody) return;
     tableBody.innerHTML = "";
 
@@ -102,7 +128,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const filtered = apprentices.filter(a => {
       const matchText = a.name.toLowerCase().includes(textSearch) || a.email.toLowerCase().includes(textSearch);
       const matchStatus = selectedStatus === "" || a.status === selectedStatus;
-      const matchGestor = selectedGestor === "" || a.gestor === selectedGestor;
+      // Compara pelo ID do gestor agora
+      const matchGestor = selectedGestor === "" || a.gestorId === selectedGestor; 
       return matchText && matchStatus && matchGestor;
     });
 
@@ -121,6 +148,13 @@ document.addEventListener("DOMContentLoaded", () => {
       filtered.forEach(a => {
         const initials = a.name ? a.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase() : "AP";
         const tr = document.createElement("tr");
+        
+        // Pega o nome do gestor (simulado) para exibição a partir do select
+        let nomeGestor = 'Nenhum';
+        if (selectGestorModal) {
+          const gestorOpt = Array.from(selectGestorModal.options).find(opt => opt.value === a.gestorId);
+          if (gestorOpt) nomeGestor = gestorOpt.text.split(' (')[0];
+        }
 
         tr.innerHTML = `
           <td>
@@ -133,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
           </td>
           <td>${a.area}</td>
-          <td><strong>${a.gestor || 'Nenhum'}</strong></td>
+          <td><strong>${nomeGestor}</strong></td>
           <td>${formatDate(a.startDate)} até ${formatDate(a.endDate)}</td>
           <td>
             <span class="badge ${a.status === 'Concluído' ? 'badge-finished' : 'badge-active'}">
@@ -142,9 +176,9 @@ document.addEventListener("DOMContentLoaded", () => {
           </td>
           <td>
             <div class="action-buttons">
-              <button class="btn-action" onclick="openDetailsModal(${a.id})" title="Ver Detalhes"><i data-lucide="eye"></i></button>
-              <button class="btn-action" onclick="openEditModal(${a.id})" title="Editar"><i data-lucide="pencil"></i></button>
-              <button class="btn-action" onclick="openDeleteModal(${a.id})" title="Excluir"><i data-lucide="trash-2"></i></button>
+              <button class="btn-action" onclick="openDetailsModal('${a.id}')" title="Ver Detalhes"><i data-lucide="eye"></i></button>
+              <button class="btn-action" onclick="openEditModal('${a.id}')" title="Editar"><i data-lucide="pencil"></i></button>
+              <button class="btn-action" onclick="openDeleteModal('${a.id}')" title="Excluir"><i data-lucide="trash-2"></i></button>
             </div>
           </td>
         `;
@@ -157,26 +191,22 @@ document.addEventListener("DOMContentLoaded", () => {
     // Atualiza Métricas no Topo
     if (countAtivos) countAtivos.textContent = apprentices.filter(a => a.status === "Ativo").length;
     if (countConcluidos) countConcluidos.textContent = apprentices.filter(a => a.status === "Concluído").length;
-    if (countPendentes) countPendentes.textContent = apprentices.filter(a => !a.gestor).length;
+    if (countPendentes) countPendentes.textContent = apprentices.filter(a => !a.gestorId).length;
   }
 
-  // Helper de Formatação de Data
   function formatDate(dateStr) {
     if (!dateStr) return "-";
     const [year, month, day] = dateStr.split("-");
     return `${day}/${month}/${year}`;
   }
 
-  // Eventos de Filtro
   if (searchInput) searchInput.addEventListener("input", renderTable);
   if (filterStatus) filterStatus.addEventListener("change", renderTable);
   if (filterGestor) filterGestor.addEventListener("change", renderTable);
 
-  // Abrir Modal de Cadastro
   const btnOpenApprenticeModal = document.getElementById("btnOpenApprenticeModal");
   if (btnOpenApprenticeModal) {
     btnOpenApprenticeModal.addEventListener("click", () => {
-      loadGestoresOptions();
       document.getElementById("modalTitle").textContent = "Cadastrar Aprendiz";
       if (apprenticeForm) apprenticeForm.reset();
       document.getElementById("editApprenticeId").value = "";
@@ -184,42 +214,46 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Submeter Formulário de Aprendiz (Salvar/Editar)
+  // ==========================================
+  // SALVAR / ATUALIZAR NO SUPABASE
+  // ==========================================
   if (apprenticeForm) {
-    apprenticeForm.addEventListener("submit", (e) => {
+    apprenticeForm.addEventListener("submit", async (e) => {
       e.preventDefault();
+      
       const id = document.getElementById("editApprenticeId").value;
-      const name = document.getElementById("inputName").value;
-      const email = document.getElementById("inputEmail").value;
       const area = document.getElementById("inputArea").value;
-      const gestor = document.getElementById("selectGestor").value;
+      const gestorId = document.getElementById("selectGestor").value;
       const startDate = document.getElementById("inputStartDate").value;
       const endDate = document.getElementById("inputEndDate").value;
 
-      if (id) {
-        const idx = apprentices.findIndex(a => a.id == id);
-        if (idx !== -1) {
-          apprentices[idx] = { ...apprentices[idx], name, email, area, gestor, startDate, endDate };
+      try {
+        if (id) {
+          // UPDATE: Atualiza os dados do aprendiz existente no Supabase
+          const { error } = await window.supabase
+            .from('aprendizes')
+            .update({
+              area: area,
+              gestor_id: gestorId,
+              inicio_contrato: startDate,
+              fim_contrato: endDate
+            })
+            .eq('id', id);
+
+          if (error) throw error;
+          alert("Aprendiz atualizado com sucesso!");
+        } else {
+          // Em um ambiente real, o HR envia um convite. 
+          // Para esta tela, alertamos a regra de negócio.
+          alert("Aviso: No modelo atual, o aprendiz precisa criar sua própria conta (Cadastro) primeiro. Use a edição para vinculá-lo a um gestor!");
         }
-      } else {
-        apprentices.push({
-          id: Date.now(),
-          name,
-          email,
-          area,
-          gestor,
-          startDate,
-          endDate,
-          status: "Ativo"
-        });
+
+        closeAllModals();
+        await fetchApprentices(); // Recarrega os dados fresquinhos do banco
+      } catch (err) {
+        console.error("Erro ao salvar:", err);
+        alert("Ocorreu um erro ao salvar os dados no banco.");
       }
-
-      // Persiste no localStorage
-      saveApprentices();
-      updateManagerApprenticeCounts();
-
-      closeAllModals();
-      renderTable();
     });
   }
 
@@ -228,11 +262,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const item = apprentices.find(a => a.id === id);
     if (!item) return;
 
+    let nomeGestor = 'Nenhum';
+    if (selectGestorModal) {
+      const gestorOpt = Array.from(selectGestorModal.options).find(opt => opt.value === item.gestorId);
+      if (gestorOpt) nomeGestor = gestorOpt.text.split(' (')[0];
+    }
+
     document.getElementById("detailsContent").innerHTML = `
       <p><strong>Nome:</strong> ${item.name}</p>
       <p><strong>E-mail:</strong> ${item.email}</p>
       <p><strong>Área:</strong> ${item.area}</p>
-      <p><strong>Gestor Atribuído:</strong> ${item.gestor || 'Nenhum'}</p>
+      <p><strong>Gestor Atribuído:</strong> ${nomeGestor}</p>
       <p><strong>Período do Contrato:</strong> ${formatDate(item.startDate)} até ${formatDate(item.endDate)}</p>
       <p><strong>Status Atual:</strong> ${item.status}</p>
     `;
@@ -241,18 +281,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Editar Aprendiz
   window.openEditModal = function(id) {
-    loadGestoresOptions();
     const item = apprentices.find(a => a.id === id);
     if (!item) return;
 
     document.getElementById("modalTitle").textContent = "Editar Aprendiz";
     document.getElementById("editApprenticeId").value = item.id;
+    
+    // Como nome e e-mail ficam na tabela perfis, eles são apenas leitura aqui
     document.getElementById("inputName").value = item.name;
+    document.getElementById("inputName").disabled = true; 
     document.getElementById("inputEmail").value = item.email;
+    document.getElementById("inputEmail").disabled = true;
+
     document.getElementById("inputArea").value = item.area;
-    document.getElementById("selectGestor").value = item.gestor;
-    document.getElementById("inputStartDate").value = item.startDate;
-    document.getElementById("inputEndDate").value = item.endDate;
+    document.getElementById("selectGestor").value = item.gestorId || "";
+    document.getElementById("inputStartDate").value = item.startDate || "";
+    document.getElementById("inputEndDate").value = item.endDate || "";
 
     openModal(apprenticeModal);
   };
@@ -272,20 +316,29 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (passwordForm) {
-    passwordForm.addEventListener("submit", (e) => {
+    passwordForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      apprentices = apprentices.filter(a => a.id !== selectedApprenticeId);
       document.getElementById("confirmPasswordInput").value = "";
 
-      saveApprentices();
-      updateManagerApprenticeCounts();
+      try {
+        // Deleta o aprendiz diretamente do banco Supabase
+        const { error } = await window.supabase
+          .from('aprendizes')
+          .delete()
+          .eq('id', selectedApprenticeId);
 
-      closeAllModals();
-      renderTable();
+        if (error) throw error;
+
+        alert("Aprendiz removido com sucesso!");
+        closeAllModals();
+        await fetchApprentices(); // Recarrega os dados da tabela
+      } catch (err) {
+        console.error("Erro ao excluir:", err);
+        alert("Ocorreu um erro ao excluir do banco.");
+      }
     });
   }
 
-  // Funções Utilitárias de Modal
   function openModal(modal) { if (modal) modal.classList.add("active"); }
   function closeModal(modal) { if (modal) modal.classList.remove("active"); }
   function closeAllModals() {
@@ -296,7 +349,10 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", closeAllModals);
   });
 
-  // Inicialização
-  loadGestoresOptions();
-  renderTable();
+  // ==========================================
+  // INICIALIZAÇÃO DA TELA
+  // ==========================================
+  // Carrega os gestores primeiro, depois busca os aprendizes e desenha a tabela
+  await loadGestoresOptions();
+  await fetchApprentices();
 });

@@ -34,8 +34,6 @@
         <span class="icon">♙</span><span>Perfil</span>
       </button>
     </nav>
-
-  
   </aside>
 
   <header class="topbar">
@@ -75,16 +73,13 @@
       </div>
 
       <div class="hero">
-
         <div class="hero-content">
           <div class="hero-copy">
             <span class="hero-small">SUA JORNADA NA STOA</span>
             <strong>Seu futuro<br>começa aqui.</strong>
           </div>
         </div>
-
         <div class="hero-glow"></div>
-
         <div class="hero-person" aria-hidden="true">
           <div class="person-head"></div>
           <div class="person-body">S</div>
@@ -245,18 +240,16 @@
     </div>
   </div>
 
+  <!-- Importações de Scripts (Corrigidas para evitar duplicações e acertar o caminho) -->
+  <!-- 1. Importa a biblioteca do Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="../config/supabase-config.js"></script>
-  <script src="../script/auth.js"></script>
-  <script src="aprendiz.js"></script>
-  <script>document.addEventListener('DOMContentLoaded', () => stoaRequireAuth('aprendiz'));</script>
-    
-    <!-- 1. Importa a biblioteca do Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <!-- 2. Importa o seu script pessoal -->
-    <script src="./script/aprendiz.js"></script>
-</body>
-</html>
+  
+  <!-- 2. Arquivos de configuração e autenticação -->
+  <script src="./config/supabase-config.js"></script>
+  <!-- <script src="./script/auth.js"></script> Comentado temporariamente até criarmos o arquivo -->
+  
+  <!-- 3. Importa o script específico da página e inicializa -->
+  <script src="./script/aprendiz.js"></script>
+  
 </body>
 </html>
