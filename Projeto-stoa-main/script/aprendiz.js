@@ -320,6 +320,8 @@ function setupUserMenu() {
 
   // Lógica atualizada de Logout conectada ao Supabase
   const logout = document.getElementById("logout-button");
+  console.log("LOGOUT:", logout);
+  console.log("Botão logout:", logout);
   if (logout) {
     logout.addEventListener("click", async () => {
       await window.supabase.auth.signOut();
@@ -339,3 +341,489 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+const sidebarToggle = document.getElementById("sidebar-toggle");
+
+if (sidebarToggle) {
+  sidebarToggle.addEventListener("click", () => {
+    document.body.classList.toggle("sidebar-collapsed");
+  });
+}
+/* =========================================================
+   CERTIFICADOS
+   ========================================================= */
+
+// Botão "Adicionar Certificado"
+const addCertificateButton = document.getElementById("add-certificate");
+
+// Modal de certificado
+const certificateModal = document.getElementById("certificate-modal");
+
+// Botão X
+const certificateModalClose = document.getElementById("certificate-modal-close");
+
+// Botão Cancelar
+const certificateCancel = document.getElementById("certificate-cancel");
+
+// Formulário
+const certificateForm = document.getElementById("certificate-form");
+
+// Área onde os certificados serão exibidos
+const certificatesList = document.getElementById("certificates-list");
+
+
+/* =========================================================
+   ABRIR MODAL
+   ========================================================= */
+
+if (addCertificateButton) {
+  addCertificateButton.addEventListener("click", () => {
+    certificateModal.classList.add("open");
+  });
+}
+
+
+/* =========================================================
+   FECHAR MODAL
+   ========================================================= */
+
+function closeCertificateModal() {
+
+  if (!certificateModal) return;
+
+  certificateModal.classList.remove("open");
+
+  if (certificateForm) {
+    certificateForm.reset();
+  }
+}
+
+
+/* Botão X */
+if (certificateModalClose) {
+  certificateModalClose.addEventListener(
+    "click",
+    closeCertificateModal
+  );
+}
+
+
+/* Botão Cancelar */
+if (certificateCancel) {
+  certificateCancel.addEventListener(
+    "click",
+    closeCertificateModal
+  );
+}
+
+
+/* Fechar clicando fora do modal */
+if (certificateModal) {
+  certificateModal.addEventListener("click", event => {
+
+    if (event.target === certificateModal) {
+      closeCertificateModal();
+    }
+
+  });
+}
+
+
+/* =========================================================
+   ADICIONAR CERTIFICADO
+   ========================================================= */
+
+if (certificateForm) {
+
+  certificateForm.addEventListener("submit", event => {
+
+    event.preventDefault();
+
+    // Pega os valores preenchidos
+    const name =
+      document.getElementById("certificate-name").value.trim();
+
+    const institution =
+      document.getElementById("certificate-institution").value.trim();
+
+    const date =
+      document.getElementById("certificate-date").value;
+
+    const description =
+      document.getElementById("certificate-description").value.trim();
+
+    const hours =
+      document.getElementById("certificate-hours").value.trim();
+
+    const fileInput =
+      document.getElementById("certificate-file");
+
+    const file =
+      fileInput ? fileInput.files[0] : null;
+
+
+    /* =====================================================
+       VALIDAÇÃO
+       ===================================================== */
+
+    if (!name || !institution || !date) {
+
+      alert("Preencha os campos obrigatórios.");
+
+      return;
+    }
+
+
+    /* =====================================================
+       REMOVE A MENSAGEM "NENHUM CERTIFICADO"
+       ===================================================== */
+
+    const emptyCard =
+      certificatesList.querySelector(".empty-card");
+
+    if (emptyCard) {
+      emptyCard.remove();
+    }
+
+
+    /* =====================================================
+       FORMATA A DATA
+       ===================================================== */
+
+    const formattedDate =
+      new Date(date + "T00:00:00")
+        .toLocaleDateString("pt-BR");
+
+
+    /* =====================================================
+       CRIA O CARD DO CERTIFICADO
+       ===================================================== */
+
+    const certificateCard =
+      document.createElement("div");
+
+    certificateCard.className = "record-card";
+
+
+    certificateCard.innerHTML = `
+
+      <div class="record-card-top">
+
+        <div class="record-symbol">
+          ◇
+        </div>
+
+        <button
+          type="button"
+          class="record-remove"
+          title="Remover certificado"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <h3>${name}</h3>
+
+      <p class="record-muted">
+        ${institution}
+      </p>
+
+      ${
+        description
+          ? `<p>${description}</p>`
+          : ""
+      }
+
+      <div class="record-meta">
+
+        <span>
+          📅 ${formattedDate}
+        </span>
+
+        ${
+          hours
+            ? `<span>⏱ ${hours}</span>`
+            : ""
+        }
+
+      </div>
+
+      ${
+        file
+          ? `
+            <span class="record-file">
+              📎 ${file.name}
+            </span>
+          `
+          : ""
+      }
+
+    `;
+
+
+    /* =====================================================
+       COLOCA O CERTIFICADO NA LISTA
+       ===================================================== */
+
+    certificatesList.appendChild(certificateCard);
+
+
+    /* =====================================================
+       BOTÃO REMOVER
+       ===================================================== */
+
+    const removeButton =
+      certificateCard.querySelector(".record-remove");
+
+
+    removeButton.addEventListener("click", () => {
+
+      certificateCard.remove();
+
+
+      /* Se não houver mais certificados,
+         volta a mensagem inicial */
+
+      if (!certificatesList.querySelector(".record-card")) {
+
+        certificatesList.innerHTML = `
+
+          <div class="empty-card">
+
+            <div class="empty-icon">
+              ◇
+            </div>
+
+            <h2>
+              Nenhum certificado cadastrado
+            </h2>
+
+            <p>
+              Use o botão acima para adicionar
+              seu primeiro certificado.
+            </p>
+
+          </div>
+
+        `;
+
+      }
+
+    });
+
+
+    /* Fecha o modal */
+    closeCertificateModal();
+
+  });
+
+}
+/* =========================================================
+   COMPETÊNCIAS
+   ========================================================= */
+
+// Botão "Adicionar Competência"
+const addCompetencyButton = document.getElementById("add-competency");
+
+// Modal
+const competencyModal = document.getElementById("competency-modal");
+
+// Botão X
+const competencyModalClose = document.getElementById("competency-modal-close");
+
+// Botão Cancelar
+const competencyCancel = document.getElementById("competency-cancel");
+
+// Formulário
+const competencyForm = document.getElementById("competency-form");
+
+// Área onde as competências serão exibidas
+const competenciesList = document.getElementById("competencies-list");
+
+
+// Abrir modal
+if (addCompetencyButton) {
+  addCompetencyButton.addEventListener("click", () => {
+    competencyModal.classList.add("open");
+  });
+}
+
+
+// Fechar modal
+function closeCompetencyModal() {
+  if (!competencyModal) return;
+
+  competencyModal.classList.remove("open");
+
+  if (competencyForm) {
+    competencyForm.reset();
+  }
+}
+
+
+// Botão X
+if (competencyModalClose) {
+  competencyModalClose.addEventListener(
+    "click",
+    closeCompetencyModal
+  );
+}
+
+
+// Botão Cancelar
+if (competencyCancel) {
+  competencyCancel.addEventListener(
+    "click",
+    closeCompetencyModal
+  );
+}
+
+
+// Clicar fora do modal fecha
+if (competencyModal) {
+  competencyModal.addEventListener("click", event => {
+
+    if (event.target === competencyModal) {
+      closeCompetencyModal();
+    }
+
+  });
+}
+
+
+// Enviar formulário
+if (competencyForm) {
+
+  competencyForm.addEventListener("submit", event => {
+
+    event.preventDefault();
+
+    const name = document
+      .getElementById("competency-name")
+      .value
+      .trim();
+
+    const level = document
+      .getElementById("competency-level")
+      .value;
+
+    const description = document
+      .getElementById("competency-description")
+      .value
+      .trim();
+
+
+    // Verifica campo obrigatório
+    if (!name || !level) {
+
+      alert("Preencha os campos obrigatórios.");
+
+      return;
+    }
+
+
+    // Remove mensagem de lista vazia
+    const emptyCard =
+      competenciesList.querySelector(".empty-card");
+
+    if (emptyCard) {
+      emptyCard.remove();
+    }
+
+
+    // Cria o card
+    const competencyCard =
+      document.createElement("div");
+
+    competencyCard.className = "record-card";
+
+
+    competencyCard.innerHTML = `
+      <div class="record-card-top">
+
+        <div class="record-symbol">
+          ✦
+        </div>
+
+        <button
+          type="button"
+          class="record-remove"
+          title="Remover competência"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <h3>${name}</h3>
+
+      <span class="record-level">
+        ${level}
+      </span>
+
+      ${
+        description
+          ? `<p>${description}</p>`
+          : ""
+      }
+    `;
+
+
+    // Adiciona na tela
+    competenciesList.appendChild(
+      competencyCard
+    );
+
+
+    // Botão remover
+    const removeButton =
+      competencyCard.querySelector(
+        ".record-remove"
+      );
+
+    removeButton.addEventListener(
+      "click",
+      () => {
+
+        competencyCard.remove();
+
+
+        // Se não tiver mais competências,
+        // mostra novamente o estado vazio
+        if (
+          !competenciesList.querySelector(
+            ".record-card"
+          )
+        ) {
+
+          competenciesList.innerHTML = `
+            <div class="empty-card">
+
+              <div class="empty-icon">
+                ✦
+              </div>
+
+              <h2>
+                Nenhuma competência cadastrada
+              </h2>
+
+              <p>
+                Adicione suas competências para completar seu perfil.
+              </p>
+
+            </div>
+          `;
+
+        }
+
+      }
+    );
+
+
+    // Fecha o modal
+    closeCompetencyModal();
+
+  });
+
+}

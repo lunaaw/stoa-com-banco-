@@ -6,7 +6,7 @@
   <title>STOA — Área do Aprendiz</title>
   <link rel="stylesheet" href="aprendiz.css">
 </head>
-<body>
+<body class="light-theme sidebar-collapsed">
 
   <aside class="sidebar">
     <div class="brand">
@@ -33,10 +33,19 @@
       <button class="menu-item" data-page="perfil">
         <span class="icon">♙</span><span>Perfil</span>
       </button>
+      <button class="menu-item" data-page="acessibilidade">
+     <span class="icon">♿</span>
+       <span>Acessibilidade</span>
+      </button>
     </nav>
   </aside>
 
-  <header class="topbar">
+<header class="topbar">
+    <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menu">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
     <div></div>
     <div class="top-actions">
       <div class="user-menu">
@@ -57,13 +66,154 @@
           <button type="button" class="dropdown-item" id="theme-toggle">
             <span id="theme-icon">☾</span><span id="theme-text">Tema escuro</span>
           </button>
-          <button type="button" class="dropdown-item" id="logout-button">↪ <span>Sair</span></button>
+          <a href="login.html" class="dropdown-item" id="logout-button">↪ <span>Sair</span></a>
         </div>
       </div>
     </div>
   </header>
 
   <main class="content">
+
+    <!-- =====================================================
+     PÁGINA DE ACESSIBILIDADE
+     ===================================================== -->
+
+<section id="acessibilidade" class="page">
+
+  <div class="page-title">
+    <h1>Acessibilidade</h1>
+    <p>
+      Personalize sua experiência na STOA para uma navegação
+      mais confortável e acessível.
+    </p>
+  </div>
+
+  <div class="accessibility-card">
+
+    <div class="accessibility-header">
+      <div class="accessibility-header-text">
+        <h2>Recursos de acessibilidade</h2>
+        <p>
+          Utilize os recursos abaixo para adaptar a plataforma
+          às suas necessidades.
+        </p>
+      </div>
+
+      <div class="accessibility-main-icon">
+        ♿
+      </div>
+    </div>
+
+    <div class="accessibility-options">
+
+      <!-- Reduzir fonte -->
+      <div class="accessibility-option">
+        <div class="accessibility-option-icon">A−</div>
+
+        <div class="accessibility-option-content">
+          <h3>Reduzir fonte</h3>
+          <p>Diminui o tamanho dos textos da plataforma.</p>
+        </div>
+
+        <button class="accessibility-action" id="reduce-font">
+          A−
+        </button>
+      </div>
+
+      <!-- Tamanho padrão -->
+      <div class="accessibility-option">
+        <div class="accessibility-option-icon">A</div>
+
+        <div class="accessibility-option-content">
+          <h3>Tamanho padrão</h3>
+          <p>Restaura o tamanho original dos textos.</p>
+        </div>
+
+        <button class="accessibility-action" id="reset-font">
+          A
+        </button>
+      </div>
+
+      <!-- Aumentar fonte -->
+      <div class="accessibility-option">
+        <div class="accessibility-option-icon">A+</div>
+
+        <div class="accessibility-option-content">
+          <h3>Aumentar fonte</h3>
+          <p>Aumenta o tamanho dos textos da plataforma.</p>
+        </div>
+
+        <button class="accessibility-action" id="increase-font">
+          A+
+        </button>
+      </div>
+
+      <!-- Alto contraste -->
+      <div class="accessibility-option">
+        <div class="accessibility-option-icon">◐</div>
+
+        <div class="accessibility-option-content">
+          <h3>Alto contraste</h3>
+          <p>
+            Aumenta o contraste entre textos, fundos e elementos.
+          </p>
+        </div>
+
+        <button class="accessibility-action" id="high-contrast">
+          Contraste
+        </button>
+      </div>
+
+      <!-- VLibras -->
+      <div class="accessibility-option">
+        <div class="accessibility-option-icon">🤟</div>
+
+        <div class="accessibility-option-content">
+          <h3>VLibras</h3>
+          <p>Recurso de tradução e acessibilidade em Libras.</p>
+        </div>
+
+        <button class="accessibility-action" id="vlibras">
+          Libras
+        </button>
+      </div>
+
+      <!-- Foco de navegação -->
+      <div class="accessibility-option">
+        <div class="accessibility-option-icon">⌨</div>
+
+        <div class="accessibility-option-content">
+          <h3>Foco de navegação</h3>
+          <p>
+            Destaca os elementos selecionados pelo teclado.
+          </p>
+        </div>
+
+        <button class="accessibility-action" id="keyboard-focus">
+          Ativar
+        </button>
+      </div>
+
+      <!-- Modo escuro -->
+      <div class="accessibility-option">
+        <div class="accessibility-option-icon">☾</div>
+
+        <div class="accessibility-option-content">
+          <h3>Modo escuro</h3>
+          <p>
+            Altera a aparência da plataforma para um tema escuro.
+          </p>
+        </div>
+
+        <button class="accessibility-action" id="dark-mode">
+          Ativar
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</section>
 
     <!-- HOME -->
     <section id="inicio" class="page active-page">
@@ -225,7 +375,295 @@
     </section>
 
   </main>
+<!-- =====================================================
+     MODAL — ADICIONAR CERTIFICADO
+     ===================================================== -->
 
+<div class="modal-overlay" id="certificate-modal">
+
+  <div class="modal record-modal">
+
+    <!-- Botão para fechar -->
+    <button class="modal-close" id="certificate-modal-close">
+      ×
+    </button>
+
+    <!-- Título -->
+    <div class="modal-icon">◇</div>
+
+    <h2>Adicionar Certificado</h2>
+
+    <form id="certificate-form" class="record-form">
+
+      <!-- Nome do certificado -->
+      <label>
+        Nome do certificado
+
+        <input
+          type="text"
+          id="certificate-name"
+          placeholder="Ex: Fundamentos de Python"
+          required
+        >
+      </label>
+
+      <!-- Instituição -->
+      <label>
+        Instituição / Emissor
+
+        <input
+          type="text"
+          id="certificate-institution"
+          placeholder="Ex: FIAP"
+          required
+        >
+      </label>
+
+      <!-- Data -->
+      <label>
+        Data de conclusão
+
+        <input
+          type="date"
+          id="certificate-date"
+          required
+        >
+      </label>
+
+      <!-- Descrição -->
+      <label>
+        Descrição
+
+        <textarea
+          id="certificate-description"
+          rows="3"
+          placeholder="Ex: Certificação referente à trilha de Python."
+        ></textarea>
+      </label>
+
+      <!-- Carga horária -->
+      <label>
+        Carga horária
+
+        <input
+          type="text"
+          id="certificate-hours"
+          placeholder="Ex: 40 horas"
+        >
+      </label>
+
+      <!-- Arquivo -->
+      <label>
+        Certificado
+
+        <input
+          type="file"
+          id="certificate-file"
+          accept=".pdf,.png,.jpg,.jpeg"
+        >
+      </label>
+
+      <!-- Botões -->
+      <div class="record-form-actions">
+
+        <button
+          type="button"
+          class="secondary-button"
+          id="certificate-cancel"
+        >
+          Cancelar
+        </button>
+
+        <button
+          type="submit"
+          class="primary-button"
+        >
+          Adicionar Certificado
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+<!-- =====================================================
+     MODAL — ADICIONAR CERTIFICADO
+     ===================================================== -->
+
+<div class="modal-overlay" id="certificate-modal">
+
+  <div class="modal record-modal">
+
+    <button
+      class="modal-close"
+      id="certificate-modal-close"
+      type="button"
+    >
+      ×
+    </button>
+
+    <div class="modal-icon">◇</div>
+
+    <h2>Adicionar Certificado</h2>
+
+    <form id="certificate-form" class="record-form">
+
+      <label>
+        Nome do certificado
+
+        <input
+          type="text"
+          id="certificate-name"
+          placeholder="Ex: Fundamentos de Python"
+          required
+        >
+      </label>
+
+      <label>
+        Instituição / Emissor
+
+        <input
+          type="text"
+          id="certificate-institution"
+          placeholder="Ex: FIAP"
+          required
+        >
+      </label>
+
+      <label>
+        Data de conclusão
+
+        <input
+          type="date"
+          id="certificate-date"
+          required
+        >
+      </label>
+
+      <label>
+        Descrição
+
+        <textarea
+          id="certificate-description"
+          rows="3"
+          placeholder="Ex: Certificação referente à trilha de Python."
+        ></textarea>
+      </label>
+
+      <label>
+        Carga horária
+
+        <input
+          type="text"
+          id="certificate-hours"
+          placeholder="Ex: 40 horas"
+        >
+      </label>
+
+      <label>
+        Anexar certificado
+
+        <input
+          type="file"
+          id="certificate-file"
+          accept=".pdf,.png,.jpg,.jpeg"
+        >
+      </label>
+
+      <div class="record-form-actions">
+
+        <button
+          type="button"
+          class="secondary-button"
+          id="certificate-cancel"
+        >
+          Cancelar
+        </button>
+
+        <button
+          type="submit"
+          class="primary-button"
+        >
+          Adicionar Certificado
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+<!-- =====================================================
+     MODAL — ADICIONAR COMPETÊNCIA
+     ===================================================== -->
+<div class="modal-overlay" id="competency-modal">
+  <div class="modal record-modal">
+
+    <button class="modal-close" id="competency-modal-close" type="button">
+      ×
+    </button>
+
+    <div class="modal-icon">✦</div>
+
+    <h2>Adicionar Competência</h2>
+
+    <form id="competency-form" class="record-form">
+
+      <label>
+        Nome da competência
+        <input
+          type="text"
+          id="competency-name"
+          placeholder="Ex: Comunicação"
+          required
+        >
+      </label>
+
+      <label>
+        Nível de domínio
+        <select id="competency-level" required>
+          <option value="">Selecione o nível</option>
+          <option value="Iniciante">Iniciante</option>
+          <option value="Básico">Básico</option>
+          <option value="Intermediário">Intermediário</option>
+          <option value="Avançado">Avançado</option>
+        </select>
+      </label>
+
+      <label>
+        Descrição
+        <textarea
+          id="competency-description"
+          rows="3"
+          placeholder="Ex: Facilidade para trabalhar em equipe e apresentar ideias."
+        ></textarea>
+      </label>
+
+      <div class="record-form-actions">
+
+        <button
+          type="button"
+          class="secondary-button"
+          id="competency-cancel"
+        >
+          Cancelar
+        </button>
+
+        <button
+          type="submit"
+          class="primary-button"
+        >
+          Adicionar Competência
+        </button>
+
+      </div>
+
+    </form>
+  </div>
+</div>
   <!-- MODAL DO PROJETO -->
   <div class="modal-overlay" id="project-modal">
     <div class="modal">
