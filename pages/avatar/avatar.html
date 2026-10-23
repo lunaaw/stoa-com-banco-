@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Personalização do avatar do aprendiz na plataforma STOA.">
+  <title>STOA | Personalizar Avatar</title>
+  <link rel="stylesheet" href="./avatar.css">
+</head>
+<body>
+  <a class="skip-link" href="#conteudo-avatar">Pular para a personalização</a>
+
+  <main class="builder-card" id="conteudo-avatar">
+    <section class="avatar-preview" aria-labelledby="avatar-title">
+      <div class="preview-topbar">
+        <a class="back-link" href="../aprendiz/aprendiz.html">← Voltar ao perfil</a>
+        <span class="stoa-mark">STOA</span>
+      </div>
+
+      <div class="preview-copy">
+        <p class="eyebrow">SEU AVATAR</p>
+        <h1 id="avatar-title">Personalize quem acompanha sua jornada.</h1>
+        <p>
+          Os recursos básicos estão disponíveis desde o início. Novos fundos e
+          acessórios são liberados conforme você avança nos mini projetos.
+        </p>
+      </div>
+
+      <div class="avatar-frame">
+        <img id="avatarImg" src="" alt="Pré-visualização do avatar do aprendiz">
+      </div>
+
+      <div class="reward-panel" aria-live="polite">
+        <div>
+          <span class="reward-label">RECOMPENSAS DA TRILHA</span>
+          <strong id="reward-title">Personalização inicial</strong>
+        </div>
+        <p id="reward-description">Conclua a primeira etapa para liberar um novo fundo.</p>
+      </div>
+    </section>
+
+    <section class="options-form" aria-label="Opções de personalização do avatar">
+      <header class="options-header">
+        <div>
+          <p class="eyebrow">PERSONALIZAÇÃO</p>
+          <h2>Monte seu avatar</h2>
+        </div>
+        <span class="progress-badge" id="reward-level">Nível 0</span>
+      </header>
+
+      <article>
+        <h3 class="section-title">1. Cor de pele</h3>
+        <div class="button-grid" id="skinColorGrid">
+          <button type="button" class="color-swatch" style="background-color:#f8d25c" data-val="f8d25c" aria-label="Tom amarelo"></button>
+          <button type="button" class="color-swatch" style="background-color:#ffdbb4" data-val="ffdbb4" aria-label="Tom claro"></button>
+          <button type="button" class="color-swatch" style="background-color:#edb98a" data-val="edb98a" aria-label="Tom médio claro"></button>
+          <button type="button" class="color-swatch" style="background-color:#d08b5b" data-val="d08b5b" aria-label="Tom médio"></button>
+          <button type="button" class="color-swatch" style="background-color:#ae5d29" data-val="ae5d29" aria-label="Tom moreno"></button>
+          <button type="button" class="color-swatch" style="background-color:#614335" data-val="614335" aria-label="Tom escuro"></button>
+        </div>
+      </article>
+
+      <article>
+        <h3 class="section-title">2. Corte de cabelo</h3>
+        <div class="button-grid" id="topGrid">
+          <button type="button" class="btn-option btn-hair" data-val="theCaesar">Raspado</button>
+          <button type="button" class="btn-option btn-hair" data-val="shortFlat">Liso curto</button>
+          <button type="button" class="btn-option btn-hair" data-val="shortWaved">Topete</button>
+          <button type="button" class="btn-option btn-hair" data-val="shortCurly">Ondulado</button>
+          <button type="button" class="btn-option btn-hair" data-val="dreads">Dreads</button>
+          <button type="button" class="btn-option btn-hair" data-val="straight01">Longo</button>
+          <button type="button" class="btn-option btn-hair" data-val="longButNotTooLong">Médio</button>
+          <button type="button" class="btn-option btn-hair" data-val="curvy">Longo ondulado</button>
+          <button type="button" class="btn-option btn-hair" data-val="bigHair">Volumoso</button>
+          <button type="button" class="btn-option btn-hair" data-val="miaWallace">Chanel</button>
+          <button type="button" class="btn-option btn-hair" data-val="hijab">Hijab</button>
+          <button type="button" class="btn-option btn-hair" data-val="turban">Turbante</button>
+        </div>
+      </article>
+
+      <article>
+        <h3 class="section-title">3. Cor de cabelo</h3>
+        <div class="button-grid" id="hairColorGrid">
+          <button type="button" class="color-swatch" style="background-color:#2c1b18" data-val="2c1b18" aria-label="Preto"></button>
+          <button type="button" class="color-swatch" style="background-color:#4a312c" data-val="4a312c" aria-label="Castanho escuro"></button>
+          <button type="button" class="color-swatch" style="background-color:#724133" data-val="724133" aria-label="Castanho"></button>
+          <button type="button" class="color-swatch" style="background-color:#a55728" data-val="a55728" aria-label="Loiro escuro"></button>
+          <button type="button" class="color-swatch" style="background-color:#c93305" data-val="c93305" aria-label="Ruivo"></button>
+          <button type="button" class="color-swatch" style="background-color:#b58143" data-val="b58143" aria-label="Loiro"></button>
+          <button type="button" class="color-swatch" style="background-color:#d6b370" data-val="d6b370" aria-label="Loiro claro"></button>
+          <button type="button" class="color-swatch" style="background-color:#f59797" data-val="f59797" aria-label="Rosa"></button>
+          <button type="button" class="color-swatch" style="background-color:#e8e1e1" data-val="e8e1e1" aria-label="Grisalho"></button>
+        </div>
+      </article>
+
+      <article>
+        <h3 class="section-title">4. Olhos</h3>
+        <div class="button-grid" id="eyesGrid">
+          <button type="button" class="btn-option" data-val="default">Normal</button>
+          <button type="button" class="btn-option" data-val="happy">Feliz</button>
+          <button type="button" class="btn-option" data-val="wink">Piscando</button>
+        </div>
+      </article>
+
+      <article>
+        <h3 class="section-title">5. Boca</h3>
+        <div class="button-grid" id="mouthGrid">
+          <button type="button" class="btn-option" data-val="smile">Empolgado</button>
+          <button type="button" class="btn-option" data-val="twinkle">Sorriso</button>
+          <button type="button" class="btn-option" data-val="tongue">Língua para fora</button>
+          <button type="button" class="btn-option" data-val="serious">Séria</button>
+          <button type="button" class="btn-option" data-val="sad">Triste</button>
+        </div>
+      </article>
+
+      <article>
+        <h3 class="section-title">6. Barba</h3>
+        <div class="button-grid" id="facialHairGrid">
+          <button type="button" class="btn-option" data-val="none">Nenhuma</button>
+          <button type="button" class="btn-option" data-val="beardMedium">Média</button>
+          <button type="button" class="btn-option" data-val="beardLight">Cerrada</button>
+          <button type="button" class="btn-option" data-val="beardMajestic">Volumosa</button>
+          <button type="button" class="btn-option" data-val="moustacheFancy">Bigode</button>
+        </div>
+      </article>
+
+      <article class="reward-section">
+        <div class="reward-heading">
+          <div>
+            <h3 class="section-title">7. Acessórios</h3>
+            <p>Recompensas liberadas pela trilha</p>
+          </div>
+          <span class="lock-legend">◆ Trilhas</span>
+        </div>
+        <div class="button-grid" id="accessoriesGrid">
+          <button type="button" class="btn-option" data-val="none" data-unlock="0">Nenhum</button>
+          <button type="button" class="btn-option reward-option" data-val="round" data-unlock="2">Redondos</button>
+          <button type="button" class="btn-option reward-option" data-val="sunglasses" data-unlock="3">Óculos de sol</button>
+          <button type="button" class="btn-option reward-option" data-val="wayfarers" data-unlock="3">Wayfarer</button>
+          <button type="button" class="btn-option reward-option" data-val="prescription01" data-unlock="3">Grau</button>
+        </div>
+      </article>
+
+      <article class="reward-section">
+        <div class="reward-heading">
+          <div>
+            <h3 class="section-title">8. Cor de fundo</h3>
+            <p>Novas cores aparecem conforme você progride</p>
+          </div>
+          <span class="lock-legend">◆ Trilhas</span>
+        </div>
+        <div class="button-grid" id="bgColorGrid">
+          <button type="button" class="color-swatch" style="background-color:#b6e3f4" data-val="b6e3f4" data-unlock="0" aria-label="Fundo azul"></button>
+          <button type="button" class="color-swatch reward-option" style="background-color:#c0aede" data-val="c0aede" data-unlock="1" aria-label="Fundo roxo"></button>
+          <button type="button" class="color-swatch reward-option" style="background-color:#ffd5dc" data-val="ffd5dc" data-unlock="3" aria-label="Fundo rosa"></button>
+          <button type="button" class="color-swatch reward-option" style="background-color:#ffdfbf" data-val="ffdfbf" data-unlock="3" aria-label="Fundo laranja"></button>
+          <button type="button" class="color-swatch reward-option" style="background-color:#c8e6c9" data-val="c8e6c9" data-unlock="3" aria-label="Fundo verde"></button>
+          <button type="button" class="color-swatch reward-option" style="background-color:#ffffff" data-val="ffffff" data-unlock="3" aria-label="Fundo branco"></button>
+        </div>
+      </article>
+
+      <div class="status-message" id="avatar-status" role="status" aria-live="polite"></div>
+
+      <div class="save-container">
+        <button type="button" class="btn-save" id="save-avatar">Salvar avatar</button>
+        <p>O avatar salvo será exibido automaticamente na sua área de aprendiz.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../shared/js/database/supabase-client.js"></script>
+  <script src="../../shared/js/database/auth-service.js"></script>
+  <script src="../../shared/js/database/data-service.js"></script>
+  <script src="../../shared/js/progression.js"></script>
+  <script src="../../shared/js/avatar-service.js"></script>
+  <script src="./avatar.js"></script>
+</body>
+</html>

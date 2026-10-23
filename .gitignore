@@ -1,0 +1,16 @@
+# Segredos e ambiente
+**/.env
+.env
+
+# Python
+**/__pycache__/
+**/*.py[cod]
+**/.venv/
+**/venv/
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+
+# Logs temporários
+**/*.log

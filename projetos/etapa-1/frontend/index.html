@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="description"
+        content="Mini Projeto Técnico da STOA para estruturação de demandas no Google Planilhas."
+    >
+    <title>STOA | Mini Projeto Técnico</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="acessibilidade.css">
+</head>
+<body>
+    <a class="pular-conteudo" href="#conteudo-etapa">
+        Pular para o conteúdo principal
+    </a>
+
+    <header class="cabecalho cabecalho-projeto">
+        <div class="cabecalho-conteudo">
+            <div class="identidade-projeto">
+                <img
+                    class="logo-stoa"
+                    src="img/stoa-logo.jpeg"
+                    alt="STOA"
+                    width="48"
+                    height="48"
+                >
+
+                <div>
+                    <p class="rotulo-projeto">Desenvolvimento direcionado</p>
+                    <h1>Mini Projeto Técnico</h1>
+                    <p>Estruturação de demandas no Google Planilhas</p>
+                </div>
+            </div>
+
+            <div class="acoes-cabecalho" aria-label="Ações do projeto">
+                <button
+                    id="abrir-acessibilidade"
+                    class="botao-cabecalho"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="painel-acessibilidade"
+                >
+                    Acessibilidade
+                </button>
+
+                <button
+                    id="voltar-trilha-cabecalho"
+                    class="botao-cabecalho"
+                    type="button"
+                >
+                    ← Voltar para a trilha
+                </button>
+            </div>
+        </div>
+
+        <section
+            id="painel-acessibilidade"
+            class="painel-acessibilidade"
+            aria-labelledby="titulo-acessibilidade"
+            hidden
+        >
+            <div class="painel-acessibilidade-topo">
+                <div>
+                    <h2 id="titulo-acessibilidade">Acessibilidade</h2>
+                    <p>Escolha os recursos que facilitam sua leitura e navegação.</p>
+                </div>
+
+                <button
+                    id="fechar-acessibilidade"
+                    class="botao-fechar-painel"
+                    type="button"
+                    aria-label="Fechar painel de acessibilidade"
+                >
+                    ×
+                </button>
+            </div>
+
+            <div class="recursos-acessibilidade">
+                <div class="recurso-acessibilidade">
+                    <span class="recurso-titulo">Tamanho do texto</span>
+
+                    <div class="controle-fonte" role="group" aria-label="Alterar tamanho do texto">
+                        <button id="diminuir-fonte" type="button" aria-label="Diminuir tamanho do texto">A−</button>
+                        <button id="restaurar-fonte" type="button" aria-label="Restaurar tamanho padrão do texto">A</button>
+                        <button id="aumentar-fonte" type="button" aria-label="Aumentar tamanho do texto">A+</button>
+                    </div>
+
+                    <span id="indicador-fonte" class="indicador-fonte" aria-live="polite">100%</span>
+                </div>
+
+                <div class="recurso-acessibilidade recurso-linha">
+                    <div>
+                        <span class="recurso-titulo">Alto contraste</span>
+                        <p>Reforça a diferença entre fundo, texto, bordas e foco.</p>
+                    </div>
+
+                    <button id="alternar-contraste" type="button" aria-pressed="false">Ativar</button>
+                </div>
+
+                <div class="recurso-acessibilidade recurso-linha">
+                    <div>
+                        <span class="recurso-titulo">VLibras</span>
+                        <p>Abra o tradutor oficial para Língua Brasileira de Sinais.</p>
+                    </div>
+
+                    <button id="abrir-vlibras" type="button">Abrir VLibras</button>
+                </div>
+            </div>
+
+            <p
+                id="status-acessibilidade"
+                class="status-acessibilidade"
+                role="status"
+                aria-live="polite"
+            ></p>
+        </section>
+    </header>
+
+    <nav id="trilha" class="trilha" aria-label="Etapas do Mini Projeto Técnico"></nav>
+
+    <main
+        id="conteudo-etapa"
+        class="conteudo-etapa"
+        aria-live="polite"
+        tabindex="-1"
+    ></main>
+
+    <section id="navegacao" class="navegacao" aria-label="Navegação entre etapas">
+        <button id="botao-voltar" type="button">← Voltar</button>
+
+        <p
+            id="mensagem-validacao"
+            class="mensagem-validacao"
+            role="status"
+            aria-live="polite"
+        ></p>
+
+        <button id="botao-continuar" type="button">Continuar →</button>
+    </section>
+
+
+    <dialog
+        id="modal-finalizacao"
+        class="modal-stoa"
+        aria-labelledby="titulo-modal-finalizacao"
+        aria-describedby="descricao-modal-finalizacao"
+        aria-modal="true"
+    >
+        <div class="modal-stoa-conteudo">
+            <div class="modal-stoa-texto">
+                <p class="modal-stoa-rotulo">Conclusão do projeto</p>
+
+                <h2 id="titulo-modal-finalizacao">
+                    Finalizar atividade?
+                </h2>
+
+                <p id="descricao-modal-finalizacao">
+                    Você está prestes a concluir este mini projeto.
+                    Após a finalização, suas respostas e o arquivo enviado
+                    ficarão bloqueados para alterações.
+                </p>
+
+                <div class="modal-stoa-aviso">
+                    A avaliação STOA será gerada com base nas evidências
+                    registradas durante sua execução.
+                </div>
+            </div>
+
+            <div class="modal-stoa-acoes">
+                <button
+                    id="cancelar-finalizacao"
+                    class="botao-modal-secundario"
+                    type="button"
+                >
+                    Voltar
+                </button>
+
+                <button
+                    id="confirmar-finalizacao"
+                    class="botao-modal-principal"
+                    type="button"
+                >
+                    Finalizar projeto
+                </button>
+            </div>
+        </div>
+    </dialog>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script src="acessibilidade.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

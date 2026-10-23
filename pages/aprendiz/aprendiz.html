@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STOA — Área do Aprendiz</title>
+  <link rel="stylesheet" href="./aprendiz.css">
+</head>
+<body class="light-theme sidebar-collapsed">
+
+  <a class="skip-link" href="#conteudo-principal">Pular para o conteúdo principal</a>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo"><img src="../../assets/img/stoa-logo.jpeg" alt="STOA"></div>
+      <span>STOA</span>
+    </div>
+
+    <nav class="menu">
+      <button class="menu-item active" data-page="inicio">
+        <span class="icon">⌂</span><span>Início</span>
+      </button>
+      <button class="menu-item" data-page="trilha">
+        <span class="icon">⌁</span><span>Minha Trilha</span>
+      </button>
+      <button class="menu-item" data-page="projetos">
+        <span class="icon">□</span><span>Projetos</span>
+      </button>
+      <button class="menu-item" data-page="evolucao">
+        <span class="icon">⌁</span><span>Minha Evolução</span>
+      </button>
+      <button class="menu-item" data-page="certificados">
+        <span class="icon">◇</span><span>Certificados</span>
+      </button>
+      <button class="menu-item" data-page="perfil">
+        <span class="icon">♙</span><span>Perfil</span>
+      </button>
+      <button class="menu-item" data-page="acessibilidade">
+     <span class="icon">♿</span>
+       <span>Acessibilidade</span>
+      </button>
+    </nav>
+  </aside>
+
+<header class="topbar">
+    <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Abrir menu">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+    <div></div>
+    <div class="top-actions">
+      <div class="user-menu">
+        <button class="avatar-mini" id="user-menu-button" aria-label="Abrir menu do usuário">
+          <span data-user-avatar>U</span>
+        </button>
+        <div class="user-dropdown" id="user-dropdown">
+          <div class="dropdown-user">
+            <div class="dropdown-avatar" data-user-avatar>U</div>
+            <div>
+              <strong data-user-name>Aprendiz</strong>
+              <span data-company-name>Empresa</span>
+            </div>
+          </div>
+          <div class="dropdown-divider"></div>
+          <button type="button" class="dropdown-item" data-page-link="perfil">♙ <span>Meu perfil</span></button>
+          <div class="dropdown-label">Preferências</div>
+          <button type="button" class="dropdown-item" id="theme-toggle">
+            <span id="theme-icon">☾</span><span id="theme-text">Tema escuro</span>
+          </button>
+          <a href="../login/login.html" class="dropdown-item" id="logout-button">↪ <span>Sair</span></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="content" id="conteudo-principal" tabindex="-1">
+
+    <!-- =====================================================
+     PÁGINA DE ACESSIBILIDADE
+     ===================================================== -->
+
+<section id="acessibilidade" class="page">
+  <div class="page-title accessibility-page-title">
+    <span class="accessibility-kicker">EXPERIÊNCIA PERSONALIZÁVEL</span>
+    <h1>Acessibilidade</h1>
+    <p>Adapte a STOA ao seu jeito de navegar, ler e interagir.</p>
+  </div>
+
+  <div class="accessibility-shell">
+    <aside class="accessibility-overview" aria-label="Resumo dos recursos de acessibilidade">
+      <div class="accessibility-overview-icon" aria-hidden="true">♿</div>
+      <span class="accessibility-overview-label">ACESSIBILIDADE STOA</span>
+      <h2>Seu espaço, do seu jeito.</h2>
+      <p>
+        Ajustes de leitura, contraste, foco e Libras ficam reunidos aqui.
+        Suas preferências são mantidas neste navegador.
+      </p>
+
+      <div class="accessibility-feature-list">
+        <span>Leitura ajustável</span>
+        <span>Navegação por teclado</span>
+        <span>Alto contraste</span>
+        <span>VLibras</span>
+      </div>
+    </aside>
+
+    <div class="accessibility-controls">
+      <section class="accessibility-control-block" aria-labelledby="titulo-leitura">
+        <div class="accessibility-control-heading">
+          <div>
+            <span class="accessibility-control-kicker">LEITURA</span>
+            <h2 id="titulo-leitura">Tamanho do conteúdo</h2>
+          </div>
+          <span id="font-size-indicator" class="accessibility-value" aria-live="polite">100%</span>
+        </div>
+
+        <p>Reduza, restaure ou amplie toda a interface da área do aprendiz.</p>
+
+        <div class="font-controls" role="group" aria-label="Alterar tamanho do conteúdo">
+          <button type="button" id="reduce-font" aria-label="Reduzir tamanho do conteúdo">A−</button>
+          <button type="button" id="reset-font" aria-label="Restaurar tamanho do conteúdo">A</button>
+          <button type="button" id="increase-font" aria-label="Aumentar tamanho do conteúdo">A+</button>
+        </div>
+      </section>
+
+      <section class="accessibility-control-block" aria-labelledby="titulo-visual">
+        <div class="accessibility-control-heading">
+          <div>
+            <span class="accessibility-control-kicker">VISUAL</span>
+            <h2 id="titulo-visual">Contraste e aparência</h2>
+          </div>
+        </div>
+
+        <div class="accessibility-setting-row">
+          <div>
+            <strong>Alto contraste</strong>
+            <span>Reforça texto, bordas, ícones e controles.</span>
+          </div>
+          <button type="button" class="accessibility-toggle" id="high-contrast" aria-pressed="false">Ativar</button>
+        </div>
+
+        <div class="accessibility-setting-row">
+          <div>
+            <strong>Modo escuro</strong>
+            <span>Alterna entre a interface clara e a interface escura.</span>
+          </div>
+          <button type="button" class="accessibility-toggle" id="dark-mode" aria-pressed="false">Ativar</button>
+        </div>
+      </section>
+
+      <section class="accessibility-control-block" aria-labelledby="titulo-navegacao">
+        <div class="accessibility-control-heading">
+          <div>
+            <span class="accessibility-control-kicker">NAVEGAÇÃO E LIBRAS</span>
+            <h2 id="titulo-navegacao">Recursos assistivos</h2>
+          </div>
+        </div>
+
+        <div class="accessibility-setting-row">
+          <div>
+            <strong>Destaque de foco</strong>
+            <span>Evidencia o elemento selecionado ao navegar com o teclado.</span>
+          </div>
+          <button type="button" class="accessibility-toggle" id="keyboard-focus" aria-pressed="false">Ativar</button>
+        </div>
+
+        <div class="accessibility-setting-row">
+          <div>
+            <strong>VLibras</strong>
+            <span>Abre o tradutor oficial para Língua Brasileira de Sinais.</span>
+          </div>
+          <button type="button" class="accessibility-toggle" id="vlibras">Abrir</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="accessibility-footnote">
+    <span aria-hidden="true">✦</span>
+    <p>Os ajustes de acessibilidade não alteram seu progresso, projetos ou dados de perfil.</p>
+  </div>
+  <p id="accessibility-status" class="sr-only" role="status" aria-live="polite"></p>
+</section>
+
+    <!-- HOME -->
+    <section id="inicio" class="page active-page">
+      <div class="welcome">
+        <h1>Olá, <span data-user-first-name>Aprendiz</span>! <span>👋</span></h1>
+        <p>Que bom te ver por aqui! Continue evoluindo na sua jornada.</p>
+      </div>
+
+      <div class="hero">
+        <div class="hero-content">
+          <div class="hero-copy">
+            <span class="hero-small">SUA JORNADA NA STOA</span>
+            <strong>Seu futuro<br>começa aqui.</strong>
+          </div>
+        </div>
+        <div class="hero-glow"></div>
+        <div
+          class="hero-person"
+          data-user-avatar
+          aria-hidden="true"
+        >A</div>
+      </div>
+
+      <section class="journey-card">
+        <div class="section-heading">
+          <div>
+            <h2>Minha Trilha</h2>
+            <p>Acompanhe seu progresso e veja o que vem pela frente.</p>
+          </div>
+          <button class="link-button" data-page-link="trilha">Ver minha trilha →</button>
+        </div>
+
+        <div class="journey">
+          <div class="journey-line"></div>
+
+          <div class="journey-step completed">
+            <div class="step-circle">✓</div>
+            <strong>Boas-vindas</strong>
+            <span>Concluído</span>
+          </div>
+
+          <div class="journey-step completed">
+            <div class="step-circle">✓</div>
+            <strong>Primeiros Passos</strong>
+            <span>Concluído</span>
+          </div>
+
+          <div class="journey-step completed">
+            <div class="step-circle">✓</div>
+            <strong>Integração e Cultura</strong>
+            <span>Concluído</span>
+          </div>
+
+          <div class="journey-step current">
+            <div class="step-circle">◈</div>
+            <strong>Ferramentas do Dia a Dia</strong>
+            <span>Em andamento</span>
+          </div>
+
+          <div class="journey-step locked">
+            <div class="step-circle">♙</div>
+            <strong>Desenvolvimento Web Básico</strong>
+            <span>Bloqueado</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="projects-section">
+        <div class="section-heading">
+          <div>
+            <h2>Projetos Disponíveis</h2>
+            <p>Explore os projetos e continue construindo seu desenvolvimento.</p>
+          </div>
+          <button class="link-button" data-page-link="projetos">Ver todos os projetos →</button>
+        </div>
+
+        <div class="project-grid" id="home-projects"></div>
+      </section>
+    </section>
+
+    <!-- TRILHA -->
+    <section id="trilha" class="page">
+      <div class="page-title">
+        <h1>Minha Trilha</h1>
+        <p>Acompanhe sua jornada de desenvolvimento como aprendiz.</p>
+      </div>
+      <div class="progress-card">
+        <div class="progress-top">
+          <div>
+            <span class="label">PROGRESSO GERAL</span>
+            <h2 id="progress-text">40% concluído</h2>
+          </div>
+          <strong id="project-count">2 de 5 projetos</strong>
+        </div>
+        <div class="progress-bar"><div id="progress-fill"></div></div>
+      </div>
+      <div class="full-journey" id="full-journey"></div>
+    </section>
+
+    <!-- PROJETOS -->
+    <section id="projetos" class="page">
+      <div class="page-title">
+        <h1>Projetos</h1>
+        <p>Pratique habilidades em situações próximas do ambiente profissional.</p>
+      </div>
+      <div class="project-grid" id="all-projects"></div>
+    </section>
+
+    <!-- EVOLUÇÃO -->
+    <section id="evolucao" class="page">
+      <div class="page-title">
+        <h1>Minha Evolução</h1>
+        <p>Veja seu desenvolvimento ao longo da jornada.</p>
+      </div>
+      <div class="evolution-grid">
+        <div class="stat-card"><span>Projetos concluídos</span><strong id="evo-completed">2</strong><small>de 5 projetos</small></div>
+        <div class="stat-card"><span>Eixo técnico</span><strong>68%</strong><small>Em desenvolvimento</small></div>
+        <div class="stat-card"><span>Eixo comportamental</span><strong>54%</strong><small>Em desenvolvimento</small></div>
+      </div>
+      <div class="feedback-card">
+        <span class="feedback-tag">FEEDBACK RECENTE</span>
+        <h2>Muito bem!</h2>
+        <p>Você demonstrou organização e clareza na atividade. Continue desenvolvendo sua autonomia.</p>
+      </div>
+    </section>
+
+     <!-- CERTIFICADOS -->
+    <section id="certificados" class="page">
+      <div class="page-title">
+        <h1>Certificados</h1>
+        <p>Organize e compartilhe suas conquistas de aprendizagem.</p>
+      </div>
+      <div class="records-heading"><div><h2>Meus certificados</h2><p>Registre os certificados que você conquistou.</p></div><button class="primary-button" id="add-certificate">＋ Adicionar Certificado</button></div>
+      <div class="records-grid" id="certificates-list"><div class="empty-card"><div class="empty-icon">◇</div><h2>Nenhum certificado cadastrado</h2><p>Use o botão acima para adicionar seu primeiro certificado.</p></div></div>
+      <div class="records-heading competency-heading"><div><h2>Minhas competências</h2><p>Mostre suas habilidades e seu nível de domínio.</p></div><button class="primary-button" id="add-competency">＋ Adicionar Competência</button></div>
+      <div class="records-grid" id="competencies-list"><div class="empty-card"><div class="empty-icon">✦</div><h2>Nenhuma competência cadastrada</h2><p>Adicione suas competências para completar seu perfil.</p></div></div>
+    </section>
+
+    <!-- PERFIL -->
+    <section id="perfil" class="page">
+      <div class="page-title">
+        <h1>Meu Perfil</h1>
+        <p>Gerencie suas informações e personalize sua experiência.</p>
+      </div>
+      <div class="profile-card">
+        <div class="profile-avatar" data-user-avatar>E</div>
+        <div class="profile-info">
+          <h2 data-user-name>Aprendiz</h2>
+          <span>Aprendiz</span>
+          <span>TOTVS</span>
+        </div>
+        <button class="primary-button" id="avatar-button">Personalizar avatar</button>
+      </div>
+      <div class="info-grid">
+        <div><span>Empresa</span><strong>TOTVS</strong></div>
+        <div><span>Cargo</span><strong>Jovem Aprendiz</strong></div>
+        <div><span>Trilha atual</span><strong>Ferramentas do dia a dia</strong></div>
+        <div><span>Projetos concluídos</span><strong id="profile-completed">2</strong></div>
+      </div>
+    </section>
+
+  </main>
+<!-- =====================================================
+     MODAL — ADICIONAR CERTIFICADO
+     ===================================================== -->
+
+<div class="modal-overlay" id="certificate-modal">
+
+  <div class="modal record-modal">
+
+    <!-- Botão para fechar -->
+    <button class="modal-close" id="certificate-modal-close">
+      ×
+    </button>
+
+    <!-- Título -->
+    <div class="modal-icon">◇</div>
+
+    <h2>Adicionar Certificado</h2>
+
+    <form id="certificate-form" class="record-form">
+
+      <!-- Nome do certificado -->
+      <label>
+        Nome do certificado
+
+        <input
+          type="text"
+          id="certificate-name"
+          placeholder="Ex: Fundamentos de Python"
+          required
+        >
+      </label>
+
+      <!-- Instituição -->
+      <label>
+        Instituição / Emissor
+
+        <input
+          type="text"
+          id="certificate-institution"
+          placeholder="Ex: FIAP"
+          required
+        >
+      </label>
+
+      <!-- Data -->
+      <label>
+        Data de conclusão
+
+        <input
+          type="date"
+          id="certificate-date"
+          required
+        >
+      </label>
+
+      <!-- Descrição -->
+      <label>
+        Descrição
+
+        <textarea
+          id="certificate-description"
+          rows="3"
+          placeholder="Ex: Certificação referente à trilha de Python."
+        ></textarea>
+      </label>
+
+      <!-- Carga horária -->
+      <label>
+        Carga horária
+
+        <input
+          type="text"
+          id="certificate-hours"
+          placeholder="Ex: 40 horas"
+        >
+      </label>
+
+      <!-- Arquivo -->
+      <label>
+        Certificado
+
+        <input
+          type="file"
+          id="certificate-file"
+          accept=".pdf,.png,.jpg,.jpeg"
+        >
+      </label>
+
+      <!-- Botões -->
+      <div class="record-form-actions">
+
+        <button
+          type="button"
+          class="secondary-button"
+          id="certificate-cancel"
+        >
+          Cancelar
+        </button>
+
+        <button
+          type="submit"
+          class="primary-button"
+        >
+          Adicionar Certificado
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+<!-- =====================================================
+     MODAL — ADICIONAR COMPETÊNCIA
+     ===================================================== -->
+<div class="modal-overlay" id="competency-modal">
+  <div class="modal record-modal">
+
+    <button class="modal-close" id="competency-modal-close" type="button">
+      ×
+    </button>
+
+    <div class="modal-icon">✦</div>
+
+    <h2>Adicionar Competência</h2>
+
+    <form id="competency-form" class="record-form">
+
+      <label>
+        Nome da competência
+        <input
+          type="text"
+          id="competency-name"
+          placeholder="Ex: Comunicação"
+          required
+        >
+      </label>
+
+      <label>
+        Nível de domínio
+        <select id="competency-level" required>
+          <option value="">Selecione o nível</option>
+          <option value="Iniciante">Iniciante</option>
+          <option value="Básico">Básico</option>
+          <option value="Intermediário">Intermediário</option>
+          <option value="Avançado">Avançado</option>
+        </select>
+      </label>
+
+      <label>
+        Descrição
+        <textarea
+          id="competency-description"
+          rows="3"
+          placeholder="Ex: Facilidade para trabalhar em equipe e apresentar ideias."
+        ></textarea>
+      </label>
+
+      <div class="record-form-actions">
+
+        <button
+          type="button"
+          class="secondary-button"
+          id="competency-cancel"
+        >
+          Cancelar
+        </button>
+
+        <button
+          type="submit"
+          class="primary-button"
+        >
+          Adicionar Competência
+        </button>
+
+      </div>
+
+    </form>
+  </div>
+</div>
+  <!-- Scripts compartilhados da plataforma -->
+  <!-- 1. Importa a biblioteca do Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <script src="../../shared/js/database/supabase-client.js"></script>
+  <script src="../../shared/js/database/auth-service.js"></script>
+  <script src="../../shared/js/database/data-service.js"></script>
+  <script src="../../shared/js/progression.js"></script>
+  <script src="../../shared/js/avatar-service.js"></script>
+  <script src="../../shared/js/accessibility.js"></script>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script src="./aprendiz.js"></script>
+  
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STOA | Ferramentas do dia a dia e Comunicação</title>
+  <link rel="stylesheet" href="./trilha.css">
+</head>
+<body>
+  <a class="skip-link" href="#conteudo-trilha">Pular para o conteúdo principal</a>
+
+  <header class="trail-header">
+    <div class="trail-header-inner">
+      <a class="brand" href="../aprendiz/aprendiz.html" aria-label="Voltar para a área do aprendiz">
+        <img src="../../assets/img/stoa-logo.jpeg" alt="STOA">
+        <span>STOA</span>
+      </a>
+
+      <a class="back-link" href="../aprendiz/aprendiz.html">← Voltar para a área do aprendiz</a>
+    </div>
+  </header>
+
+  <main id="conteudo-trilha" class="trail-main" tabindex="-1">
+    <section class="trail-hero">
+      <div class="trail-copy">
+        <span class="eyebrow">TRILHA EM ANDAMENTO</span>
+        <h1>Ferramentas do dia a dia <span>e Comunicação</span></h1>
+        <p>
+          Três projetos conectados para praticar organização, uso crítico de IA,
+          comunicação profissional e tomada de decisão em situações próximas do trabalho.
+        </p>
+      </div>
+
+      <div class="trail-progress-card" aria-label="Progresso da trilha de mini projetos">
+        <div>
+          <span>PROGRESSO DA TRILHA</span>
+          <strong id="trail-progress-text">0 de 3 concluídos</strong>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <div id="trail-progress-fill"></div>
+        </div>
+        <small id="trail-progress-hint">Comece pelo Mini Projeto Técnico.</small>
+      </div>
+    </section>
+
+    <section class="trail-flow" aria-labelledby="titulo-projetos-trilha">
+      <div class="section-title-row">
+        <div>
+          <span class="eyebrow">ESTRUTURAR → COMUNICAR → INTEGRAR</span>
+          <h2 id="titulo-projetos-trilha">Sua sequência de projetos</h2>
+        </div>
+        <p>Uma etapa libera a próxima.</p>
+      </div>
+
+      <div id="trail-stage-list" class="stage-list"></div>
+    </section>
+
+    <section class="trail-reward" aria-labelledby="titulo-recompensas">
+      <div class="reward-icon" aria-hidden="true">✦</div>
+      <div>
+        <span class="eyebrow">RECOMPENSAS DO AVATAR</span>
+        <h2 id="titulo-recompensas">Seu avanço também aparece no seu avatar.</h2>
+        <p id="avatar-reward-text">
+          Concluir os projetos libera fundos e acessórios no personalizador.
+        </p>
+      </div>
+      <a href="../avatar/avatar.html">Ver meu avatar →</a>
+    </section>
+  </main>
+
+  <script src="../../shared/js/progression.js"></script>
+  <script src="./trilha.js"></script>
+</body>
+</html>

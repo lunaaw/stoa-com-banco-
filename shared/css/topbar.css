@@ -1,0 +1,290 @@
+:root {
+  /* ================= TEMAS CLARO (PADRÃO) ================= */
+  --primary: #0066ff;
+  --primary-hover: #0052cc;
+  --bg-color: #f8fafc;        /* Fundo geral da página */
+  --topbar-bg: #ffffff;      /* Fundo do TopBar */
+  --card-bg: #ffffff;        /* Fundo dos Cards e Tabelas */
+  --text-main: #0f172a;      /* Títulos e textos principais */
+  --text-muted: #64748b;     /* Textos secundários e ícones */
+  --border-color: #e2e8f0;   /* Bordas de cards e divisores */
+  --hover-bg: #f1f5f9;       /* Hover de botões e itens */
+  --dropdown-bg: #ffffff;    /* Fundo do Menu Dropdown */
+  --table-header-bg: #f8fafc;/* Fundo do cabeçalho da tabela */
+  
+  /* Cores dos Filetes Métricos */
+  --accent-blue: #0066ff;
+  --accent-purple: #8033ff;
+  --accent-amber: #f59e0b;
+}
+
+/* ================= TEMA ESCURO ================= */
+[data-theme="dark"] {
+  --bg-color: #121215;        /* Fundo escuro profundo */
+  --topbar-bg: #1e1e24;      /* TopBar escuro */
+  --card-bg: #1e1e24;        /* Cards e Tabela escuros */
+  --text-main: #f1f5f9;      /* Texto principal claro */
+  --text-muted: #a0a5b5;     /* Texto secundário em cinza suave */
+  --border-color: #2d2d38;   /* Bordas escuras discretas */
+  --hover-bg: #2a2a35;       /* Hover em tom escuro */
+  --dropdown-bg: #1e1e24;
+  --table-header-bg: #18181c;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+}
+
+/* Topbar Header */
+.topbar {
+  width: 100%;
+  height: 70px;
+  background-color: var(--topbar-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+}
+
+.brand-icon {
+  width: 38px;
+  height: 38px;
+  background: var(--primary);
+  color: #ffffff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.topbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  height: 100%;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  height: 100%;
+  padding: 0 4px;
+  transition: color 0.2s ease, transform 0.15s ease;
+  position: relative;
+}
+
+.nav-item i {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2;
+  transition: stroke 0.2s ease;
+}
+
+.nav-item:hover {
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.nav-item:hover i {
+  stroke: var(--primary);
+}
+
+.nav-item.active {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.nav-item.active i {
+  stroke: var(--primary);
+}
+
+.nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--primary);
+  border-radius: 3px 3px 0 0;
+}
+
+/* Perfil e Dropdown */
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+.company-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 12px;
+  transition: background-color 0.2s ease;
+  background: transparent;
+  border: none;
+}
+
+.company-profile:hover {
+  background-color: var(--hover-bg);
+}
+
+.company-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.05rem;
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.company-profile:hover .company-avatar {
+  border-color: var(--primary);
+  transform: scale(1.05);
+}
+
+.company-profile i {
+  color: var(--text-muted);
+  width: 18px;
+  height: 18px;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 260px;
+  background-color: var(--dropdown-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 12px;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 1100;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.profile-dropdown.show {
+  display: flex;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-header {
+  padding: 8px 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 4px;
+}
+
+.mobile-nav-section {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  text-decoration: none;
+  color: var(--text-main);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  text-align: left;
+}
+
+.dropdown-item i {
+  width: 18px;
+  height: 18px;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: var(--hover-bg);
+  color: var(--primary);
+}
+
+.dropdown-item:hover i {
+  color: var(--primary);
+}
+
+.dropdown-item.active {
+  background-color: var(--hover-bg);
+  color: var(--primary);
+}
+
+.dropdown-item.active i {
+  color: var(--primary);
+}
+
+@media (max-width: 768px) {
+  .topbar { padding: 0 16px; height: 64px; }
+  .topbar-nav { display: none; }
+  .mobile-nav-section { display: flex; }
+  .topbar-brand span { font-size: 1.1rem; }
+}

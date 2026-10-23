@@ -1,0 +1,983 @@
+/* =========================================================
+   VARIÁVEIS DE TEMA
+   ========================================================= */
+
+:root {
+    --primary: #7b3cff;
+    --primary-hover: #6930e7;
+    --primary-light: #efe6ff;
+    --primary-light-hover: #e4d5ff;
+
+    --bg-color: #eef1fb;
+
+    --text-strong: #24315c;
+    --text-soft: #7d86a5;
+
+    --border-soft: rgba(132, 145, 186, 0.22);
+
+    --card-shadow:
+        0 28px 70px rgba(40, 45, 80, 0.18);
+}
+
+
+/* =========================================================
+   TEMA EMPRESA
+   ========================================================= */
+
+body.theme-empresa {
+    --primary: #1d6eff;
+    --primary-hover: #125ce0;
+    --primary-light: #e8f1ff;
+    --primary-light-hover: #d8e8ff;
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    font-family:
+        "Segoe UI",
+        -apple-system,
+        BlinkMacSystemFont,
+        Roboto,
+        sans-serif;
+}
+
+
+/* =========================================================
+   PÁGINA
+   ========================================================= */
+
+body {
+    position: relative;
+
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 28px;
+
+    background-color: var(--bg-color);
+
+    overflow-x: hidden;
+
+    transition:
+        background-color 0.3s ease;
+}
+
+
+/* =========================================================
+   FUNDO COM FOTO
+   ========================================================= */
+
+body::before {
+    content: "";
+
+    position: fixed;
+
+    /*
+        Um pequeno excesso evita bordas causadas
+        pelo desfoque sem ampliar demais a imagem.
+    */
+    inset: -5px;
+
+    background-image:
+        linear-gradient(
+            rgba(237, 239, 251, 0.58),
+            rgba(237, 239, 251, 0.58)
+        ),
+        url("../../assets/img/login-bg.png");
+
+    background-size: cover;
+
+    /*
+        CORREÇÃO DO ENQUADRAMENTO:
+
+        Em vez de centralizar verticalmente a foto,
+        priorizamos a região superior para que
+        os jovens de cima continuem visíveis.
+    */
+    background-position: center 8%;
+
+    background-repeat: no-repeat;
+
+    filter: blur(2.5px);
+
+    z-index: -3;
+}
+
+
+/* =========================================================
+   LINHAS DECORATIVAS
+   ========================================================= */
+
+body::after {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 0% 72%,
+            transparent 0 126px,
+            rgba(255, 255, 255, 0.72) 127px 129px,
+            transparent 130px
+        ),
+
+        radial-gradient(
+            circle at 0% 72%,
+            transparent 0 186px,
+            rgba(255, 255, 255, 0.56) 187px 189px,
+            transparent 190px
+        ),
+
+        radial-gradient(
+            circle at 16% 0%,
+            transparent 0 150px,
+            rgba(255, 255, 255, 0.58) 151px 153px,
+            transparent 154px
+        ),
+
+        radial-gradient(
+            circle at 100% 28%,
+            transparent 0 146px,
+            rgba(255, 255, 255, 0.62) 147px 149px,
+            transparent 150px
+        ),
+
+        radial-gradient(
+            circle at 100% 28%,
+            transparent 0 222px,
+            rgba(255, 255, 255, 0.48) 223px 225px,
+            transparent 226px
+        ),
+
+        radial-gradient(
+            circle at 100% 100%,
+            transparent 0 178px,
+            rgba(255, 255, 255, 0.50) 179px 181px,
+            transparent 182px
+        );
+
+    pointer-events: none;
+
+    z-index: -2;
+}
+
+
+/* =========================================================
+   CONTEÚDO PRINCIPAL
+   ========================================================= */
+
+main {
+    width: 100%;
+    max-width: 700px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 22px;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+header.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-logo {
+    max-width: 220px;
+    max-height: 82px;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(
+            0 8px 24px rgba(24, 35, 95, 0.08)
+        );
+}
+
+
+/* =========================================================
+   CARD DE LOGIN
+   ========================================================= */
+
+article.login-card {
+    position: relative;
+
+    width: 100%;
+    max-width: 640px;
+
+    padding:
+        34px
+        52px
+        40px;
+
+    background:
+        rgba(255, 255, 255, 0.96);
+
+    backdrop-filter:
+        blur(8px);
+
+    -webkit-backdrop-filter:
+        blur(8px);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.60);
+
+    border-radius: 28px;
+
+    box-shadow:
+        var(--card-shadow);
+}
+
+
+/* =========================================================
+   ELEMENTOS SOMENTE PARA ACESSIBILIDADE
+   ========================================================= */
+
+.sr-only {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    padding: 0;
+    margin: -1px;
+
+    overflow: hidden;
+
+    clip:
+        rect(0, 0, 0, 0);
+
+    white-space: nowrap;
+
+    border: 0;
+}
+
+
+/* =========================================================
+   ABAS
+   ========================================================= */
+
+nav.tabs-nav {
+    margin-bottom: 28px;
+
+    border-bottom:
+        2px solid rgba(123, 60, 255, 0.10);
+}
+
+.tabs-header {
+    display: flex;
+
+    gap: 40px;
+
+    list-style: none;
+}
+
+.tab-btn {
+    position: relative;
+
+    padding-bottom: 14px;
+
+    background: none;
+
+    border: none;
+
+    color: #4f5e83;
+
+    font-size: 1rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease;
+}
+
+.tab-btn.active {
+    color: var(--primary);
+}
+
+.tab-btn.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -2px;
+
+    width: 100%;
+    height: 5px;
+
+    background-color:
+        var(--primary);
+
+    border-radius: 999px;
+
+    transition:
+        background-color 0.3s ease;
+}
+
+
+/* =========================================================
+   TEXTOS
+   ========================================================= */
+
+.subtitle {
+    margin-bottom: 26px;
+
+    color: var(--text-soft);
+
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.section-header-title {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 8px;
+
+    color: var(--text-strong);
+
+    font-size: 1.35rem;
+    font-weight: 700;
+}
+
+.section-header-title svg {
+    flex-shrink: 0;
+
+    color: var(--primary);
+
+    transition:
+        color 0.3s ease;
+}
+
+
+/* =========================================================
+   CONTROLE DAS TELAS
+   ========================================================= */
+
+.view-section,
+.step,
+.emp-subview {
+    display: none;
+}
+
+.view-section.active,
+.step.active,
+.emp-subview.active {
+    display: block;
+}
+
+
+/* =========================================================
+   CAMPOS
+   ========================================================= */
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 18px;
+}
+
+.input-group {
+    position: relative;
+
+    width: 100%;
+}
+
+.custom-input {
+    width: 100%;
+    height: 76px;
+
+    padding:
+        0 22px;
+
+    background:
+        rgba(255, 255, 255, 0.94);
+
+    border:
+        2px solid
+        rgba(143, 152, 186, 0.34);
+
+    border-radius: 18px;
+
+    color: #39466f;
+
+    font-size: 1rem;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.custom-input::placeholder {
+    color: transparent;
+}
+
+.custom-input.has-icon {
+    padding-right: 58px;
+}
+
+.input-label {
+    position: absolute;
+
+    left: 18px;
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    padding:
+        0 6px;
+
+    background:
+        transparent;
+
+    color: #8d96b2;
+
+    font-size: 1rem;
+
+    pointer-events: none;
+
+    transition:
+        all 0.2s
+        cubic-bezier(
+            0.4,
+            0,
+            0.2,
+            1
+        );
+}
+
+.custom-input:focus {
+    border-color:
+        var(--primary);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(123, 60, 255, 0.09);
+}
+
+.custom-input:focus ~ .input-label,
+.custom-input:not(:placeholder-shown) ~ .input-label {
+    top: 0;
+
+    background:
+        rgba(255, 255, 255, 0.92);
+
+    color:
+        var(--primary);
+
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.custom-input:not(:focus):not(:placeholder-shown)
+~ .input-label {
+    color: #6f7897;
+}
+
+
+/* =========================================================
+   ERROS
+   ========================================================= */
+
+.input-wrapper.error
+.custom-input {
+    border-color:
+        #ff5268 !important;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(255, 82, 104, 0.08);
+}
+
+.input-wrapper.error
+.input-label {
+    color:
+        #ff5268 !important;
+}
+
+.error-message {
+    display: none;
+
+    margin-top: 8px;
+
+    padding:
+        10px 14px;
+
+    background-color:
+        #ffe8ec;
+
+    border-radius: 12px;
+
+    color:
+        #df2948;
+
+    font-size: 0.86rem;
+    line-height: 1.4;
+
+    animation:
+        fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+.input-wrapper.error
+.error-message {
+    display: block;
+}
+
+
+/* =========================================================
+   MOSTRAR / OCULTAR SENHA
+   ========================================================= */
+
+.toggle-password {
+    position: absolute;
+
+    right: 18px;
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 4px;
+
+    background: none;
+
+    border: none;
+
+    color: #9ca3af;
+
+    cursor: pointer;
+
+    z-index: 2;
+}
+
+.toggle-password:hover {
+    color:
+        var(--primary);
+}
+
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+.support-link-container {
+    margin-top: 2px;
+    margin-bottom: 26px;
+}
+
+.support-link-container.right {
+    text-align: right;
+}
+
+.support-link {
+    color:
+        var(--primary);
+
+    font-size: 0.92rem;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        opacity 0.2s ease;
+}
+
+.support-link:hover {
+    text-decoration: underline;
+
+    opacity: 0.85;
+}
+
+
+/* =========================================================
+   BOTÃO PRINCIPAL
+   ========================================================= */
+
+.btn-submit {
+    width: 100%;
+    height: 58px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7a35ff 0%,
+            #8f46ff 100%
+        );
+
+    border: none;
+
+    border-radius: 999px;
+
+    box-shadow:
+        0 14px 32px
+        rgba(123, 60, 255, 0.22);
+
+    color: #ffffff;
+
+    font-size: 1rem;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        filter 0.2s ease,
+        background 0.2s ease;
+}
+
+body.theme-empresa
+.btn-submit {
+    background:
+        linear-gradient(
+            90deg,
+            #1d6eff 0%,
+            #3c8bff 100%
+        );
+
+    box-shadow:
+        0 14px 32px
+        rgba(29, 110, 255, 0.20);
+}
+
+.btn-submit:hover {
+    filter:
+        brightness(1.03);
+
+    transform:
+        translateY(-1px);
+}
+
+.btn-submit:disabled {
+    opacity: 0.8;
+
+    cursor: wait;
+}
+
+
+/* =========================================================
+   GRUPO DE BOTÕES
+   ========================================================= */
+
+.btn-group {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 16px;
+}
+
+.btn-secondary {
+    height: 58px;
+
+    background-color:
+        var(--primary-light);
+
+    border: none;
+
+    border-radius: 999px;
+
+    color:
+        var(--primary);
+
+    font-size: 1rem;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.15s ease;
+}
+
+.btn-secondary:hover {
+    background-color:
+        var(--primary-light-hover);
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* =========================================================
+   OPÇÕES DA ÁREA DE EMPRESAS
+   ========================================================= */
+
+.options-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 14px;
+}
+
+.option-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding:
+        18px 20px;
+
+    background-color:
+        rgba(247, 248, 252, 0.96);
+
+    border:
+        1px solid
+        rgba(147, 160, 198, 0.18);
+
+    border-radius: 16px;
+
+    color: #465170;
+
+    font-size: 0.95rem;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease;
+}
+
+.option-item:hover {
+    background-color:
+        #ffffff;
+
+    border-color:
+        rgba(123, 60, 255, 0.24);
+
+    transform:
+        translateY(-1px);
+}
+
+.option-content {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+}
+
+.option-icon,
+.option-arrow {
+    display: flex;
+    align-items: center;
+
+    color:
+        var(--primary);
+}
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal-overlay {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    background:
+        rgba(42, 48, 78, 0.42);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.3s ease;
+
+    z-index: 1000;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+.modal-card {
+    width: 100%;
+    max-width: 420px;
+
+    padding: 28px;
+
+    background:
+        #ffffff;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 18px 50px
+        rgba(30, 36, 62, 0.18);
+
+    text-align: center;
+}
+
+.modal-title {
+    margin-bottom: 12px;
+
+    color:
+        var(--text-strong);
+
+    font-size: 1.12rem;
+    font-weight: 800;
+}
+
+.modal-text {
+    margin-bottom: 20px;
+
+    color:
+        #65708f;
+
+    font-size: 0.93rem;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 720px) {
+
+    body {
+        padding:
+            20px 16px;
+    }
+
+    /*
+        Em telas menores mantemos
+        prioridade na parte superior.
+    */
+    body::before {
+        background-position:
+            center 6%;
+    }
+
+    body::after {
+        background:
+            radial-gradient(
+                circle at 0% 80%,
+                transparent 0 84px,
+                rgba(255, 255, 255, 0.66) 85px 87px,
+                transparent 88px
+            ),
+
+            radial-gradient(
+                circle at 100% 22%,
+                transparent 0 96px,
+                rgba(255, 255, 255, 0.60) 97px 99px,
+                transparent 100px
+            ),
+
+            radial-gradient(
+                circle at 100% 100%,
+                transparent 0 112px,
+                rgba(255, 255, 255, 0.50) 113px 115px,
+                transparent 116px
+            );
+    }
+
+    main {
+        max-width: 100%;
+
+        gap: 18px;
+    }
+
+    .custom-logo {
+        max-width: 180px;
+        max-height: 66px;
+    }
+
+    article.login-card {
+        max-width: 100%;
+
+        padding:
+            28px 22px 30px;
+
+        border-radius: 24px;
+    }
+
+    .tabs-header {
+        flex-wrap: wrap;
+
+        gap: 22px;
+    }
+
+    .subtitle {
+        font-size: 0.96rem;
+    }
+
+    .custom-input {
+        height: 68px;
+    }
+
+    .btn-group {
+        grid-template-columns:
+            1fr;
+    }
+}

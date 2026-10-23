@@ -1,0 +1,346 @@
+/* ======================================================
+   ACESSIBILIDADE COMPARTILHÁVEL DA STOA
+   ====================================================== */
+
+:root {
+    --stoa-font-size: 100%;
+    --vlibras-btn-focus-visible-outline: 3px solid #1b173f;
+    --vlibras-btn-focus-visible-shadow: 0 0 0 4px rgba(95, 90, 162, 0.35);
+}
+
+html {
+    font-size: var(--stoa-font-size);
+}
+
+.pular-conteudo {
+    position: absolute;
+    left: 18px;
+    top: -100px;
+    z-index: 9999;
+    background: #1b173f;
+    color: #ffffff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.pular-conteudo:focus {
+    top: 12px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+    outline: 3px solid #5f5aa2;
+    outline-offset: 3px;
+}
+
+.painel-acessibilidade {
+    margin-top: 20px;
+    border: 1px solid rgba(76, 73, 132, 0.24);
+    border-radius: 14px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.94);
+}
+
+.painel-acessibilidade[hidden] {
+    display: none;
+}
+
+.painel-acessibilidade-topo {
+    display: flex;
+    gap: 18px;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 18px;
+}
+
+.painel-acessibilidade-topo h2 {
+    margin: 0 0 4px;
+    font-size: 1.25rem;
+}
+
+.painel-acessibilidade-topo p,
+.recurso-acessibilidade p {
+    margin: 0;
+    color: var(--stoa-muted);
+}
+
+.botao-fechar-painel {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 6px 12px;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.recursos-acessibilidade {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.recurso-acessibilidade {
+    border: 1px solid var(--stoa-border);
+    border-radius: 12px;
+    padding: 16px;
+    background: #ffffff;
+}
+
+.recurso-linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.recurso-titulo {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.controle-fonte {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.controle-fonte button {
+    min-width: 52px;
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+.indicador-fonte {
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: 700;
+    color: var(--stoa-primary);
+}
+
+.status-acessibilidade {
+    min-height: 1.5em;
+    margin: 14px 0 0;
+    color: var(--stoa-primary);
+    font-weight: 700;
+}
+
+/* Alto contraste propositalmente remove transparências e blur. */
+html.stoa-alto-contraste body {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+html.stoa-alto-contraste .cabecalho,
+html.stoa-alto-contraste .trilha,
+html.stoa-alto-contraste .conteudo-etapa,
+html.stoa-alto-contraste .navegacao,
+html.stoa-alto-contraste .bloco,
+html.stoa-alto-contraste .resumo-final,
+html.stoa-alto-contraste .arquivo-destaque,
+html.stoa-alto-contraste .gravador,
+html.stoa-alto-contraste .chat-historico,
+html.stoa-alto-contraste .transcricao,
+html.stoa-alto-contraste .painel-acessibilidade,
+html.stoa-alto-contraste .recurso-acessibilidade {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+html.stoa-alto-contraste .cabecalho-projeto::before {
+    display: none;
+}
+
+html.stoa-alto-contraste .conteudo-etapa::before,
+html.stoa-alto-contraste .conteudo-etapa::after {
+    display: none !important;
+}
+
+html.stoa-alto-contraste .etapa-marcador {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: none !important;
+}
+
+html.stoa-alto-contraste .botao-etapa.atual .etapa-marcador {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+html.stoa-alto-contraste .botao-etapa::before,
+html.stoa-alto-contraste .botao-etapa::after {
+    background: #ffffff !important;
+}
+
+html.stoa-alto-contraste .botao-etapa.atual .etapa-nome::after {
+    background: #ffff00 !important;
+}
+
+html.stoa-alto-contraste .mensagem-usuario,
+html.stoa-alto-contraste .mensagem-assistente,
+html.stoa-alto-contraste .nota-nivel {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+html.stoa-alto-contraste h1,
+html.stoa-alto-contraste h2,
+html.stoa-alto-contraste h3,
+html.stoa-alto-contraste h4,
+html.stoa-alto-contraste h5,
+html.stoa-alto-contraste h6,
+html.stoa-alto-contraste strong,
+html.stoa-alto-contraste .etapa-nome,
+html.stoa-alto-contraste p,
+html.stoa-alto-contraste label,
+html.stoa-alto-contraste li,
+html.stoa-alto-contraste .rotulo-projeto,
+html.stoa-alto-contraste .recurso-titulo,
+html.stoa-alto-contraste .indicador-fonte,
+html.stoa-alto-contraste .status-acessibilidade,
+html.stoa-alto-contraste .painel-acessibilidade-topo p,
+html.stoa-alto-contraste .recurso-acessibilidade p {
+    color: #ffffff !important;
+}
+
+html.stoa-alto-contraste button,
+html.stoa-alto-contraste a.botao-link,
+html.stoa-alto-contraste input,
+html.stoa-alto-contraste textarea,
+html.stoa-alto-contraste select {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+}
+
+html.stoa-alto-contraste button:hover:not(:disabled),
+html.stoa-alto-contraste a.botao-link:hover {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+html.stoa-alto-contraste .botao-etapa.atual {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+html.stoa-alto-contraste .botao-etapa.atual .etapa-nome,
+html.stoa-alto-contraste .botao-etapa.atual strong {
+    color: #000000 !important;
+}
+
+html.stoa-alto-contraste .botao-etapa.concluida:not(.atual) {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+html.stoa-alto-contraste .aviso {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffff00 !important;
+    border-left-width: 6px !important;
+}
+
+html.stoa-alto-contraste .mensagem-validacao,
+html.stoa-alto-contraste .mensagem-chat strong {
+    color: #ffff00 !important;
+}
+
+html.stoa-alto-contraste button:focus-visible,
+html.stoa-alto-contraste a:focus-visible,
+html.stoa-alto-contraste input:focus-visible,
+html.stoa-alto-contraste textarea:focus-visible,
+html.stoa-alto-contraste select:focus-visible,
+html.stoa-alto-contraste [tabindex]:focus-visible {
+    outline: 4px solid #ffff00 !important;
+    outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+    .recursos-acessibilidade {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+
+
+/* ======================================================
+   ACESSIBILIDADE DO MODAL DE FINALIZAÇÃO
+   ====================================================== */
+
+html.stoa-alto-contraste .modal-stoa {
+    border: 2px solid #ffffff !important;
+    background: #000000 !important;
+    box-shadow: none !important;
+}
+
+html.stoa-alto-contraste .modal-stoa::backdrop {
+    background: rgba(0, 0, 0, 0.86) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+html.stoa-alto-contraste .modal-stoa-conteudo {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+html.stoa-alto-contraste .modal-stoa h2,
+html.stoa-alto-contraste .modal-stoa p,
+html.stoa-alto-contraste .modal-stoa-rotulo,
+html.stoa-alto-contraste .modal-stoa-aviso {
+    color: #ffffff !important;
+}
+
+html.stoa-alto-contraste .modal-stoa-aviso {
+    background: #000000 !important;
+    border: 2px solid #ffff00 !important;
+    border-left-width: 6px !important;
+}
+
+html.stoa-alto-contraste .botao-modal-secundario {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+}
+
+html.stoa-alto-contraste .botao-modal-principal {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #ffffff !important;
+}
+
+html.stoa-alto-contraste .botao-modal-secundario:hover:not(:disabled) {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+html.stoa-alto-contraste .botao-modal-principal:hover:not(:disabled) {
+    background: #ffff00 !important;
+    color: #000000 !important;
+    border-color: #ffff00 !important;
+}
+

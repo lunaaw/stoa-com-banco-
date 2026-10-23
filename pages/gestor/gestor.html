@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Área demonstrativa do gestor na plataforma STOA.">
+  <title>STOA | Área do Gestor</title>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="../../shared/css/topbar.css">
+  <link rel="stylesheet" href="./gestor.css">
+</head>
+<body>
+  <a class="skip-link" href="#conteudo-principal">Pular para o conteúdo principal</a>
+
+  <header class="topbar">
+    <a href="#" class="topbar-brand" title="STOA">
+      <div class="brand-icon">S</div>
+      <span>STOA</span>
+    </a>
+
+    <nav class="topbar-nav" aria-label="Navegação do gestor">
+      <button type="button" class="nav-item active" data-view="dashboard">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </button>
+
+      <button type="button" class="nav-item" data-view="feedbacks">
+        <i data-lucide="message-square-text"></i>
+        <span>Feedbacks</span>
+      </button>
+
+      <button type="button" class="nav-item" data-view="projetos">
+        <i data-lucide="folder-kanban"></i>
+        <span>Projetos</span>
+      </button>
+    </nav>
+
+    <div class="topbar-actions">
+      <button type="button" class="company-profile" id="profileMenuBtn" title="Menu do Gestor" aria-label="Abrir menu do gestor">
+        <div class="company-avatar">G</div>
+        <i data-lucide="chevron-down"></i>
+      </button>
+
+      <div class="profile-dropdown" id="profileDropdown">
+        <div class="mobile-nav-section">
+          <div class="dropdown-header">Navegação</div>
+
+          <button type="button" class="dropdown-item gestor-mobile-nav" data-view="dashboard">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Dashboard</span>
+          </button>
+
+          <button type="button" class="dropdown-item gestor-mobile-nav" data-view="feedbacks">
+            <i data-lucide="message-square-text"></i>
+            <span>Feedbacks</span>
+          </button>
+
+          <button type="button" class="dropdown-item gestor-mobile-nav" data-view="projetos">
+            <i data-lucide="folder-kanban"></i>
+            <span>Projetos</span>
+          </button>
+        </div>
+
+        <div class="dropdown-header">Gestor</div>
+        <div class="gestor-profile-summary">
+          <strong>Gestor demonstrativo</strong>
+          <span>TOTVS · Desenvolvimento de Pessoas</span>
+        </div>
+
+        <div class="dropdown-header">Preferências</div>
+        <button type="button" class="dropdown-item" id="themeToggleBtn">
+          <i data-lucide="moon" id="themeIcon"></i>
+          <span id="themeText">Tema Escuro</span>
+        </button>
+
+        <a href="../login/login.html" class="dropdown-item">
+          <i data-lucide="log-out"></i>
+          <span>Sair</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-container" id="conteudo-principal" tabindex="-1">
+    <section class="gestor-view active-view" id="view-dashboard" data-view-panel="dashboard">
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">Visão do gestor</span>
+          <h1>Dashboard dos jovens</h1>
+          <p>Acompanhe o desenvolvimento dos aprendizes sob sua responsabilidade.</p>
+        </div>
+        <span class="demo-badge">Demonstração</span>
+      </div>
+
+      <section class="metrics-grid" aria-label="Resumo dos aprendizes">
+        <article class="metric-card card-blue">
+          <div>
+            <span class="metric-label">Jovens acompanhados</span>
+            <strong>4</strong>
+            <small>sob sua responsabilidade</small>
+          </div>
+          <div class="metric-icon-box"><i data-lucide="users"></i></div>
+        </article>
+
+        <article class="metric-card card-purple">
+          <div>
+            <span class="metric-label">Projetos em andamento</span>
+            <strong>1</strong>
+            <small>atividade em execução</small>
+          </div>
+          <div class="metric-icon-box"><i data-lucide="circle-play"></i></div>
+        </article>
+
+        <article class="metric-card card-green">
+          <div>
+            <span class="metric-label">Projetos concluídos</span>
+            <strong>8</strong>
+            <small>entregas registradas</small>
+          </div>
+          <div class="metric-icon-box"><i data-lucide="circle-check-big"></i></div>
+        </article>
+
+        <article class="metric-card card-amber">
+          <div>
+            <span class="metric-label">Feedbacks disponíveis</span>
+            <strong>4</strong>
+            <small>avaliações concluídas</small>
+          </div>
+          <div class="metric-icon-box"><i data-lucide="messages-square"></i></div>
+        </article>
+      </section>
+
+      <section class="content-card">
+        <div class="section-heading">
+          <div>
+            <h2>Meus aprendizes</h2>
+            <p>Visão rápida de trilha, progresso e situação atual.</p>
+          </div>
+
+          <label class="search-box">
+            <i data-lucide="search"></i>
+            <span class="sr-only">Buscar jovem</span>
+            <input type="search" id="dashboardSearch" placeholder="Buscar jovem...">
+          </label>
+        </div>
+
+        <div class="young-grid" id="dashboardYoungGrid"></div>
+      </section>
+    </section>
+
+    <section class="gestor-view" id="view-feedbacks" data-view-panel="feedbacks" hidden>
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">Acompanhamento formativo</span>
+          <h1>Feedbacks</h1>
+          <p>Consulte as avaliações dos projetos concluídos pelos seus aprendizes.</p>
+        </div>
+      </div>
+
+      <div class="feedback-toolbar">
+        <div class="feedback-intro">
+          <i data-lucide="sparkles"></i>
+          <div>
+            <strong>Feedbacks baseados nas evidências dos projetos</strong>
+            <span>O conteúdo completo é exibido somente ao abrir uma avaliação.</span>
+          </div>
+        </div>
+
+        <select id="feedbackFilter" aria-label="Filtrar feedbacks">
+          <option value="todos">Todos os feedbacks</option>
+          <option value="disponivel">Disponíveis</option>
+          <option value="pendente">Pendentes</option>
+        </select>
+      </div>
+
+      <div class="feedback-grid" id="feedbackGrid"></div>
+    </section>
+
+    <section class="gestor-view" id="view-projetos" data-view-panel="projetos" hidden>
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">Planejamento de desenvolvimento</span>
+          <h1>Projetos dos aprendizes</h1>
+          <p>Selecione as trilhas e projetos que ficarão disponíveis para cada jovem.</p>
+        </div>
+      </div>
+
+      <div class="assignment-grid" id="assignmentGrid"></div>
+
+      <div class="assignment-actions">
+        <span id="assignmentStatus" role="status" aria-live="polite"></span>
+        <button type="button" class="primary-action" id="saveAssignments">
+          <i data-lucide="save"></i>
+          Salvar atribuições
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="feedback-dialog" id="feedbackDialog" aria-labelledby="feedbackDialogTitle">
+    <div class="dialog-shell">
+      <button type="button" class="dialog-close" id="feedbackDialogClose" aria-label="Fechar feedback">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="dialog-person">
+        <img id="feedbackDialogAvatar" alt="">
+        <div>
+          <span class="eyebrow" id="feedbackDialogProject"></span>
+          <h2 id="feedbackDialogTitle"></h2>
+          <p id="feedbackDialogMeta"></p>
+        </div>
+      </div>
+
+      <section class="feedback-general">
+        <div class="feedback-title-row">
+          <i data-lucide="message-circle-more"></i>
+          <h3>Feedback geral</h3>
+        </div>
+        <p id="feedbackDialogGeneral"></p>
+      </section>
+
+      <section class="feedback-report" id="feedbackDialogReportSection" hidden>
+        <div class="feedback-report-heading">
+          <div>
+            <span class="eyebrow">Avaliação STOA</span>
+            <h3>Desempenho por dimensão</h3>
+          </div>
+          <span class="feedback-report-badge">Projeto concluído</span>
+        </div>
+
+        <div class="feedback-dimensions" id="feedbackDialogDimensions"></div>
+      </section>
+
+      <div class="feedback-detail-grid">
+        <section>
+          <h3><i data-lucide="badge-check"></i> Pontos fortes</h3>
+          <ul id="feedbackDialogStrengths"></ul>
+        </section>
+
+        <section>
+          <h3><i data-lucide="trending-up"></i> Oportunidades de melhoria</h3>
+          <ul id="feedbackDialogImprovements"></ul>
+        </section>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="../../shared/js/topbar.js"></script>
+  <script src="./gestor.js"></script>
+</body>
+</html>
