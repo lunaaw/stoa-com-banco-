@@ -27,8 +27,16 @@ function backToEmpresaMenu() {
     document.getElementById('emp-menu').classList.add('active');
 }
 
-// Redirecionamento para cadastro.html
+// MVP limitado à TOTVS: o cadastro de novas empresas está indisponível.
 function openEmpresaCadastroNotice() {
+    const title = document.getElementById('modalTitle');
+    const description = document.getElementById('modalText');
+    if (title && description) {
+        title.textContent = 'Cadastro empresarial indisponível';
+        description.textContent = 'Nesta versão de demonstração, a STOA atende somente à empresa TOTVS. Novos cadastros empresariais não estão disponíveis. Se você já possui uma conta, utilize Login Empresa.';
+        document.getElementById('instructionModal')?.classList.add('active');
+        return;
+    }
     window.location.href = '../cadastro/cadastro.html';
 }
 
@@ -110,71 +118,67 @@ function closeModal() {
     document.getElementById('instructionModal').classList.remove('active');
 }
 
-// --- SUBMISSÃO PARA O SUPABASE ---
+// --- AUTENTICAÇÃO REAL + ROTEAMENTO PELO PERFIL VALIDADO NO BANCO ---
+const STOA_ROUTES = Object.freeze({
+    aprendiz: '../aprendiz/aprendiz.html',
+    gestor: '../gestor/gestor.html',
+    empresa: '../cadastro-equipe/cadastro_equipe.html',
+    admin: '../cadastro-equipe/cadastro_equipe.html',
+    equipe: '../gestor/gestor.html'
+});
+
 async function handleFormSubmit(event, type) {
     event.preventDefault();
-
-    if (type === 'empresa') {
-        const passwordInput = document.getElementById('passwordInputEmpresa');
-        const passWrapper = document.getElementById('passWrapperEmpresa');
-
-        if (!passwordInput.value.trim()) {
-            passWrapper.classList.add('error');
-            passwordInput.focus();
-            return;
-        }
-
-        // O fluxo empresarial completo será tratado na etapa da gestão.
-        alert('Acesso empresarial será conectado na próxima etapa do MVP.');
-        return;
-    }
-
-    const emailInput = document.getElementById('userInputAprendiz');
-    const passwordInput = document.getElementById('passwordInputAprendiz');
-    const userWrapper = document.getElementById('userWrapperAprendiz');
-    const passWrapper = document.getElementById('passWrapperAprendiz');
-    const submitButton = document.querySelector('#step2-aprendiz .btn-submit[type="submit"]');
-
+    const suffix = type === 'empresa' ? 'Empresa' : 'Aprendiz';
+    const emailInput = document.getElementById('userInput' + suffix);
+    const passwordInput = document.getElementById('passwordInput' + suffix);
+    const emailWrapper = document.getElementById('userWrapper' + suffix);
+    const passWrapper = document.getElementById('passWrapper' + suffix);
+    const form = document.getElementById('loginForm' + suffix);
+    const button = form.querySelector('button[type="submit"]');
     const email = emailInput.value.trim();
     const password = passwordInput.value;
 
     if (!email) {
-        goToStepAprendiz(1);
-        userWrapper.classList.add('error');
+        if (type === 'empresa') goToStepEmpresa(1);
+        else goToStepAprendiz(1);
+        emailWrapper.classList.add('error');
         emailInput.focus();
         return;
     }
-
-    if (!password.trim()) {
+    if (!password) {
         passWrapper.classList.add('error');
         passwordInput.focus();
         return;
     }
-
     try {
-        if (!window.STOA?.auth?.signInWithPassword) {
-            throw new Error('Serviço de autenticação indisponível.');
+        button.disabled = true;
+        button.textContent = 'Entrando...';
+        const user = await window.STOA.auth.signInWithPassword(email, password);
+        if (!user || window.STOA.auth.isDemoUser(user)) {
+            throw new Error('Use uma conta real cadastrada no Supabase Auth.');
         }
-
-        if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.textContent = 'Entrando...';
+        const profile = await window.STOA.auth.getCurrentProfile();
+        const allowed = type === 'aprendiz'
+            ? profile?.tipo === 'aprendiz'
+            : ['empresa', 'gestor', 'admin', 'equipe'].includes(profile?.tipo);
+        if (!allowed) {
+            await window.STOA.auth.signOut();
+            throw new Error(type === 'aprendiz'
+                ? 'Esta conta não é de jovem aprendiz. Utilize o acesso empresarial.'
+                : 'Esta conta é de jovem aprendiz. Utilize a aba Jovem Aprendiz.');
         }
-
-        await window.STOA.auth.signInWithPassword(email, password);
-        window.location.href = '../aprendiz/aprendiz.html';
+        const route = STOA_ROUTES[profile?.tipo];
+        if (!route) throw new Error('Perfil sem acesso configurado.');
+        window.location.replace(route);
     } catch (error) {
-        console.error('Erro ao autenticar aprendiz:', error);
+        console.error('Falha no login STOA:', error);
         passWrapper.classList.add('error');
-        const message = passWrapper.querySelector('.error-message');
-        if (message) {
-            message.textContent = 'E-mail ou senha inválidos. Verifique os dados e tente novamente.';
-        }
+        const msg = passWrapper.querySelector('.error-message');
+        if (msg) msg.textContent = error.message?.includes('Esta conta') ? error.message : 'Não foi possível entrar. Confira suas credenciais e o perfil cadastrado.';
         passwordInput.focus();
     } finally {
-        if (submitButton) {
-            submitButton.disabled = false;
-            submitButton.textContent = 'Entrar';
-        }
+        button.disabled = false;
+        button.textContent = 'Entrar';
     }
 }

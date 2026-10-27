@@ -16,7 +16,7 @@
 
   function lerEstado(chave) {
     try {
-      const valor = localStorage.getItem(chave);
+      const valor = localStorage.getItem(window.STOA?.courseProgress?.key(chave) || `${chave}__sem_usuario`);
       return valor ? JSON.parse(valor) : null;
     } catch (error) {
       console.warn(`Não foi possível ler ${chave}:`, error);

@@ -1,0 +1,18 @@
+STOA - Login real no localhost
+
+1. Extraia o ZIP mantendo a pasta STOA_MVP_final.
+2. No VS Code, abra o terminal dentro da pasta STOA_MVP_final.
+3. Execute: py -m http.server 5500 --bind 127.0.0.1
+4. Acesse: http://127.0.0.1:5500/pages/login/login.html
+5. Use a conta RH, ou uma conta de gestor/aprendiz cadastrada.
+
+A interface roda apenas localmente; Auth/Banco Supabase e APIs externas requerem internet.
+Nao rode por file://. Nao exponha .env, service_role ou scripts de senhas.
+
+Estado desta entrega:
+- Login de ambos formulários conectado ao Supabase Auth.
+- Consulta de perfil na tabela perfis; roteamento por tipo.
+- Nova página inicial RH com contagens do banco sujeitas a RLS.
+- Ainda faltam guards por papel e integração de dados em várias telas internas.
+- Gestor ainda usa dados demonstrativos na interface; o RH ainda possui links para páginas não migradas.
+- Não é release pública/de produção. Testes de browser e backend locais ainda necessários.

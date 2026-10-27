@@ -1,3 +1,5 @@
+from fastapi import Depends
+from stoa_api_auth import exigir_aprendiz
 import asyncio
 import os
 from typing import Literal
@@ -486,7 +488,7 @@ def health():
     }
 
 
-@app.post("/chat")
+@app.post("/chat", dependencies=[Depends(exigir_aprendiz)])
 async def conversar_com_assistente(pedido: PedidoChat):
     exigir_cliente_gemini()
 
@@ -574,7 +576,7 @@ async def conversar_com_assistente(pedido: PedidoChat):
     return {"resposta": texto}
 
 
-@app.post("/audio")
+@app.post("/audio", dependencies=[Depends(exigir_aprendiz)])
 async def transcrever_audio(audio: UploadFile = File(...)):
     exigir_cliente_gemini()
 
@@ -674,7 +676,7 @@ Retorne somente a transcrição em texto puro.
     }
 
 
-@app.post("/avaliar", response_model=ResultadoAvaliacao)
+@app.post("/avaliar", response_model=ResultadoAvaliacao, dependencies=[Depends(exigir_aprendiz)])
 async def avaliar_execucao(pedido: PedidoAvaliacao):
     exigir_cliente_gemini()
 

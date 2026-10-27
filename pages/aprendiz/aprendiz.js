@@ -120,18 +120,19 @@ function renderProjects() {
 }
 
 function renderProgress() {
-  // Esta área permanece estática neste momento do MVP, conforme planejado.
+  // Somente o curso funcional tem progresso individual. Os outros cards são estáticos.
   const fill = document.getElementById("progress-fill");
   const text = document.getElementById("progress-text");
   const count = document.getElementById("project-count");
   const evo = document.getElementById("evo-completed");
   const profile = document.getElementById("profile-completed");
 
-  if (fill) fill.style.width = "40%";
-  if (text) text.textContent = "40% concluído";
-  if (count) count.textContent = "2 de 5 projetos";
-  if (evo) evo.textContent = "2";
-  if (profile) profile.textContent = "2";
+  const done = window.STOA.progression.getProgress();
+  if (fill) fill.style.width = `${done.percentual}%`;
+  if (text) text.textContent = `${done.percentual}% do curso funcional`;
+  if (count) count.textContent = `${done.concluidas} de 3 etapas do curso`;
+  if (evo) evo.textContent = String(done.concluidas);
+  if (profile) profile.textContent = String(done.concluidas);
 }
 
 function renderJourney() {
@@ -340,7 +341,17 @@ function setupNavigation() {
 document.addEventListener("DOMContentLoaded", () => {
   window.STOA?.accessibility?.init?.();
   renderProjects();
-  renderProgress();
+  // Não apresentar progresso legado de outro aprendiz antes de carregar a sessão.
+  window.STOA.courseProgress.init().then(() => {
+    const prog=window.STOA.progression.getProgress();
+    projects[0].status=prog.concluidas===3?'completed':'current';
+    const activeJourney=journeyItems.find(x=>x.title==='Ferramentas do Dia a Dia');
+    if(activeJourney) {
+      activeJourney.statusClass=prog.concluidas===3?'done':'active';
+      activeJourney.detail=prog.concluidas===3?'Concluído • trilha de mini projetos':`${prog.concluidas} de 3 etapas concluídas • trilha prática`;
+    }
+    renderProjects(); renderProgress(); renderJourney();
+  }).catch(error=>console.error('Progresso não carregado:',error));
   renderJourney();
   setupNavigation();
   setupUserMenu();

@@ -1,3 +1,5 @@
+from fastapi import Depends
+from stoa_api_auth import exigir_aprendiz
 import asyncio
 import os
 import re
@@ -1278,7 +1280,7 @@ def health():
     }
 
 
-@app.post("/chat")
+@app.post("/chat", dependencies=[Depends(exigir_aprendiz)])
 async def conversar_com_assistente(pedido: PedidoChat):
     exigir_cliente_gemini()
 
@@ -1354,7 +1356,7 @@ async def conversar_com_assistente(pedido: PedidoChat):
     return {"resposta": texto_resposta}
 
 
-@app.post("/planilha", response_model=RespostaUploadPlanilha)
+@app.post("/planilha", response_model=RespostaUploadPlanilha, dependencies=[Depends(exigir_aprendiz)])
 async def receber_planilha(arquivo: UploadFile = File(...)):
     nome = arquivo.filename or "planilha.xlsx"
 
@@ -1389,7 +1391,7 @@ async def receber_planilha(arquivo: UploadFile = File(...)):
     )
 
 
-@app.post("/avaliar", response_model=ResultadoAvaliacao)
+@app.post("/avaliar", response_model=ResultadoAvaliacao, dependencies=[Depends(exigir_aprendiz)])
 async def avaliar_execucao(pedido: PedidoAvaliacao):
     exigir_cliente_gemini()
 

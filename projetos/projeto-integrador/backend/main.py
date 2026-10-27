@@ -1,3 +1,5 @@
+from fastapi import Depends
+from stoa_api_auth import exigir_aprendiz
 import asyncio
 import json
 import os
@@ -3000,7 +3002,7 @@ def health():
     "/planilha",
     response_model=
         RespostaUploadPlanilha
-)
+, dependencies=[Depends(exigir_aprendiz)])
 async def receber_planilha(
     arquivo: UploadFile =
         File(...)
@@ -3136,7 +3138,7 @@ async def receber_planilha(
 # CHAT STOA
 # ======================================================
 
-@app.post("/chat")
+@app.post("/chat", dependencies=[Depends(exigir_aprendiz)])
 async def conversar_com_assistente(
     pedido: PedidoChat
 ):
@@ -3307,7 +3309,7 @@ async def conversar_com_assistente(
     "/avaliar",
     response_model=
         ResultadoAvaliacao
-)
+, dependencies=[Depends(exigir_aprendiz)])
 async def avaliar_execucao(
     pedido: PedidoAvaliacao
 ):
@@ -3564,7 +3566,7 @@ Não calcule nota final de 0 a 10.
 # TRANSCRIÇÃO DE ÁUDIO
 # ======================================================
 
-@app.post("/audio")
+@app.post("/audio", dependencies=[Depends(exigir_aprendiz)])
 async def transcrever_audio(
     audio: UploadFile =
         File(...)

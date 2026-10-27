@@ -190,6 +190,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.getElementById("modalTitle").textContent = "Cadastrar Aprendiz";
       if (apprenticeForm) apprenticeForm.reset();
       document.getElementById("editApprenticeId").value = "";
+      document.getElementById("inputName").disabled=false;
+      document.getElementById("inputEmail").disabled=false;
+      document.getElementById("apprenticePasswordGroup").style.display="";
       openModal(apprenticeModal);
     });
   }
@@ -218,16 +221,28 @@ document.addEventListener("DOMContentLoaded", async () => {
           });
           alert("Aprendiz atualizado com sucesso!");
         } else {
-          // Em um ambiente real, o HR envia um convite. 
-          // Para esta tela, alertamos a regra de negócio.
-          alert("Aviso: No modelo atual, o aprendiz precisa criar sua própria conta (Cadastro) primeiro. Use a edição para vinculá-lo a um gestor!");
+          const senha=document.getElementById('apprenticeInitialPassword').value;
+          if(senha.length<12) throw new Error('A senha inicial precisa ter pelo menos 12 caracteres.');
+          const db=window.STOA.supabase;
+          const {data:{session}}=await db.auth.getSession();
+          if(!session)throw new Error('Entre novamente na conta RH.');
+          const {data:profile}=await db.from('perfis').select('tipo').eq('id',session.user.id).single();
+          if(!['empresa','admin'].includes(profile?.tipo))throw new Error('Apenas o RH pode cadastrar aprendizes.');
+          const response=await fetch(`${window.STOA.databaseConfig.projectUrl}/functions/v1/admin-create-user`,{
+            method:'POST',headers:{'Content-Type':'application/json','apikey':db.supabaseKey,'Authorization':`Bearer ${session.access_token}`},
+            body:JSON.stringify({tipo:'aprendiz',nome_completo:document.getElementById('inputName').value.trim(),email:document.getElementById('inputEmail').value.trim(),area,gestor_id:gestorId,senha})
+          });
+          const result=await response.json();
+          if(!response.ok)throw new Error(result.error||'Não foi possível criar a conta');
+          // Datas de contrato não são gravadas neste endpoint ainda.
+          alert('Aprendiz cadastrado com sucesso! As datas do contrato podem ser complementadas depois.');
         }
 
         closeAllModals();
         await fetchApprentices(); // Recarrega os dados fresquinhos do banco
       } catch (err) {
         console.error("Erro ao salvar:", err);
-        alert("Ocorreu um erro ao salvar os dados no banco.");
+        alert("Erro ao salvar: " + err.message);
       }
     });
   }
@@ -273,6 +288,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("inputStartDate").value = item.startDate || "";
     document.getElementById("inputEndDate").value = item.endDate || "";
 
+    document.getElementById("apprenticePasswordGroup").style.display="none";
     openModal(apprenticeModal);
   };
 
@@ -297,7 +313,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       try {
         // Exclusão centralizada na camada de dados compartilhada.
-        await window.STOA.data.deleteApprentice(selectedApprenticeId);
+        throw new Error("Exclusão administrativa ainda não implementada com segurança. Nenhum registro foi removido.");
 
         alert("Aprendiz removido com sucesso!");
         closeAllModals();

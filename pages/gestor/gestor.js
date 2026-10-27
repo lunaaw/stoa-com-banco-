@@ -49,212 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  const jovens = [
-    {
-      id: "esther",
-      nome: "Esther Barreto",
-      get avatar() { return avatarDaEsther(); },
-      trilha: "Ferramentas do dia a dia",
-      projetoAtual: "Projeto Integrador",
-      progresso: 100,
-      status: "Concluído",
-      statusClass: "status-complete"
-    },
-    {
-      id: "lucas",
-      nome: "Lucas Almeida",
-      avatar: avatarPermitido({
-        seed: "Lucas STOA",
-        skinColor: "d08b5b",
-        top: "shortWaved",
-        hairColor: "2c1b18",
-        eyes: "default",
-        mouth: "smile",
-        backgroundColor: "b6e3f4"
-      }),
-      trilha: "Ferramentas do dia a dia",
-      projetoAtual: "Mini Projeto de Comunicação",
-      progresso: 100,
-      status: "Concluído",
-      statusClass: "status-complete"
-    },
-    {
-      id: "mariana",
-      nome: "Mariana Souza",
-      avatar: avatarPermitido({
-        seed: "Mariana STOA",
-        skinColor: "edb98a",
-        top: "straight01",
-        hairColor: "724133",
-        eyes: "happy",
-        mouth: "twinkle",
-        backgroundColor: "c0aede"
-      }),
-      trilha: "Integração e Cultura",
-      projetoAtual: "Integração e Cultura",
-      progresso: 100,
-      status: "Concluído",
-      statusClass: "status-complete"
-    },
-    {
-      id: "rafael",
-      nome: "Rafael Costa",
-      avatar: avatarPermitido({
-        seed: "Rafael STOA",
-        skinColor: "ae5d29",
-        top: "shortCurly",
-        hairColor: "2c1b18",
-        eyes: "happy",
-        mouth: "smile",
-        backgroundColor: "b6e3f4"
-      }),
-      trilha: "Git e GitHub",
-      projetoAtual: "Versionamento colaborativo",
-      progresso: 35,
-      status: "Em andamento",
-      statusClass: "status-attention"
-    }
-  ];
-
-  const feedbacks = [
-    {
-      id: "esther-integrador",
-      jovemId: "esther",
-      projeto: "Projeto Integrador",
-      data: "06/10/2026",
-      feedbackGeral: FEEDBACK_INTEGRADOR_ESTHER,
-      pontosFortes: [
-        "Apresentação de resultados rica em dados quantitativos e com excelente capacidade de síntese.",
-        "Comunicação escrita e oral clara, objetiva e adequada ao contexto profissional.",
-        "Postura de conferência dos dados gerados antes de realizar a entrega final."
-      ],
-      melhorias: [
-        "Utilizar a IA de forma mais contínua e aprofundada, explorando perguntas de acompanhamento.",
-        "Registrar com mais detalhes os procedimentos específicos adotados para validar os dados da planilha."
-      ],
-      dimensoes: [
-        {
-          titulo: "Interpretação e contextualização",
-          nivel: 3,
-          justificativa: "O participante compreendeu os objetivos centrais da tarefa de maneira adequada, identificando a necessidade de analisar dados de atendimento, realizar cálculos, organizar a planilha, gerar um gráfico e apresentar os resultados.",
-          evidencias: [
-            "Registro de entendimento inicial citando explicitamente a necessidade de analisar dados, fazer cálculos, organizar a planilha, criar gráfico, destacar um ponto de atenção e apresentar os resultados."
-          ],
-          limitacoes: [
-            "Não detalhou previamente quais indicadores específicos seriam priorizados antes de iniciar a execução."
-          ]
-        },
-        {
-          titulo: "Uso da IA",
-          nivel: 2,
-          justificativa: "A pergunta enviada à IA foi pertinente e contextualizada sobre fórmulas de contagem e porcentagem no Google Planilhas. No entanto, houve apenas uma interação, sem continuidade, aprofundamento ou refinamento das respostas.",
-          evidencias: [
-            "Prompt solicitando orientação sobre como calcular a porcentagem de atendimentos concluídos e pendentes no Google Planilhas."
-          ],
-          limitacoes: [
-            "Houve apenas uma troca de mensagem com a IA, sem perguntas de acompanhamento ou refinamento da solução."
-          ]
-        },
-        {
-          titulo: "Pensamento crítico e validação",
-          nivel: 3,
-          justificativa: "O participante demonstrou procedimento de verificação ao checar as caixas de seleção e registrar na reflexão que conferiu os resultados na planilha e adaptou sugestões da IA antes do envio.",
-          evidencias: [
-            "Confirmação dos campos de validação de cálculos, dados, IA e gráfico.",
-            "Reflexão escrita afirmando ter conferido os resultados na planilha antes do envio e adaptado sugestões para maior clareza."
-          ],
-          limitacoes: [
-            "Não descreveu detalhadamente quais fórmulas ou dados específicos exigiram ajustes durante a conferência."
-          ]
-        },
-        {
-          titulo: "Execução técnica",
-          nivel: 2,
-          justificativa: "O arquivo final foi entregue e a atividade foi declarada concluída. Como o conteúdo da planilha não passou por verificação objetiva via código, o nível é limitado a 2 conforme a regra da dimensão.",
-          evidencias: [
-            "Arquivo final registrado sob o nome dados_atendimentos_stoa (3).xlsx com execução declarada concluída."
-          ],
-          limitacoes: [
-            "Ausência de análise objetiva da planilha pelo sistema para confirmar a exatidão dos cálculos e a presença do gráfico."
-          ]
-        },
-        {
-          titulo: "Comunicação",
-          nivel: 4,
-          justificativa: "A comunicação foi excelente tanto na apresentação transcrita quanto no e-mail ao gestor. O participante apresentou métricas precisas, destacou pontos analíticos relevantes e manteve tom profissional e claro.",
-          evidencias: [
-            "Apresentação oral com dados quantitativos precisos: 48 registros, 75% concluídos, 25% pendentes, tempo médio de 24 minutos e suporte com 18 atendimentos.",
-            "Destaque analítico ressaltando que um quarto dos atendimentos ainda estava pendente.",
-            "Mensagem final ao gestor objetiva, cortês e informando o envio do anexo."
-          ],
-          limitacoes: []
-        },
-        {
-          titulo: "Execução do mini projeto",
-          nivel: 3,
-          justificativa: "A jornada do mini projeto foi realizada de forma coerente e consistente. O participante cumpriu todas as etapas, desde a interpretação e uso da IA até a validação e uma apresentação final muito bem comunicada.",
-          evidencias: [
-            "Conclusão de todas as etapas registradas no fluxo de trabalho.",
-            "Coerência entre o entendimento inicial, a validação realizada e a síntese final apresentada."
-          ],
-          limitacoes: [
-            "Interação reduzida com a IA e falta de verificação técnica objetiva do arquivo entregue."
-          ]
-        }
-      ]
-    },
-    {
-      id: "lucas-comunicacao",
-      jovemId: "lucas",
-      projeto: "Mini Projeto de Comunicação",
-      data: "04/10/2026",
-      feedbackGeral:
-        "Lucas apresentou os resultados de forma clara e organizada, priorizando as informações necessárias para a compreensão da atividade. Demonstrou boa relação entre a preparação realizada, os dados apresentados e a comunicação final.",
-      pontosFortes: [
-        "Organização das informações antes da apresentação.",
-        "Comunicação objetiva dos principais resultados.",
-        "Uso adequado da IA como apoio, sem substituir a própria análise."
-      ],
-      melhorias: [
-        "Explicar com mais detalhe os critérios usados para priorizar as informações.",
-        "Reforçar a validação final antes da apresentação ao gestor."
-      ]
-    },
-    {
-      id: "mariana-integracao",
-      jovemId: "mariana",
-      projeto: "Integração e Cultura",
-      data: "02/10/2026",
-      feedbackGeral:
-        "Mariana concluiu a atividade de forma consistente e demonstrou boa compreensão dos valores, processos e comportamentos esperados no contexto organizacional. As respostas foram coerentes com as situações propostas.",
-      pontosFortes: [
-        "Boa compreensão da cultura e dos processos organizacionais.",
-        "Respostas coerentes com o contexto profissional.",
-        "Capacidade de relacionar orientações a situações práticas."
-      ],
-      melhorias: [
-        "Aprofundar exemplos próprios para tornar as respostas mais concretas.",
-        "Registrar com mais clareza as decisões tomadas durante a atividade."
-      ]
-    },
-    {
-      id: "rafael-tecnico",
-      jovemId: "rafael",
-      projeto: "Mini Projeto Técnico",
-      data: "30/09/2026",
-      feedbackGeral:
-        "Rafael estruturou a solução técnica de forma adequada e demonstrou compreensão das principais etapas do projeto. A execução apresentou boa organização, com oportunidade de aprofundar a validação dos resultados antes da entrega.",
-      pontosFortes: [
-        "Estrutura lógica e organizada da solução.",
-        "Boa identificação das informações necessárias.",
-        "Uso consciente dos recursos de apoio."
-      ],
-      melhorias: [
-        "Realizar testes adicionais antes da entrega final.",
-        "Documentar melhor as verificações realizadas durante a validação."
-      ]
-    }
-  ];
+  let jovens = [];
+  let feedbacks = [];
 
   const projetos = [
     {
@@ -274,14 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   ];
 
-  const atribuicoesPadrao = {
-    esther: ["ferramentas-comunicacao"],
-    lucas: ["ferramentas-comunicacao", "integracao-cultura"],
-    mariana: ["integracao-cultura"],
-    rafael: ["git-github"]
-  };
+  const atribuicoesPadrao = {};
 
-  const STORAGE_KEY = "stoa_gestor_demo_atribuicoes_v1";
+  let STORAGE_KEY = "stoa_gestor_demo_atribuicoes_v2";
 
   const getJovem = id => jovens.find(jovem => jovem.id === id);
 
@@ -394,6 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     feedbackGrid.innerHTML = filtrados.map(feedback => {
       const jovem = getJovem(feedback.jovemId);
+      if (!jovem) return "";
       const disponivel = feedbackDisponivel(feedback);
 
       return `
@@ -628,8 +420,111 @@ document.addEventListener("DOMContentLoaded", () => {
   // ======================================================
   // INICIALIZAÇÃO
   // ======================================================
-  renderDashboard();
-  renderFeedbacks();
-  renderAssignments();
-  atualizarIcones();
+  async function iniciarGestorReal() {
+    const client = window.STOA?.supabase;
+    if (!client) throw new Error("Cliente Supabase indisponível.");
+    const { data: { user }, error: authError } = await client.auth.getUser();
+    if (authError || !user) {
+      location.replace("../login/login.html");
+      return;
+    }
+    const { data: equipe, error: equipeErro } = await client.from("membros_equipe")
+      .select("id, empresa_id, status").eq("id", user.id).maybeSingle();
+    if (equipeErro) throw equipeErro;
+    if (!equipe || equipe.status !== "Ativo") {
+      location.replace("../login/login.html");
+      return;
+    }
+    STORAGE_KEY = `stoa_gestor_demo_atribuicoes_v2_${user.id}`;
+    const { data: vinculados, error: alunosErro } = await client.from("aprendizes")
+      .select("id, area, status, gestor_id").eq("gestor_id", user.id).eq("empresa_id", equipe.empresa_id).order("id");
+    if (alunosErro) throw alunosErro;
+    const ids = (vinculados || []).map(a => a.id);
+    let perfis = [], progresso = [];
+    if (ids.length) {
+      const pr = await client.from("perfis").select("id, nome_completo, avatar_url").in("id", ids);
+      if (pr.error) throw pr.error;
+      perfis = pr.data || [];
+      const ev = await client.from("progresso_projetos").select("aprendiz_id, projeto_id, percentual, status").in("aprendiz_id", ids);
+      if (ev.error) throw ev.error;
+      progresso = ev.data || [];
+    }
+    const { data: projetosReais, error: projetosErro } = await client.from("projetos")
+      .select("id,codigo").in("codigo", ["mini_projeto_tecnico","mini_projeto_comunicacao","projeto_integrador"]);
+    if (projetosErro) throw projetosErro;
+    const idsCurso = new Set((projetosReais || []).map(p => p.id));
+    const nomes = new Map(perfis.map(p => [p.id, p]));
+    jovens = (vinculados || []).map(a => {
+      const perfil = nomes.get(a.id) || {};
+      const estados = progresso.filter(p => p.aprendiz_id === a.id && idsCurso.has(p.projeto_id));
+      const percent = estados.length ? Math.round(estados.reduce((acc,p) => acc + Math.max(0, Math.min(100, Number(p.percentual) || 0)),0)/3) : 0;
+      const status = percent === 100 ? "Concluído" : percent > 0 ? "Em andamento" : "Não iniciado";
+      return {
+        id:a.id,
+        nome:perfil.nome_completo || "Aprendiz",
+        avatar: perfil.avatar_url || avatarPermitido({seed:a.id, skinColor:"ffdbb4", top:"shortFlat",hairColor:"4a312c"}),
+        trilha:"Ferramentas do dia a dia e Comunicação",
+        projetoAtual:"Curso em desenvolvimento",
+        progresso:percent,
+        status,
+        statusClass:percent===100?"status-complete":percent>0?"status-attention":"",
+      };
+    });
+
+    // Somente feedbacks persistidos, visíveis via RLS para este gestor.
+    feedbacks = [];
+    if (ids.length) {
+      const {data:avaliacoes,error:erroFeedback}=await client.from("feedbacks_projetos")
+        .select("id,aprendiz_id,projeto_id,resultado,resumo,gerado_em")
+        .in("aprendiz_id",ids).order("gerado_em",{ascending:false});
+      if (erroFeedback) throw erroFeedback;
+      const codigos=new Map((projetosReais||[]).map(p=>[p.id,p.codigo]));
+      const titulos={
+        mini_projeto_tecnico:"Mini Projeto Técnico",
+        mini_projeto_comunicacao:"Mini Projeto de Comunicação",
+        projeto_integrador:"Projeto Integrador"
+      };
+      const escapar=(valor)=>String(valor??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+      const lista=(valor)=>Array.isArray(valor)?valor.map(escapar):[];
+      feedbacks=(avaliacoes||[]).filter(f=>codigos.has(f.projeto_id)).map(f=>{
+        const resultado=f.resultado||{};
+        const dimensoes=Object.entries(resultado)
+          .filter(([_,v])=>v && typeof v==="object" && !Array.isArray(v) &&
+             (v.nivel!=null || v.justificativa))
+          .map(([chave,v])=>({
+            titulo:escapar(chave.replaceAll("_"," ")),
+            nivel:escapar(v.nivel||"Não informado"),
+            justificativa:escapar(v.justificativa||""),
+            evidencias:lista(v.evidencias),
+            limitacoes:lista(v.limitacoes||v.para_avancar)
+          }));
+        return {
+          id:f.id,jovemId:f.aprendiz_id,
+          projeto:titulos[codigos.get(f.projeto_id)]||"Mini projeto",
+          data:new Date(f.gerado_em).toLocaleDateString("pt-BR"),
+          feedbackGeral:escapar(f.resumo||resultado.observacao_geral||
+             resultado.resumo_geral||resultado.feedback_geral||"Avaliação disponível. Veja os critérios."),
+          pontosFortes:lista(resultado.pontos_fortes),
+          melhorias:lista(resultado.oportunidades_melhoria||resultado.melhorias),
+          dimensoes
+        };
+      });
+    }
+    atribuicoes = carregarAtribuicoes();
+    document.querySelectorAll(".metrics-grid .metric-card strong").forEach((elemento, i) => {
+      const valores = [jovens.length, jovens.filter(j => j.progresso > 0 && j.progresso < 100).length, jovens.filter(j => j.progresso === 100).length, 0];
+      elemento.textContent = String(valores[i] ?? 0);
+    });
+    document.querySelector(".demo-badge")?.remove();
+    renderDashboard();
+    renderFeedbacks();
+    renderAssignments();
+    atualizarIcones();
+  }
+  iniciarGestorReal().catch(err => {
+    console.error("Não foi possível carregar os dados do gestor:", err);
+    dashboardGrid.textContent = "Não foi possível carregar a equipe. Confira sua sessão e as permissões do Supabase.";
+    assignmentGrid.textContent = "Dados indisponíveis.";
+    feedbackGrid.textContent = "Dados indisponíveis.";
+  });
 });

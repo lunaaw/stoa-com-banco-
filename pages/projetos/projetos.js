@@ -13,11 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       id: "p2",
-      title: "Ferramentas do Dia a Dia",
-      description: "Uso prático de Slack, Jira, Figma e sistemas internos.",
-      skills: ["Organização", "Tecnologia", "Produtividade"],
-      xp: "350 XP",
-      duration: "3h",
+      title: "Ferramentas do dia a dia e Comunicação",
+      description: "Soft skills, comunicação e Google Workspace aplicados ao dia a dia profissional.",
+      skills: ["Google Workspace", "Comunicação", "Soft skills"],
+      xp: "1050 XP",
+      duration: "Trilha prática",
       color: "#06b6d4",
       icon: "layers"
     },

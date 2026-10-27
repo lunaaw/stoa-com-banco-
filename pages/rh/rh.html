@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STOA | RH</title><style>
+body{margin:0;background:#f6f5fb;font:16px system-ui,Arial;color:#30284c}header{background:#352657;color:white;padding:24px 5%}main{max-width:900px;margin:35px auto;padding:0 20px}a{color:#593e9c}nav{display:flex;gap:18px;flex-wrap:wrap}.card{background:white;padding:24px;border-radius:18px;box-shadow:0 2px 14px #24134515;margin:18px 0}.metrics{display:flex;gap:15px;flex-wrap:wrap}.metrics .card{flex:1;min-width:135px}strong.metric{font-size:2.5rem;display:block}button{padding:10px 16px;cursor:pointer}#status{min-height:1.3em}</style>
+</head><body><header><h1>STOA | Gestão de Pessoas</h1><p>Área RH · TOTVS</p></header>
+<main><p id="status">Verificando acesso...</p><section id="app" hidden>
+<div class="metrics"><div class="card"><strong class="metric" id="totalGestores">...</strong>Gestores</div><div class="card"><strong class="metric" id="totalAprendizes">...</strong>Aprendizes</div></div>
+<div class="card"><h2>Área administrativa</h2><nav><a href="../cadastro-equipe/cadastro_equipe.html">Equipe</a><a href="../cadastro-aprendiz/cadastro_aprendiz.html">Aprendizes</a><a href="../projetos/projetos.html">Projetos</a></nav><p>Estas páginas estão em migração para dados reais e controle de permissões.</p></div>
+<button id="sair" type="button">Sair</button></section></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../../shared/js/database/supabase-client.js"></script>
+<script src="../../shared/js/database/auth-service.js"></script>
+<script src="./rh.js"></script></body></html>

@@ -201,6 +201,7 @@
                 <input type="number" id="inputAprendizes" min="0" value="0">
                 </div>
             </div>
+            <div class="form-group full-width" id="teamPasswordGroup"><label for="teamInitialPassword">Senha inicial (mínimo 12 caracteres)</label><input type="password" id="teamInitialPassword" autocomplete="new-password" minlength="12" placeholder="Defina a senha do novo gestor"></div>
             <div class="modal-actions">
                 <button type="button" class="btn-secondary closeModalBtn">Cancelar</button>
                 <button type="submit" class="btn-primary">Salvar Gestor</button>
@@ -273,6 +274,11 @@
   </main>
 
   <!-- Script do Topbar e Persistência do Tema -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../shared/js/database/supabase-client.js"></script>
+<script src="../../shared/js/database/route-guard.js"></script>
+  <script src="../../shared/js/database/auth-service.js"></script>
+  <script src="../../shared/js/database/data-service.js"></script>
   <script src="../../shared/js/topbar.js"></script>
   <!-- Script da página -->
    <script src="./cadastro_equipe.js"></script>

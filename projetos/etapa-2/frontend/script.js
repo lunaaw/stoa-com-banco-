@@ -50,7 +50,7 @@ function criarEstadoInicial() {
 }
 
 function carregarEstado() {
-    const salvo = localStorage.getItem(STORAGE_KEY);
+    const salvo = localStorage.getItem(window.STOA.courseProgress.key(STORAGE_KEY));
 
     if (!salvo) {
         return criarEstadoInicial();
@@ -141,7 +141,8 @@ let resolverModalFinalizacao = null;
 // ======================================================
 
 function salvarEstado() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(estado));
+    localStorage.setItem(window.STOA.courseProgress.key(STORAGE_KEY), JSON.stringify(estado));
+    void window.STOA.courseProgress.save('etapa2', estado);
 }
 
 function limparMensagemValidacao() {
@@ -657,7 +658,7 @@ async function enviarMensagemIA() {
         campo.disabled = true;
         status.textContent = "O Assistente STOA está respondendo...";
 
-        const resposta = await fetch(`${API_BASE_URL}/chat`, {
+        const resposta = await window.STOA.secureFetch(`${API_BASE_URL}/chat`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -979,7 +980,7 @@ async function transcreverAudio() {
             `apresentacao.${extensao}`
         );
 
-        const resposta = await fetch(`${API_BASE_URL}/audio`, {
+        const resposta = await window.STOA.secureFetch(`${API_BASE_URL}/audio`, {
             method: "POST",
             body: formulario
         });
@@ -1116,7 +1117,7 @@ async function iniciarAvaliacaoFinal() {
     renderizarAplicacao();
 
     try {
-        const resposta = await fetch(`${API_BASE_URL}/avaliar`, {
+        const resposta = await window.STOA.secureFetch(`${API_BASE_URL}/avaliar`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -1134,6 +1135,12 @@ async function iniciarAvaliacaoFinal() {
 
         estado.avaliacao.status = "concluida";
         estado.avaliacao.resultado = dados;
+        try {
+            await window.STOA.courseFeedback.save("mini_projeto_comunicacao", dados);
+        } catch (erroPersistencia) {
+            console.error("Não foi possível persistir o feedback:", erroPersistencia);
+            alert(erroPersistencia.message);
+        }
         estado.avaliacao.erro = "";
         salvarEstado();
         renderizarAplicacao();

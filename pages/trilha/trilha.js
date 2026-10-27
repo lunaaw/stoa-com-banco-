@@ -114,7 +114,7 @@ function renderTrail() {
           >
             ${locked ? "🔒 " : ""}${status.button}
           </button>
-          ${locked ? '<small>Conclua a etapa anterior para desbloquear.</small>' : '<small>Seu progresso fica salvo neste navegador.</small>'}
+          ${locked ? '<small>Conclua a etapa anterior para desbloquear.</small>' : '<small>Seu progresso individual é salvo no Supabase.</small>'}
         </div>
 
         ${index < stages.length - 1 ? '<div class="stage-connector" aria-hidden="true"></div>' : ''}
@@ -156,5 +156,8 @@ function renderTrail() {
   rewardText.textContent = messages[rewardLevel];
 }
 
-window.addEventListener("pageshow", renderTrail);
-document.addEventListener("DOMContentLoaded", renderTrail);
+async function renderTrailFromDatabase() {
+  try { await window.STOA.courseProgress.init(); renderTrail(); }
+  catch (error) { console.error('Falha ao recuperar progresso:',error); }
+}
+window.addEventListener('pageshow', renderTrailFromDatabase);

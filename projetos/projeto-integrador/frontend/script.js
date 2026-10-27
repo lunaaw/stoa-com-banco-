@@ -132,7 +132,7 @@ function carregarEstado() {
 
     const salvo =
         localStorage.getItem(
-            STORAGE_KEY
+            window.STOA.courseProgress.key(STORAGE_KEY)
         );
 
 
@@ -287,10 +287,8 @@ let resolverModalFinalizacao = null;
 
 function salvarEstado() {
 
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(estado)
-    );
+    localStorage.setItem(window.STOA.courseProgress.key(STORAGE_KEY), JSON.stringify(estado));
+    void window.STOA.courseProgress.save('integrador', estado);
 }
 
 
@@ -1238,7 +1236,7 @@ async function enviarPlanilhaParaBackend(
     try {
 
         const resposta =
-            await fetch(
+            await window.STOA.secureFetch(
                 `${API_BASE_URL}/planilha`,
                 {
                     method: "POST",
@@ -1585,7 +1583,7 @@ async function enviarMensagemIA() {
 
 
         const resposta =
-            await fetch(
+            await window.STOA.secureFetch(
                 `${API_BASE_URL}/chat`,
                 {
 
@@ -2721,7 +2719,7 @@ async function transcreverAudio() {
 
 
         const resposta =
-            await fetch(
+            await window.STOA.secureFetch(
                 `${API_BASE_URL}/audio`,
                 {
                     method:
@@ -3530,7 +3528,7 @@ async function iniciarAvaliacaoFinal() {
     try {
 
         const resposta =
-            await fetch(
+            await window.STOA.secureFetch(
                 `${API_BASE_URL}/avaliar`,
                 {
                     method: "POST",
@@ -3582,6 +3580,13 @@ async function iniciarAvaliacaoFinal() {
 
         estado.avaliacao.resultado =
             dados;
+        try {
+            await window.STOA.courseFeedback.save("projeto_integrador", dados);
+        } catch (erroPersistencia) {
+            console.error("Não foi possível persistir o feedback:", erroPersistencia);
+            alert(erroPersistencia.message);
+        }
+
 
         estado.avaliacao.erro =
             "";

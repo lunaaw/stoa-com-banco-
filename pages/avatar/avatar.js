@@ -165,8 +165,30 @@
     renderAvatar();
   }
 
+  async function loadRewardLevel(userId) {
+    const client = STOA.supabase;
+    if (!client || !userId) throw new Error("Sessão do aprendiz indisponível.");
+    const { data: projects, error: projectError } = await client.from("projetos")
+      .select("id,codigo").in("codigo", ["mini_projeto_tecnico", "mini_projeto_comunicacao", "projeto_integrador"]);
+    if (projectError) throw projectError;
+    const ids = new Map((projects || []).map(project => [project.id, project.codigo]));
+    if (ids.size !== 3) throw new Error("Não foi possível identificar os três mini projetos.");
+    const { data: progress, error: progressError } = await client.from("progresso_projetos")
+      .select("projeto_id,status,percentual").eq("aprendiz_id", userId)
+      .in("projeto_id", [...ids.keys()]);
+    if (progressError) throw progressError;
+    const completed = new Set((progress || [])
+      .filter(item => item.status === "Concluído" && Number(item.percentual) === 100)
+      .map(item => ids.get(item.projeto_id)));
+    if (completed.has("projeto_integrador")) return 3;
+    if (completed.has("mini_projeto_comunicacao")) return 2;
+    if (completed.has("mini_projeto_tecnico")) return 1;
+    return 0;
+  }
+
   async function loadAvatar() {
-    rewardLevel = STOA.progression?.getRewardLevel?.() ?? 0;
+    // Não usar progresso do localStorage: cada aprendiz tem seu estado no Supabase.
+    rewardLevel = 0;
     updateRewardSummary();
     applyLocks();
 
@@ -174,6 +196,10 @@
 
     try {
       currentUser = await STOA.auth?.getCurrentUser?.();
+      if (!currentUser) throw new Error("Faça login para visualizar recompensas.");
+      rewardLevel = await loadRewardLevel(currentUser.id);
+      updateRewardSummary();
+      applyLocks();
 
       if (currentUser) {
         const profile = await STOA.data.getApprenticeProfile(currentUser.id);
@@ -184,7 +210,7 @@
     } catch (error) {
       console.error("Não foi possível carregar o avatar salvo:", error);
       avatarUrl = localStorage.getItem(DEMO_AVATAR_KEY);
-      setStatus("O avatar foi aberto em modo local. Você ainda pode personalizá-lo.", "warning");
+      setStatus("Não foi possível consultar os desbloqueios no Supabase. Tente recarregar a página.", "warning");
     }
 
     const config = avatarUrl
