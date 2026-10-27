@@ -6,11 +6,10 @@
 
 ## 👨‍🎓 Integrantes
 
-- [Esther Barreto]((https://www.linkedin.com/in/estherbarreto?utm_source=share_via&utm_content=profile&utm_medium=member_android))
-- [Luna Ramos]((https://www.linkedin.com/in/geovanna-luna-873b3532b?utm_source=share_via&utm_content=profile&utm_medium=member_android
-))
-- [Stefane Queiroz]((https://www.linkedin.com/in/stefane-queiroz-603176358?utm_source=share_via&utm_content=profile&utm_medium=member_android))
-- [Sabrina Oliveira]((https://www.linkedin.com/in/sabrinacarlaoliveira?utm_source=share_via&utm_content=profile&utm_medium=member_android))
+- [Esther Barreto]
+- [Luna Ramos]
+- [Stefane Queiroz]
+- [Sabrina Oliveira]
 
 
 ## 📜 Descrição
