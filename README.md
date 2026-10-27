@@ -6,10 +6,10 @@
 
 ## 👨‍🎓 Integrantes
 
-- [Esther Barreto]
-- [Luna Ramos]
-- [Stefane Queiroz]
-- [Sabrina Oliveira]
+- Esther Barreto
+- Luna Ramos
+- Stefane Queiroz
+- Sabrina Oliveira
 
 
 ## 📜 Descrição
